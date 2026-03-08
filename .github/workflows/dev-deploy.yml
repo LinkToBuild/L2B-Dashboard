@@ -1,0 +1,37 @@
+name: Dev Branch CI
+
+# 1. When should this run?
+on:
+  push:
+    branches: [ "dev" ] # Runs every time you push to the dev branch
+  pull_request:
+    branches: [ "dev" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # Spins up a fresh Linux machine
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Matches modern Next.js requirements
+          cache: 'npm' # Caches your node_modules so it's faster next time
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Linter
+        run: npm run lint # This is where it catches those unused variables!
+
+      - name: Build Project
+        run: npm run build # Ensures the project compiles 100%
+        env:
+          # If you have Environment Variables (API keys), add them here
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+
+      - name: Success Message
+        run: echo "CI check passed! Code is safe to merge."
