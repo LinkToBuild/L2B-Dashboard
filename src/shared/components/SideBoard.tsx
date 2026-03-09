@@ -43,7 +43,7 @@ export function SideBoard({
       </div>
 
       {/* LIST SECTION */}
-      <div className="flex flex-col gap-[32px]">
+      <div className="flex flex-col xl:gap-[32px] 2xl:gap-[42px]">
         {data.map((item, index) => (
           <div key={index} className="flex w-full place-items-center ">
             <div className="w-full flex flex-row place-items-center justify-between gap-1">

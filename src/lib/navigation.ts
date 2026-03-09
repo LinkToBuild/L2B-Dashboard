@@ -4,7 +4,7 @@ export const navigationItems = [
   { name: 'Inventory Management', path: '/inventorymanagement', icon: '/images/inventory.png' },
   { name: 'Orders & Operation', path: '/orders', icon: '/images/orders.png' },
   { name: 'Ticket / Concerns', path: '/tickets', icon: '/images/ticket.png' },
-  { name: 'Growth & Marketing', path: '/marketing', icon: '/images/growth.png' },
+  { name: 'Growth & Marketing', path: '/marketingandpromotions', icon: '/images/growth.png' },
   { name: 'Payment & Finance', path: '/finance', icon: '/images/payment.png' },
   { name: 'Promotion & Behavior', path: '/promotions', icon: '/images/promotion.png' },
 ];

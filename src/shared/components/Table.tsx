@@ -25,12 +25,14 @@ interface DynamicTableProps<T> {
   columns: ColumnConfig<T>[];
   data: T[];
   minWidth?: number;
+  maxHeight?: number | string;
 }
 
 export function DynamicTable<T>({
   columns,
   data,
   minWidth = 650,
+  maxHeight = "500px"
 }: DynamicTableProps<T>) {
   return (
     <TableContainer
@@ -40,6 +42,7 @@ export function DynamicTable<T>({
         border: "1px solid #E1E1E1",
         borderRadius: "12px",
         overflow: "auto",
+        maxHeight: maxHeight,
       }}
     >
       <Table aria-label="dynamic table">

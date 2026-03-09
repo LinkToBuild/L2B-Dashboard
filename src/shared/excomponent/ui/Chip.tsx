@@ -42,7 +42,7 @@ const badgeVariants = cva(
 export interface StatusBadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {
-  label: string;
+  label: React.ReactNode;
   icon?: LucideIcon; // For badges with icons like "Arrived"
 }
 

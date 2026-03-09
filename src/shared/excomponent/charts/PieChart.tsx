@@ -107,7 +107,7 @@ export function ChartPieDonut() {
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 16}
-                          className="fill-neutral-2 text-[20px] 2xl:text-[24px] font-semibold"
+                          className="fill-neutral-2 text-[20px] 2xl:text-[20px] font-semibold"
                         >
                           $13,44,000
                         </tspan>
