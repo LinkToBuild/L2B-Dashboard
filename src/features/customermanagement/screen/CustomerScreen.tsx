@@ -17,6 +17,7 @@ import { ListFilter } from "lucide-react";
 import { CustomInput } from "@/shared/components/TextField";
 import { DynamicTable } from "@/shared/components/Table";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
+import { ColumnConfig } from "@/shared/components/Table"; // Adjust path if needed
 
 export function CustomerScreen() {
   const [filter, setFilter] = useState<string>("Completed");
@@ -224,7 +225,7 @@ const mockOrders = [
   },
 ];
 
-const columns = [
+const columns: ColumnConfig<any>[] = [
   {
     header: "Status",
     key: "status",

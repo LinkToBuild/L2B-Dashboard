@@ -16,7 +16,7 @@ export function LegendData({ color, label, percentage }: LegendDataProps) {
         style={{ backgroundColor: color }}
       ></div>
 
-      <div className="flex gap-[2px] text-[8px] 2xl:text-[12px] font-normal text-neutral-2">
+      <div className="flex gap-[2px] xl:text-[9px] 2xl:text-[12px] font-normal text-neutral-2">
         <span>{label}</span>
         {percentage !== undefined && <span>{percentage}%</span>}
        
