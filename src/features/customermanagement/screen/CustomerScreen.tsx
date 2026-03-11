@@ -346,8 +346,6 @@ const columns: ColumnConfig<any>[] = [
             </div>
           </div>
         </div>
-
-
         <div>
           <SideBoard
             title="All Customers"

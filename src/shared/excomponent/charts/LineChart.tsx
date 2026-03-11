@@ -1,172 +1,124 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { CartesianGrid, Line, LineChart, XAxis, YAxis, Legend } from "recharts"
-import { Info } from "lucide-react" // Import Info icon
-
+import React, { useState } from "react";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@/components/ui/chart"
-import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+  ResponsiveContainer,
+} from "recharts";
 
-interface ReusableLineChartProps {
-  title?: string
-  description?: string
-  infoDescription?: string // New prop for tooltip text on info icon
-  data: any[]
-  config: ChartConfig
-  xAxisKey?: string
-  yAxisLabel?: string
-  height?: string
-  xAxisMiddleLabel?: string // New prop for special center text e.g., "Jan 2026"
-  showLegendLink?: boolean // New prop to control "see more" visibility
-  legendLinkHref?: string // Link URL for "see more"
+// Adjust these paths if your folders are structured differently!
+import { ChartTooltipContent, ChartActiveDot } from "@/components/application/charts/charts-base"; 
+import { LegendData } from "@/shared/components/Legend";
+
+export interface LineConfig {
+  dataKey: string;
+  name: string;
+  color: string;
 }
 
-export function LineCharts({
-  title,
-  description,
-  infoDescription,
-  data,
-  config,
-  xAxisKey = "date",
+interface InteractiveLineChartProps {
+  data: any[];
+  lines: LineConfig[];
+  yAxisLabel?: string;
+  width?: number | string;
+  height?: number | string;
+  xAxisKey?: string;
+  yAxisKey?: string; // 👈 Added yAxisKey here
+  xAxisProps?: React.ComponentProps<typeof XAxis>;
+  yAxisProps?: React.ComponentProps<typeof YAxis>;
+}
+
+export function LineCharts({ 
+  data, 
+  lines, 
   yAxisLabel,
-  height = "h-[300px]",
-  xAxisMiddleLabel,
-  showLegendLink = false,
-  legendLinkHref = "#",
-}: ReusableLineChartProps) {
-  // Dynamically extract the keys from the config to render the lines
-  const lineKeys = Object.keys(config)
+  width = "100%", 
+  height = 300,   
+  xAxisKey = "name",
+  yAxisKey, // 👈 Destructured it here (left optional with no default)
+  xAxisProps,
+  yAxisProps
+}: InteractiveLineChartProps) {
+  
+  // State now only tracks ONE active line at a time. Defaults to the first line in the array.
+  const [activeLine, setActiveLine] = useState<string>(lines[0]?.dataKey || "");
 
-  // Find middle date for special label placement if required
-  const middleIndex = Math.floor(data.length / 2);
-  const middleDateVal = data[middleIndex]?.[xAxisKey];
-
-  // Extend config support to check for "isDashed" property on specific campaign lines
-  // This requires user to add 'isDashed: true' to their ChartConfig object
+  // Sets the clicked legend as the only active line
+  const handleLegendClick = (dataKey: string) => {
+    setActiveLine(dataKey);
+  };
 
   return (
-    <Card className="py-4 sm:py-0">
-      {(title || description) && (
-        <CardHeader className="p-6 pb-3">
-          <div className="flex items-center gap-2"> {/* Wrapper flex for title + icon */}
-            {title && <CardTitle className="leading-tight">{title}</CardTitle>}
-            {infoDescription && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Info className="h-4 w-4 text-muted-foreground hover:text-foreground cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="w-[200px] text-xs">{infoDescription}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
-          </div>
-          {description && <CardDescription>{description}</CardDescription>}
-        </CardHeader>
-      )}
-      <CardContent className="px-2 sm:p-6">
-        <ChartContainer config={config} className={`aspect-auto w-full ${height}`}>
-          <LineChart
-            accessibilityLayer
-            data={data}
-            margin={{ left: 24, right: 24, top: 12, bottom: 24 }} // Increase bottom margin for special labels
-          >
-            {/* Standard grid as seen in shadcn/ui examples */}
-            <CartesianGrid vertical={false} strokeDasharray="5 5" opacity={0.5}/>
+    // 🎨 FUTURE STYLING COMMENT: 
+    // If you need to add a background color, padding, borders, or shadows in the future, 
+    // add classes like 'bg-white p-6 border rounded-[16px]' to the className string below!
+    <div className="flex flex-col  items-center w-full">
+      
+      {/* The Graph Area (Now using dynamic width and height) */}
+      <div style={{ width, height }} className="border-2 border-neutral-6 rounded-[12px] p-[12px] ">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="5 5" vertical={true} horizontal={false} stroke="#E5E7EB" />
             
-            <XAxis
-              dataKey={xAxisKey}
-              tickLine={false}
-              axisLine={false}
-              tickMargin={12}
-              interval={4} // Match the spacing like "5, 10, 15..." if data is daily
-              tickFormatter={(value) => {
-                const date = new Date(value);
-                // Return just the day number e.g., '5'
-                return date.toLocaleDateString("en-US", { day: "numeric" });
-              }}
+            {/* Dynamic X-Axis */}
+            <XAxis 
+              dataKey={xAxisKey} 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{ fill: '#9CA3AF', fontSize: 12 }}
+              {...xAxisProps}
             />
             
+            {/* Dynamic Y-Axis */}
             <YAxis 
-              tickLine={false}
-              axisLine={false}
-              tickMargin={12}
-              // Format 10000 -> 10k
-              tickFormatter={(value) => `${value / 1000}k`}
-              label={
-                yAxisLabel 
-                  ? { value: yAxisLabel, angle: -90, position: 'insideLeft', offset: -10 } 
-                  : undefined
-              }
-            />
-
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent />}
+              dataKey={yAxisKey} // 👈 Applied it here!
+              axisLine={false} 
+              tickLine={false} 
+              tick={{ fill: '#9CA3AF', fontSize: 12 }}
+              tickFormatter={(value) => value === 0 ? "0" : `${value / 1000}k`}
+              label={{ value: yAxisLabel, angle: -90, position: 'insideLeft', fill: '#9CA3AF', dy: 50 }}
+              {...yAxisProps} 
             />
             
-            {/* Using default Legend icon style, but placing outside requires more complex setup */}
-            <Legend verticalAlign="bottom" height={36} iconType="circle" />
+            <Tooltip content={<ChartTooltipContent />} />
 
-            {lineKeys.map((key) => {
-                // Determine if a line should be dashed based on a new optional property in ChartConfig
-                // Example config usage: campaign2: { label: "Campaign 2", color: "hsl(var(--muted-foreground))", isDashed: true }
-                const isDashed = (config[key] as any)?.isDashed;
-                
-                return (
-                    <Line
-                        key={key}
-                        dataKey={key}
-                        type="monotone"
-                        stroke={`var(--color-${key})`}
-                        strokeWidth={2}
-                        dot={false}
-                        // Handle late-starting data gracefully
-                        connectNulls={false}
-                        // Apply dashed style if specified in config
-                        strokeDasharray={isDashed ? "5 5" : "0"}
-                    />
-                );
-            })}
+            {lines.map((line) => (
+              <Line
+                key={line.dataKey}
+                type="monotone"
+                dataKey={line.dataKey}
+                stroke={line.color}
+                strokeWidth={2}
+                dot={false}
+                activeDot={<ChartActiveDot />}
+                hide={activeLine !== line.dataKey} // 👈 Hides if it's NOT the single active line
+              />
+            ))}
           </LineChart>
-        </ChartContainer>
+        </ResponsiveContainer>
+      </div>
 
-        {/* Placing special middle label outside chart area for clean centering */}
-        {xAxisMiddleLabel && (
-          <div className="text-center text-xs text-muted-foreground -mt-5 mb-2 px-[80px]">
-            {xAxisMiddleLabel}
-          </div>
-        )}
-
-        {/* Placing 'see more' link below chart, right-aligned with standard shadcn card styling */}
-        {showLegendLink && (
-            <div className="flex justify-end pr-6 -mt-11 pb-2 h-0 items-center">
-                <a href={legendLinkHref} className="text-xs text-muted-foreground hover:text-foreground hover:underline flex items-center gap-1">
-                    see more
-                    <span>&gt;</span> {/* Caret character or use chevron icon */}
-                </a>
-            </div>
-        )}
-      </CardContent>
-    </Card>
-  )
+      {/* Your Custom Legend Area */}
+      <div className="flex gap-2  mt-6 items-center w-full justify-between ">
+        {lines.map((line) => (
+          <LegendData
+            key={line.dataKey}
+            label={line.name} 
+            color={line.color} 
+            isActive={activeLine === line.dataKey} // 👈 Checks if it's the active one
+            onClick={() => handleLegendClick(line.dataKey)} 
+          />
+        ))}
+        
+        <button className="text-[14px] text-neutral-3  hover:text-neutral-1 transition-colors">
+          see more {'>'}
+        </button>
+      </div>
+    </div>
+  );
 }
