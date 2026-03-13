@@ -2,13 +2,16 @@ import React from "react";
 import { ProfileHeader } from "../../../shared/components/ProfileHeader";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { OverviewSection } from "../components/individual/OverviewSection";
+import MetricSection from "../components/individual/MetricSection";
+import TableDataSection from "../components/individual/TableDataSection";
+import profileimage from "@/public/images/customer1.avif"
 
 export default function CustomerIndividualScreen() {
   return (
-    <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%]">
+    <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%] flex flex-col gap-[30px]">
       <ProfileHeader
         name="Ramesh Jay"
-        avatarUrl="/avatars/ramesh.png"
+        avatarUrl="/images/customer1.avif"
         joinDate="12/09/2025"
         profileProgress={100} // Shows the green Verified checkmark badge
         statusTitle="Active"
@@ -23,7 +26,9 @@ export default function CustomerIndividualScreen() {
           { label: "Company Name", value: "Menthan Pvt.ltd" },
         ]}
       />
-      <OverviewSection></OverviewSection>
+      <MetricSection></MetricSection>
+      <TableDataSection></TableDataSection>
+     
     </SectionWrapper>
   );
 }

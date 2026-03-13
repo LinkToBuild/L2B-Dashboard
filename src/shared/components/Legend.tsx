@@ -5,7 +5,7 @@ import * as React from "react";
 interface LegendDataProps {
   color: string;
   label: string;
-  percentage?: string | number;
+  percentage?: string | number | null ;
   isActive?: boolean; 
   onClick?: () => void;
 }

@@ -26,8 +26,8 @@ export function StatCard({
   return (
     <div
       className="flex flex-col justify-between rounded-xl border-neutral-5 lg:w-[185px] lg:h-[90px] border 2xl:w-[239px] 2xl:h-[105px] shadow-md  gap-1 p-[10px]"
-      style={{
-        background: "linear-gradient(to bottom, #F6FAFE 0%, #FDFDFD 100%)",
+       style={{
+        background: "linear-gradient(180deg, #F6FAFE 0%, #F6FAFE 55%, #FDFDFD 100%)",
       }}
     >
       {/* HEADER: Title, Percentage, and Info Icon */}

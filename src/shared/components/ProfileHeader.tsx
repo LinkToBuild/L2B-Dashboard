@@ -77,7 +77,7 @@ export function ProfileHeader({
           <div className="relative">
             {/* Avatar Image Wrapper with conditional border mapping */}
             <div 
-              className={`w-[72px] h-[72px] rounded-full p-1 ${!isVerified ? 'bg-gradient-to-tr from-transparent to-red-500' : 'bg-transparent'}`}
+              className={`w-[80px] h-[81px] rounded-full p-1 ${!isVerified ? 'bg-gradient-to-tr from-transparent to-red-500' : 'bg-transparent'}`}
               style={!isVerified ? { background: `conic-gradient(#FF4D4D ${profileProgress}%, transparent 0)` } : {}}
             >
               <img 

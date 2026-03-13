@@ -39,23 +39,45 @@ export function StackedBarChart({
   height = 350,
   barWidth = 8,
 }: StackedBarChartProps) {
+  
+  // 1. Find the maximum stacked value to know how tall to make the grey empty bars
+  const maxDataValue = Math.max(
+    ...data.map((item) =>
+      series.reduce((sum, s) => sum + (Number(item[s.dataKey]) || 0), 0)
+    )
+  );
+  
+  // Fallback to 5000 (like your image) if the calculated max is 0 or invalid
+  const placeholderHeight = maxDataValue > 0 ? maxDataValue : 5000;
+
+  // 2. Process the data: If a data point totals 0, give it a placeholder value
+  const chartData = data.map((item) => {
+    const totalValue = series.reduce(
+      (sum, s) => sum + (Number(item[s.dataKey]) || 0),
+      0
+    );
+    return {
+      ...item,
+      _emptyPlaceholder: totalValue === 0 ? placeholderHeight : 0,
+    };
+  });
+
   return (
-    <div className="flex flex-col items-center w-full  ">
+    <div className="flex flex-col items-center w-full">
       <div
         style={{ width, height }}
-        className=" rounded-[16px] border-2 border-neutral-6 "
+        className="rounded-[16px] border-2 border-neutral-6"
       >
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={data}
+            data={chartData}
             margin={{ top: 20, right: 10, left: 20, bottom: 20 }}
             barSize={barWidth}
           >
-            {/* X-Axis configured to hide individual ticks, showing only the bottom center label */}
             <XAxis
               axisLine={false}
               tickLine={false}
-              tick={false} // Hides the individual text under each bar
+              tick={false}
               label={{
                 value: xAxisLabel,
                 position: "insideBottom",
@@ -86,11 +108,18 @@ export function StackedBarChart({
               cursor={{ fill: "transparent" }}
             />
 
-            {/* We map over your series array to draw the segments.
-               The MAGIC happens here: stackId="stack" tells Recharts to put them on top of each other!
-            */}
+            {/* 3. Render the Empty Placeholder Bar First */}
+            <Bar
+              dataKey="_emptyPlaceholder"
+              fill="#E5E7EB" // The light grey color from your image
+              stackId="stack"
+              radius={[10, 10, 0, 0]}
+              // Note: You may need to filter out "_emptyPlaceholder" inside your custom ChartTooltipContent 
+              // so it doesn't say "_emptyPlaceholder: 5000" when hovered.
+            />
+
+            {/* 4. Render the actual data bars on top */}
             {series.map((s, index) => {
-              // We only want rounded corners on the very top segment of the stack
               const isTopSegment = index === series.length - 1;
 
               return (
@@ -99,8 +128,8 @@ export function StackedBarChart({
                   dataKey={s.dataKey}
                   name={s.label}
                   fill={s.color}
-                  stackId="stack" // 👈 This stacks them!
-                  radius={isTopSegment ? [10, 10, 0, 0] : [0, 0, 0, 0]} // Rounds the top of the stack
+                  stackId="stack"
+                  radius={isTopSegment ? [10, 10, 0, 0] : [0, 0, 0, 0]}
                 />
               );
             })}
@@ -108,7 +137,6 @@ export function StackedBarChart({
         </ResponsiveContainer>
       </div>
 
-      {/* Your Custom Legends */}
       <div className="flex gap-6 mt-4 items-center w-full justify-center flex-wrap">
         {series.map((item, index) => (
           <LegendData
