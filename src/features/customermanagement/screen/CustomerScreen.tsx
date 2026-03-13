@@ -279,6 +279,21 @@ const columns: ColumnConfig<any>[] = [
   },
 ];
 
+const paymentData = [
+    { method: "upi", percentage: 28, fill: "#356583" },        // Darkest Blue
+    { method: "cod", percentage: 30, fill: "#86A8C3" },        // Medium Blue
+    { method: "netbanking", percentage: 22, fill: "#3F82B7" }, // Bright Blue
+    { method: "paylater", percentage: 20, fill: "#CDE0ED" },   // Lightest Blue
+  ];
+
+  const paymentConfig = {
+    percentage: { label: "Percentage" },
+    upi: { label: "UPI" },
+    cod: { label: "COD" },
+    netbanking: { label: "Net Banking" },
+    paylater: { label: "Paylater" },
+  };
+
   return (
     <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  ">
       {/* Rendering the Header you just built */}
@@ -291,7 +306,14 @@ const columns: ColumnConfig<any>[] = [
               <p className="text-[24px] font-normal">Earning</p>
               <div className="w-full flex    border border-neutral-5 justify-evenly p-4 2xl:p-6 rounded-[12px]">
                 <div className="">
-                  <ChartPieDonut />
+                  <ChartPieDonut  data={paymentData}
+                    config={paymentConfig}
+                    dataKey="percentage" // The key containing the numbers
+                    nameKey="method" // The key containing the labels
+                    centerLabel="Total Tickets"
+                    centerValue="134"
+                    width={230} // Adjust size easily!
+                    height={230}  />
                 </div>
                 <div className=" xl:w-[40%] 2xl:w-[245px] h-[299px] flex flex-col gap-[27px] ">
                   <div className="w-full flex flex-col gap-[27px]">

@@ -32,7 +32,7 @@ export function DualMetricCard({
   return (
     <div
       className={cn(
-        "flex flex-col justify-between rounded-[12px] border border-neutral-5  p-[12px] gap-[4px] overflow-hidden",
+        "flex flex-col justify-between rounded-[12px] border border-neutral-5 shadow-md  p-[12px] gap-[4px] overflow-hidden lg:w-[185px] lg:h-[90px]  2xl:w-[239px] 2xl:h-[105px]",
         width,
         height
       )}
