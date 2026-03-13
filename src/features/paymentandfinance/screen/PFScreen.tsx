@@ -135,7 +135,7 @@ import { LegendData } from "@/shared/components/Legend";
 import { ChartPieDonut } from "@/shared/excomponent/charts/PieChart";
 import { StatCard } from "@/shared/excomponent/ui/StatCard";
 import { type ChartConfig } from "@/components/ui/chart";
-import  PaymentMetricsWidget  from "../components/overall/PaymentMetricsWidget";
+// import  PaymentMetricsWidget  from "../components/overall/PaymentMetricsWidget";
 
 export function PFScreen() {
   const financeCardsData = [
@@ -282,7 +282,7 @@ export function PFScreen() {
             </div>
           </div>
         </div>
-        <PaymentMetricsWidget/>
+        {/* <PaymentMetricsWidget/> */}
       </SectionWrapper>
     </div>
   );

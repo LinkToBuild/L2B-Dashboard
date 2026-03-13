@@ -223,8 +223,8 @@ function FunnelPanel({
         showInfo={true}
         showSearch={true}
         showFilter={true}
-        defaultFilterLabel="Default (no campaign)"
-        filterItems={filterItems}
+        // defaultFilterLabel="Default (no campaign)"
+        // filterItems={filterItems}
       />
 
       <div className="relative min-h-[507px] min-w-0">
