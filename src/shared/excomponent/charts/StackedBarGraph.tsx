@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BarChart,
   Bar,
@@ -39,7 +39,9 @@ export function StackedBarChart({
   height = 350,
   barWidth = 8,
 }: StackedBarChartProps) {
-  
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   // 1. Find the maximum stacked value to know how tall to make the grey empty bars
   const maxDataValue = Math.max(
     ...data.map((item) =>
@@ -68,7 +70,7 @@ export function StackedBarChart({
         style={{ width, height }}
         className="rounded-[16px] border-2 border-neutral-6"
       >
-        <ResponsiveContainer width="100%" height="100%">
+        {mounted && <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
             margin={{ top: 20, right: 10, left: 20, bottom: 20 }}
@@ -134,7 +136,7 @@ export function StackedBarChart({
               );
             })}
           </BarChart>
-        </ResponsiveContainer>
+        </ResponsiveContainer>}
       </div>
 
       <div className="flex gap-6 mt-4 items-center w-full justify-center flex-wrap">

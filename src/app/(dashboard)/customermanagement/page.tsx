@@ -4,8 +4,8 @@ import CustomerIndividualScreen from "@/features/customermanagement/screen/Custo
 export default function CustomerManagementPage() {
   return (
     <div className="px-8 py-5    min-h-screen bg-[#F8F9FA]">
-      {/* <CustomerScreen /> */}
-      <CustomerIndividualScreen></CustomerIndividualScreen>
+      <CustomerScreen />
+      {/* <CustomerIndividualScreen></CustomerIndividualScreen> */}
     </div>
   );
 }

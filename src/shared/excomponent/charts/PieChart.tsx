@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Label, Pie, PieChart } from "recharts";
+import { useState, useEffect } from "react";
+import { Cell, Label, Pie, PieChart } from "recharts";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -37,12 +38,15 @@ export function ChartPieDonut({
   innerRadius = "60%",
   outerRadius = "95%",
 }: DynamicDonutChartProps) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   return (
     <Card className="flex flex-col bg-transparent shadow-none border-0">
       <CardContent className="flex-1 p-0">
         {/* 2. Apply dynamic width and height to a wrapper */}
         <div style={{ width, height }}>
-          <ChartContainer config={config} className="w-full h-full">
+          {mounted && <ChartContainer config={config} className="w-full h-full aspect-auto">
             <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <ChartTooltip
                 cursor={false}
@@ -56,9 +60,12 @@ export function ChartPieDonut({
                 cornerRadius={5}
                 stroke="none"
                 innerRadius={innerRadius}
-                outerRadius={outerRadius} // Added this back from your commented code
+                outerRadius={outerRadius}
                 strokeWidth={0}
               >
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
                 <Label
                   content={({ viewBox }) => {
                     if (viewBox && "cx" in viewBox && "cy" in viewBox) {
@@ -91,7 +98,7 @@ export function ChartPieDonut({
                 />
               </Pie>
             </PieChart>
-          </ChartContainer>
+          </ChartContainer>}
         </div>
       </CardContent>
     </Card>

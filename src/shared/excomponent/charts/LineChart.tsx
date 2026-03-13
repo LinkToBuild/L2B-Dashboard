@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -49,6 +49,9 @@ export function LineCharts({
   yAxisProps,
   showLegend = true,
 }: InteractiveLineChartProps) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   // State now only tracks ONE active line at a time. Defaults to the first line in the array.
   const [activeLine, setActiveLine] = useState<string>(lines[0]?.dataKey || "");
 
@@ -67,7 +70,7 @@ export function LineCharts({
         style={{ width, height }}
         className="border-2 border-neutral-6 rounded-[12px] p-[12px] "
       >
-        <ResponsiveContainer width="100%" height="100%">
+        {mounted && <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={data}
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
@@ -122,7 +125,7 @@ export function LineCharts({
               />
             ))}
           </LineChart>
-        </ResponsiveContainer>
+        </ResponsiveContainer>}
       </div>
 
       {/* Your Custom Legend Area */}

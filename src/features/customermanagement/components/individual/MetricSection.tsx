@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { OverviewSection } from "./OverviewSection";
