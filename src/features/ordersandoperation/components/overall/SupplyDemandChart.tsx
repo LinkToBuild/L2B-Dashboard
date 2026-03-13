@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { LineCharts } from "@/shared/excomponent/charts/LineChart";
 import SectionWrapper from "@/shared/components/SectionWrapper";

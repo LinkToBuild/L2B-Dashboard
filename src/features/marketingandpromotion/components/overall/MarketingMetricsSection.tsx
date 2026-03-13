@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { StatCard } from "@/shared/excomponent/ui/StatCard";
-import { Stats } from "fs";
 import { LineCharts, LineConfig } from "@/shared/excomponent/charts/LineChart";
 import { Info } from "lucide-react";
 import { BarGraph } from "@/shared/excomponent/charts/BarGraph";

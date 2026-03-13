@@ -154,7 +154,7 @@ export default function PaymentMetricsWidget() {
         barSize={16}
         rowGap={24}
         labelWidth={160}
-        valueFormatter={(value) => `${value}%`}
+        valueFormatter={(value: number) => `${value}%`}
         rounded={true}
         showLegend={false}
       />
