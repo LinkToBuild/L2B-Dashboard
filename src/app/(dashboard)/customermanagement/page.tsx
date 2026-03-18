@@ -220,17 +220,17 @@ export default function CustomerManagementPage() {
   };
   return (
     <div className="px-8 py-5    min-h-screen bg-[#F8F9FA]">
-      <CustomerScreen />
-      {/* <ProfileLayout
-        role="Customer Worker"
+      {/* <CustomerScreen /> */}
+      {/* <CustomerIndividualScreen></CustomerIndividualScreen> */}
+      <ProfileLayout
+        role="Customer Individual"
         customerData={customerInfo}
         teamTableData={mockTeamDetails}
         teamTableColumns={teamColumns}
         projectTableData={mockProjectDetails}
         projectTableColumns={projectColumns}
         paymentData={paymentInfo}
-      /> */}
-      {/* <CustomerIndividualScreen></CustomerIndividualScreen> */}
+      ></ProfileLayout>
     </div>
   );
 }

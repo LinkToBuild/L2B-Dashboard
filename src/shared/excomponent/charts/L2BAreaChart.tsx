@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useState, useEffect } from "react"
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
 import {
@@ -38,7 +39,7 @@ export function L2BAreaChart({
   data,
   xAxisKey,
   dataKey,
-  color = "#3B82F6", 
+  color = "#3B82F6",
   width = "100%",
   height = 300,
   showXAxis = true,
@@ -48,7 +49,9 @@ export function L2BAreaChart({
   showLegend = false,
   legendLabel,
 }: L2BAreaChartProps) {
-  
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   // 3. Dynamically generate the Shadcn config so tooltips show the correct label and color
   const chartConfig = {
     [dataKey]: {
@@ -65,7 +68,7 @@ export function L2BAreaChart({
     <Card className="flex flex-col bg-transparent shadow-none border-0">
       <CardContent className="flex-1 p-0">
         <div style={{ width, height }}>
-          <ChartContainer config={chartConfig} className="w-full h-full">
+          {mounted && <ChartContainer config={chartConfig} className="w-full h-full aspect-auto">
             <AreaChart
               accessibilityLayer
               data={data}
@@ -127,7 +130,7 @@ export function L2BAreaChart({
                 strokeWidth={2}
               />
             </AreaChart>
-          </ChartContainer>
+          </ChartContainer>}
         </div>
 
         {/* Dynamically render your custom Legend Component below the chart */}

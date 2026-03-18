@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { OverviewSection } from "./OverviewSection";
 import { InfoCards } from "./InfoCards";
