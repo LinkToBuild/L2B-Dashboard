@@ -18,6 +18,7 @@ import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import { DynamicTable } from "@/shared/components/Table";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import { ColumnConfig } from "@/shared/components/Table"; // Adjust path if needed
+import { ChartConfig } from "@/components/ui/chart";
 
 export function CustomerScreen() {
   const [filter, setFilter] = useState<string>("Completed");
@@ -96,203 +97,217 @@ export function CustomerScreen() {
     { label: "Extended", onClick: () => setFilter("Extended") },
   ];
 
-const mockOrders = [
-  {
-    status: "Completed",
-    orderId: "#ORD-88293",
-    equipment: "Mud-pump",
-    capacity: "10 ton",
-    bookingDate: "12/03/2026",
-    startsOn: "12/03/2026",
-    endOn: "14/03/2026",
-    extended: "14/03/2026 (12:30)",
-    firstLocation: "HPM HQ, Banga...",
-    secondLocation: "-",
-    customerId: "V-OD-12345",
-    vendorId: "V-OD-12345",
-    operatorId: "op-12345X-S",
-    ratings: "5.0",
-    payment: "COD",
-    coupon: "FIRSTBUY50",
-  },
-  {
-    status: "Started",
-    orderId: "#ORD-88294",
-    equipment: "Truck",
-    capacity: "20 ton",
-    bookingDate: "12/03/2026",
-    startsOn: "-",
-    endOn: "-",
-    extended: "-",
-    firstLocation: "HPM HQ, Banga...",
-    secondLocation: "WXP HQ, Ban...",
-    customerId: "V-OD-12346",
-    vendorId: "V-OD-12346",
-    operatorId: "op-12346X-S",
-    ratings: "-",
-    payment: "Online",
-    coupon: "-",
-  },
-  {
-    status: "Arrived",
-    orderId: "#ORD-88295",
-    equipment: "Truck",
-    capacity: "20 ton",
-    bookingDate: "12/03/2026",
-    startsOn: "12/03/2026",
-    endOn: "14/03/2026",
-    extended: "-",
-    firstLocation: "HPM HQ, Banga...",
-    secondLocation: "WXP HQ, Ban...",
-    customerId: "V-OD-12347",
-    vendorId: "V-OD-12347",
-    operatorId: "op-12347X-S",
-    ratings: "-",
-    payment: "Online",
-    coupon: "-",
-  },
-  {
-    status: "Completed",
-    orderId: "#ORD-88296",
-    equipment: "Mud-pump",
-    capacity: "10 ton",
-    bookingDate: "12/03/2026",
-    startsOn: "12/03/2026",
-    endOn: "14/03/2026",
-    extended: "Online", // Matching the "Online" text visible in row 4 of the image
-    firstLocation: "HPM HQ, Banga...",
-    secondLocation: "-",
-    customerId: "V-OD-12348",
-    vendorId: "V-OD-12348",
-    operatorId: "op-12348X-S",
-    ratings: "-",
-    payment: "Online",
-    coupon: "-",
-  },
-  {
-    status: "Completed",
-    orderId: "#ORD-88297",
-    equipment: "Truck",
-    capacity: "20 ton",
-    bookingDate: "12/03/2026",
-    startsOn: "12/03/2026",
-    endOn: "14/03/2026",
-    extended: "-",
-    firstLocation: "HPM HQ, Banga...",
-    secondLocation: "WXP HQ, Ban...",
-    customerId: "V-OD-12349",
-    vendorId: "V-OD-12349",
-    operatorId: "op-12349X-S",
-    ratings: "-",
-    payment: "Online",
-    coupon: "-",
-  },
-  {
-    status: "Completed",
-    orderId: "#ORD-88298",
-    equipment: "Truck",
-    capacity: "20 ton",
-    bookingDate: "12/03/2026",
-    startsOn: "12/03/2026",
-    endOn: "14/03/2026",
-    extended: "-",
-    firstLocation: "HPM HQ, Banga...",
-    secondLocation: "-",
-    customerId: "V-OD-12350",
-    vendorId: "V-OD-12350",
-    operatorId: "op-12350X-S",
-    ratings: "-",
-    payment: "Online",
-    coupon: "-",
-  },
-  {
-    status: "Extended",
-    orderId: "#ORD-88299",
-    equipment: "Truck",
-    capacity: "20 ton",
-    bookingDate: "12/03/2026",
-    startsOn: "12/03/2026",
-    endOn: "14/03/2026",
-    extended: "14/03/2026 (12:30)",
-    firstLocation: "HPM HQ, Banga...",
-    secondLocation: "WXP HQ, Ban...",
-    customerId: "V-OD-12351",
-    vendorId: "V-OD-12351",
-    operatorId: "op-12351X-S",
-    ratings: "-",
-    payment: "Online",
-    coupon: "-",
-  },
-];
-
-const columns: ColumnConfig<any>[] = [
-  {
-    header: "Status",
-    key: "status",
-    width: 140,
-    render: (value: string) => {
-      const statusMap: Record<string, any> = {
-        Completed: "successLight",
-        Started: "infoLight",
-        Arrived: "successLight",
-        Extended: "info",
-      };
-      return <StatusBadge status={statusMap[value] || "neutral"} label={value} />;
+  const mockOrders = [
+    {
+      status: "Completed",
+      orderId: "#ORD-88293",
+      equipment: "Mud-pump",
+      capacity: "10 ton",
+      bookingDate: "12/03/2026",
+      startsOn: "12/03/2026",
+      endOn: "14/03/2026",
+      extended: "14/03/2026 (12:30)",
+      firstLocation: "HPM HQ, Banga...",
+      secondLocation: "-",
+      customerId: "V-OD-12345",
+      vendorId: "V-OD-12345",
+      operatorId: "op-12345X-S",
+      ratings: "5.0",
+      payment: "COD",
+      coupon: "FIRSTBUY50",
     },
-  },
-  { header: "Order Id", key: "orderId", width: 140 },
-  { header: "Equipment", key: "equipment", width: 140 },
-  { header: "Capacity", key: "capacity", width: 110 },
-  { header: "Booking Date", key: "bookingDate", width: 140 },
-  { header: "Starts On", key: "startsOn", width: 140 },
-  { header: "End On", key: "endOn", width: 140 },
-  { header: "Extended", key: "extended", width: 160 },
-  { header: "1st Location", key: "firstLocation", width: 180 },
-  { header: "2nd Location", key: "secondLocation", width: 180 },
-  { 
-    header: "Customer Id", 
-    key: "customerId", 
-    width: 150,
-    render: (val: string) => <span className="text-aux-2 underline cursor-pointer">{val}</span> 
-  },
-  { 
-    header: "Vendor Id", 
-    key: "vendorId", 
-    width: 150,
-    render: (val: string) => <span className="text-aux-2 underline cursor-pointer">{val}</span> 
-  },
-  { header: "Operator Id", key: "operatorId", width: 150 },
-  { header: "Ratings", key: "ratings", width: 100, align: "center" },
-  { header: "Payment", key: "payment", width: 120 },
-  { header: "Coupon", key: "coupon", width: 140 },
-  { 
-    header: "Booking Details", 
-    key: "details", 
-    width: 140,
-    render: () => <button className="text-success-1 font-medium underline">View Full</button> 
-  },
-  { 
-    header: "Manage", 
-    key: "manage", 
-    width: 100,
-    render: () => <button className="text-aux-2 font-medium underline">Edit</button> 
-  },
-];
-
-const paymentData = [
-    { method: "upi", percentage: 28, fill: "#356583" },        // Darkest Blue
-    { method: "cod", percentage: 30, fill: "#86A8C3" },        // Medium Blue
-    { method: "netbanking", percentage: 22, fill: "#3F82B7" }, // Bright Blue
-    { method: "paylater", percentage: 20, fill: "#CDE0ED" },   // Lightest Blue
+    {
+      status: "Started",
+      orderId: "#ORD-88294",
+      equipment: "Truck",
+      capacity: "20 ton",
+      bookingDate: "12/03/2026",
+      startsOn: "-",
+      endOn: "-",
+      extended: "-",
+      firstLocation: "HPM HQ, Banga...",
+      secondLocation: "WXP HQ, Ban...",
+      customerId: "V-OD-12346",
+      vendorId: "V-OD-12346",
+      operatorId: "op-12346X-S",
+      ratings: "-",
+      payment: "Online",
+      coupon: "-",
+    },
+    {
+      status: "Arrived",
+      orderId: "#ORD-88295",
+      equipment: "Truck",
+      capacity: "20 ton",
+      bookingDate: "12/03/2026",
+      startsOn: "12/03/2026",
+      endOn: "14/03/2026",
+      extended: "-",
+      firstLocation: "HPM HQ, Banga...",
+      secondLocation: "WXP HQ, Ban...",
+      customerId: "V-OD-12347",
+      vendorId: "V-OD-12347",
+      operatorId: "op-12347X-S",
+      ratings: "-",
+      payment: "Online",
+      coupon: "-",
+    },
+    {
+      status: "Completed",
+      orderId: "#ORD-88296",
+      equipment: "Mud-pump",
+      capacity: "10 ton",
+      bookingDate: "12/03/2026",
+      startsOn: "12/03/2026",
+      endOn: "14/03/2026",
+      extended: "Online", // Matching the "Online" text visible in row 4 of the image
+      firstLocation: "HPM HQ, Banga...",
+      secondLocation: "-",
+      customerId: "V-OD-12348",
+      vendorId: "V-OD-12348",
+      operatorId: "op-12348X-S",
+      ratings: "-",
+      payment: "Online",
+      coupon: "-",
+    },
+    {
+      status: "Completed",
+      orderId: "#ORD-88297",
+      equipment: "Truck",
+      capacity: "20 ton",
+      bookingDate: "12/03/2026",
+      startsOn: "12/03/2026",
+      endOn: "14/03/2026",
+      extended: "-",
+      firstLocation: "HPM HQ, Banga...",
+      secondLocation: "WXP HQ, Ban...",
+      customerId: "V-OD-12349",
+      vendorId: "V-OD-12349",
+      operatorId: "op-12349X-S",
+      ratings: "-",
+      payment: "Online",
+      coupon: "-",
+    },
+    {
+      status: "Completed",
+      orderId: "#ORD-88298",
+      equipment: "Truck",
+      capacity: "20 ton",
+      bookingDate: "12/03/2026",
+      startsOn: "12/03/2026",
+      endOn: "14/03/2026",
+      extended: "-",
+      firstLocation: "HPM HQ, Banga...",
+      secondLocation: "-",
+      customerId: "V-OD-12350",
+      vendorId: "V-OD-12350",
+      operatorId: "op-12350X-S",
+      ratings: "-",
+      payment: "Online",
+      coupon: "-",
+    },
+    {
+      status: "Extended",
+      orderId: "#ORD-88299",
+      equipment: "Truck",
+      capacity: "20 ton",
+      bookingDate: "12/03/2026",
+      startsOn: "12/03/2026",
+      endOn: "14/03/2026",
+      extended: "14/03/2026 (12:30)",
+      firstLocation: "HPM HQ, Banga...",
+      secondLocation: "WXP HQ, Ban...",
+      customerId: "V-OD-12351",
+      vendorId: "V-OD-12351",
+      operatorId: "op-12351X-S",
+      ratings: "-",
+      payment: "Online",
+      coupon: "-",
+    },
   ];
+
+  const columns: ColumnConfig<any>[] = [
+    {
+      header: "Status",
+      key: "status",
+      width: 140,
+      render: (value: string) => {
+        const statusMap: Record<string, any> = {
+          Completed: "successLight",
+          Started: "infoLight",
+          Arrived: "successLight",
+          Extended: "info",
+        };
+        return (
+          <StatusBadge status={statusMap[value] || "neutral"} label={value} />
+        );
+      },
+    },
+    { header: "Order Id", key: "orderId", width: 140 },
+    { header: "Equipment", key: "equipment", width: 140 },
+    { header: "Capacity", key: "capacity", width: 110 },
+    { header: "Booking Date", key: "bookingDate", width: 140 },
+    { header: "Starts On", key: "startsOn", width: 140 },
+    { header: "End On", key: "endOn", width: 140 },
+    { header: "Extended", key: "extended", width: 160 },
+    { header: "1st Location", key: "firstLocation", width: 180 },
+    { header: "2nd Location", key: "secondLocation", width: 180 },
+    {
+      header: "Customer Id",
+      key: "customerId",
+      width: 150,
+      render: (val: string) => (
+        <span className="text-aux-2 underline cursor-pointer">{val}</span>
+      ),
+    },
+    {
+      header: "Vendor Id",
+      key: "vendorId",
+      width: 150,
+      render: (val: string) => (
+        <span className="text-aux-2 underline cursor-pointer">{val}</span>
+      ),
+    },
+    { header: "Operator Id", key: "operatorId", width: 150 },
+    { header: "Ratings", key: "ratings", width: 100, align: "center" },
+    { header: "Payment", key: "payment", width: 120 },
+    { header: "Coupon", key: "coupon", width: 140 },
+    {
+      header: "Booking Details",
+      key: "details",
+      width: 140,
+      render: () => (
+        <button className="text-success-1 font-medium underline">
+          View Full
+        </button>
+      ),
+    },
+    {
+      header: "Manage",
+      key: "manage",
+      width: 100,
+      render: () => (
+        <button className="text-aux-2 font-medium underline">Edit</button>
+      ),
+    },
+  ];
+
 
   const paymentConfig = {
     percentage: { label: "Percentage" },
-    upi: { label: "UPI" },
-    cod: { label: "COD" },
-    netbanking: { label: "Net Banking" },
-    paylater: { label: "Paylater" },
-  };
+    upi: { label: "UPI", color: "#356583" }, // Darkest Blue
+    cod: { label: "COD", color: "#86A8C3" }, // Medium Blue
+    netbanking: { label: "Net Banking", color: "#3F82B7" }, // Bright Blue
+    paylater: { label: "Paylater", color: "#CDE0ED" }, // Lightest Blue
+  } satisfies ChartConfig;
+
+
+  const paymentData = [
+    { method: "upi", percentage: 28, fill: "356583" },
+    { method: "cod", percentage: 30, fill: "var(--color-cod)" },
+    { method: "netbanking", percentage: 22, fill: "var(--color-netbanking)" },
+    { method: "paylater", percentage: 20, fill: "var(--color-paylater)" },
+  ];
 
   return (
     <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  ">
@@ -306,14 +321,16 @@ const paymentData = [
               <p className="text-[24px] font-normal">Earning</p>
               <div className="w-full flex    border border-neutral-5 justify-evenly p-4 2xl:p-6 rounded-[12px]">
                 <div className="">
-                  <ChartPieDonut  data={paymentData}
+                  <ChartPieDonut
+                    data={paymentData}
                     config={paymentConfig}
                     dataKey="percentage" // The key containing the numbers
                     nameKey="method" // The key containing the labels
                     centerLabel="Total Tickets"
                     centerValue="134"
                     width={230} // Adjust size easily!
-                    height={230}  />
+                    height={230}
+                  />
                 </div>
                 <div className=" xl:w-[40%] 2xl:w-[245px] h-[299px] flex flex-col gap-[27px] ">
                   <div className="w-full flex flex-col gap-[27px]">

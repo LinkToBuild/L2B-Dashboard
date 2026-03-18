@@ -74,7 +74,7 @@ export function ProfileHeader({
         
         {/* Left Column: Avatar & Status Chip */}
         <div className="flex flex-col items-center gap-4 min-w-[100px]">
-          <div className="relative">
+          <div className="relative ">
             {/* Avatar Image Wrapper with conditional border mapping */}
             <div 
               className={`w-[80px] h-[81px] rounded-full p-1 ${!isVerified ? 'bg-gradient-to-tr from-transparent to-red-500' : 'bg-transparent'}`}

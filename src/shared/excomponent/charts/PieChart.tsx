@@ -41,8 +41,8 @@ export function ChartPieDonut({
     <Card className="flex flex-col bg-transparent shadow-none border-0">
       <CardContent className="flex-1 p-0">
         {/* 2. Apply dynamic width and height to a wrapper */}
-        <div style={{ width, height }}>
-          <ChartContainer config={config} className="w-full h-full">
+        <div style={{ width, height, minWidth: width, minHeight: height }}>
+          <ChartContainer className="aspect-auto"  config={config} style={{ width, height, minWidth: width }}>
             <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <ChartTooltip
                 cursor={false}
