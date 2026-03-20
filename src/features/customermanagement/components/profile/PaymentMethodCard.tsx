@@ -20,7 +20,7 @@ export function PaymentMethodCard({
   actionText = "Remove",
 }: PaymentMethodCardProps) {
   return (
-    <div className="flex items-center gap-4 w-full max-w-[450px] bg-white shadow-sm border border-gray-200 rounded-2xl px-5 py-3">
+    <div className="flex items-center gap-4 w-full max-w-[450px] bg-white shadow-sm border border-gray-200 rounded-2xl px-5 py-3 mt-3">
       
       {/* The Bordered Card */}
       <div className="flex-1 flex flex-col justify-center  ">

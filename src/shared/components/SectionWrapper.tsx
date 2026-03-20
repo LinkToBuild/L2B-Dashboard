@@ -9,7 +9,7 @@ const SectionWrapper = ({
   className: string;
 }) => {
   return (
-      <section className={`w-full ml-24   ${className}`}>
+      <section className={`w-full  ml-24   ${className}`}>
         {children}
       </section>
  

@@ -88,9 +88,7 @@ export default function CustomerManagementPage() {
     },
   ];
 
-  // ==========================================
-  // 2. PROJECT DETAILS DATA & COLUMNS
-  // ==========================================
+
 
   const mockProjectDetails = [
     {
@@ -223,7 +221,7 @@ export default function CustomerManagementPage() {
       {/* <CustomerScreen /> */}
       {/* <CustomerIndividualScreen></CustomerIndividualScreen> */}
       <ProfileLayout
-        role="Customer Individual"
+        role=""
         customerData={customerInfo}
         teamTableData={mockTeamDetails}
         teamTableColumns={teamColumns}

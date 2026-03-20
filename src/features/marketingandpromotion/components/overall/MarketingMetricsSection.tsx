@@ -175,7 +175,7 @@ export function GraphSection() {
           <div className="w-full flex flex-col gap-4">
             <div className="flex gap-3 place-items-center">
               <p className="text-[18px] 2xl:text-[24px] font-normal text-neutral-1">
-                Campaign Performance{" "}
+                Campaign Performance
               </p>
               <Info className="w-4 h-4 text-neutral-3"></Info>
             </div>
