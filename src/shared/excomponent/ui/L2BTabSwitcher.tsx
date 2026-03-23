@@ -2,8 +2,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 // 1. Define the props so it can talk to the Header
 interface TabSwitcherProps {
-  activeTab: string;
-  onChange: (value: string) => void; // shadcn/radix passes the value as a string
+  activeTab?: string;
+  onChange?: (value: string) => void; // shadcn/radix passes the value as a string
 }
 
 export function TabSwitcher({ activeTab, onChange }: TabSwitcherProps) {
