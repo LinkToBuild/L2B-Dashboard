@@ -9,7 +9,7 @@ import SectionWrapper from "@/shared/components/SectionWrapper";
 import GrowthMetricsWidget from "../components/overall/GrowthMetricsWidget";
 import { ColumnConfig, DynamicTable } from "@/shared/components/Table";
 import mapImg from "@/public/images/mapImg.png";
-import GrowthMetricsBottom from "../components/overall/GrowthMetricsBottom";
+import GrowthMetricsBottom from "../components/overall/GrowthFunnelsSection";
 
 const searchData = [
   {
