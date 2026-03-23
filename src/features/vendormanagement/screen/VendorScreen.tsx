@@ -11,7 +11,12 @@ import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import { ColumnConfig } from "@/shared/components/Table";
 import { MapPin } from "lucide-react";
 import { BottomTableToolbar } from "../components/overall/BottomTableToolBar";
+import { useVendorViewModel } from "../viewModel/useVendorViewModel";
+
 export function VendorScreen() {
+ const { infoCards, stats, inventory, orders, currentTab, startDate, endDate, setUrlFilter } =
+    useVendorViewModel();
+
   let customerData = [
     {
       label: "Total",
@@ -360,38 +365,51 @@ export function VendorScreen() {
   return (
     <>
       <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  ">
-        <Header></Header>
+        <Header
+          currentTab={currentTab}
+          onTabChange={(tab) => setUrlFilter("tab", tab)}
+          currentStartDate={startDate}
+          currentEndDate={endDate}
+          onFilterChange={(filter) => setUrlFilter("filter", filter)}
+          onDateChange={(start, end) => {
+            if (start) setUrlFilter("startDate", start.toISOString());
+            if (end) setUrlFilter("endDate", end.toISOString());
+          }}
+        />
         <SectionWrapper className="flex flex-col gap-[30px]">
           <div className=" w-full flex justify-between">
             <div className=" w-[76%] flex flex-col gap-[10px]">
               <div className="flex flex-col gap-y-[20px] mb-[32px]">
-                <InfoCards></InfoCards>
-                <InfoCards></InfoCards>
+                <InfoCards data={infoCards?.slice(0, 4) || []} />
+                <InfoCards data={infoCards?.slice(4, 8) || []} />
               </div>
               <TableToolbar></TableToolbar>
+
+              {/* TOP TABLE (Inventory) */}
               <DynamicTable
                 columns={columns}
-                data={mockMaterials}
-                minWidth={955} // Matches your Frame 427318563.jpg reference for many columns
-                maxHeight={226} // Adjust as needed for your design
+                data={inventory} // <--- Replaced mockMaterials
+                minWidth={955}
+                maxHeight={226}
               />
             </div>
             <div className="">
+              {/* SIDEBOARD (Stats) */}
               <SideBoard
                 title="All Vendors"
                 overallPercentage={-20.89}
                 overallTrend="down"
-                data={customerData}
+                data={stats} // <--- Replaced customerData
               ></SideBoard>
             </div>
           </div>
           <div className="flex flex-col gap-[10px]">
             <BottomTableToolbar></BottomTableToolbar>
+
+            {/* BOTTOM TABLE (Orders) */}
             <DynamicTable
               columns={column}
-              data={mockData}
-              // Matches your Frame 427318563.jpg reference for many columns
-              // maxHeight={226} // Adjust as needed for your design
+              data={orders} // <--- Replaced mockData
             />
           </div>
         </SectionWrapper>
