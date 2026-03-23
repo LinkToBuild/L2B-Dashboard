@@ -4,8 +4,8 @@ import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorInd
 export default function VendorManagementPage() {
   return (
     <div className="px-8 py-5 min-h-screen bg-[#F8F9FA]">
-      {/* <VendorScreen />; */}
-      <VendorIndividualScreen></VendorIndividualScreen>
+      <VendorScreen />;
+      {/* <VendorIndividualScreen></VendorIndividualScreen> */}
     </div>
   );
 }
