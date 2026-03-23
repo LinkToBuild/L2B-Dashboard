@@ -245,7 +245,7 @@ export default function GrowthMetricsBottom() {
   const [materialSearchValue, setMaterialSearchValue] = useState("");
 
   return (
-    <div className="w-full grid grid-cols-2 gap-[24px] min-w-0">
+    <div className="w-full grid grid-cols-2 gap-[80px] min-w-0">
       <div className="min-w-0">
         <FunnelPanel
           title="Rental Funnel"

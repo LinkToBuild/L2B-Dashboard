@@ -142,6 +142,7 @@
 //   );
 // }
 
+//=================================Updated================
 
 
 "use client";
@@ -170,6 +171,9 @@ interface SidebarProps {
 export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
   const pathname = usePathname();
   const [isMobile, setIsMobile] = useState(false);
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
+  const [showLabels, setShowLabels] = useState(isOpen);
+  const [showActiveHighlight, setShowActiveHighlight] = useState(isOpen);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -181,32 +185,63 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (isOpen || isMobile) {
+      setActiveTooltip(null);
+    }
+  }, [isOpen, isMobile]);
+
+  useEffect(() => {
+    let labelTimer: ReturnType<typeof setTimeout>;
+    let highlightTimer: ReturnType<typeof setTimeout>;
+
+    if (isOpen) {
+      setShowLabels(false);
+      setShowActiveHighlight(false);
+
+      labelTimer = setTimeout(() => {
+        setShowLabels(true);
+      }, 300);
+
+      highlightTimer = setTimeout(() => {
+        setShowActiveHighlight(true);
+      }, 600);
+    } else {
+      setShowLabels(false);
+      setShowActiveHighlight(true);
+    }
+
+    return () => {
+      clearTimeout(labelTimer);
+      clearTimeout(highlightTimer);
+    };
+  }, [isOpen]);
+
   return (
     <aside
       className={cn(
         "bg-white transition-all duration-300 flex flex-col fixed h-screen z-50",
         "shadow-[4px_0_15px_0_rgba(0,0,0,0.1)]",
         isMobile ? (isOpen ? "w-64" : "w-0") : isOpen ? "w-76" : "w-[100px]",
-        isMobile && !isOpen ? "-translate-x-full" : "translate-x-0"
+        isMobile && !isOpen ? "-translate-x-full" : "translate-x-0",
       )}
     >
       <div className="p-4 flex items-center justify-between relative min-h-[90px]">
-        <div className="flex items-center gap-3">
+        <div className={cn("flex items-center gap-3")}>
           <div
             className={cn(
               "w-[57px] h-[56px] flex justify-center items-center rounded-[10px] bg-white",
-              "shadow-l2b-soft shadow-md"
+              "shadow-l2b-soft shadow-md",
             )}
           >
             <Image src={logoImg} alt="Logo" className="h-[20px] w-[47px]" />
           </div>
-
           <div
             className={cn(
               "flex flex-col transition-all duration-300 ease-in-out",
-              isOpen
-                ? "opacity-100 translate-x-0 delay-200"
-                : "opacity-0 -translate-x-4 delay-0 pointer-events-none"
+              showLabels
+                ? "opacity-100 translate-x-0 w-auto"
+                : "opacity-0 -translate-x-4 w-0 overflow-hidden pointer-events-none",
             )}
           >
             <p className="font-bold text-[16px] leading-tight text-gray-900 whitespace-nowrap">
@@ -219,11 +254,15 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
         </div>
 
         <button
-          onClick={onToggle}
+          onClick={() => {
+            setActiveTooltip(null);
+            onToggle();
+          }}
           className={cn(
             "absolute top-1/2 -translate-y-1/2 -right-4 z-50 rounded-[8px]",
             "p-1.5 bg-white border border-gray-200 transition-all",
-            "shadow-l2b-soft shadow-md flex items-center justify-center"
+            "shadow-l2b-soft shadow-md",
+            "flex items-center justify-center",
           )}
         >
           {!isOpen ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
@@ -231,47 +270,50 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
       </div>
 
       <TooltipProvider delayDuration={100}>
-        <nav className="flex flex-col px-2 py-4 gap-y-[14px] overflow-y-auto place-self-center">
-          {navigationItems.map((item) => {
-            const linkNode = (
-              <Link
-                href={item.path}
-                onClick={onClose}
-                className={cn(
-                  "relative flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-[16px]",
-                  pathname === item.path
-                    ? "bg-[#FFEDCD] text-[#FEA405]"
-                    : "hover:bg-[#FFEDCD] hover:text-[#FEA405]"
-                )}
-              >
-                <Image
-                  src={item.icon}
-                  alt={item.name}
-                  width={24}
-                  height={24}
-                  className="max-w-6 max-h-6 shrink-0"
-                />
-
-                <span
+        <nav className="flex flex-col px-2 py-4 gap-y-[14px] overflow-y-auto self-start">
+          {navigationItems.map((item) => (
+            <Tooltip
+              key={item.path}
+              open={activeTooltip === item.path && !isOpen && !isMobile}
+              onOpenChange={(open) => {
+                setActiveTooltip(open ? item.path : null);
+              }}
+            >
+              <TooltipTrigger asChild>
+                <Link
+                  href={item.path}
+                  onClick={() => {
+                    setActiveTooltip(null);
+                    onClose();
+                  }}
                   className={cn(
-                    "transition-all duration-300 whitespace-nowrap",
-                    isOpen
-                      ? "opacity-100 translate-x-0 delay-200 w-auto"
-                      : "opacity-0 -translate-x-4 delay-0 w-0 overflow-hidden pointer-events-none"
+                    "flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-[16px]",
+                    pathname === item.path && showActiveHighlight
+                      ? "bg-[#FFEDCD] text-[#FEA405]"
+                      : "hover:bg-[#FFEDCD] hover:text-[#FEA405]",
                   )}
                 >
-                  {item.name}
-                </span>
-              </Link>
-            );
+                  <Image
+                    src={item.icon}
+                    alt="icon"
+                    width={24}
+                    height={24}
+                    className="max-w-6 max-h-6"
+                  />
+                  <span
+                    className={cn(
+                      "transition-all duration-300 whitespace-nowrap",
+                      showLabels
+                        ? "opacity-100 translate-x-0 w-auto"
+                        : "opacity-0 -translate-x-4 w-0 overflow-hidden pointer-events-none",
+                    )}
+                  >
+                    {item.name}
+                  </span>
+                </Link>
+              </TooltipTrigger>
 
-            if (isOpen || isMobile) {
-              return <React.Fragment key={item.path}>{linkNode}</React.Fragment>;
-            }
-
-            return (
-              <Tooltip key={item.path}>
-                <TooltipTrigger asChild>{linkNode}</TooltipTrigger>
+              {!isOpen && !isMobile && (
                 <TooltipContent
                   side="right"
                   sideOffset={12}
@@ -283,11 +325,15 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
                 >
                   {item.name}
                 </TooltipContent>
-              </Tooltip>
-            );
-          })}
+              )}
+            </Tooltip>
+          ))}
         </nav>
       </TooltipProvider>
     </aside>
   );
 }
+
+
+
+
