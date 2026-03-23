@@ -50,7 +50,7 @@ export function Header({
       <SectionWrapper className="">
         <div className=" flex h-[52px]   justify-between ">
           <div className=" h-full flex  font-normal place-items-center gap-2">
-            <p className="text-[#1F1F1F] xl:text-[24px] ">Overview</p>
+            <p className="text-[#1F1F1F] xl:text-[24px] ">{currentTab} Overview</p>
             <p className="text-[12px] text-[#CACACA]">
               (Comparison based on previous week's performance.)
             </p>
