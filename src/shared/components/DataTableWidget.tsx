@@ -1,54 +1,59 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-
-// IMPORTANT: Adjust these import paths to match where your files are actually located!
-
-import { TableToolBar } from "./TableToolBar"; // Adjust path as needed
+import { TableToolBar } from "./TableToolBar"; 
 import { DynamicTable, ColumnConfig } from "./Table"; 
 
 interface DataTableWidgetProps<T> {
   title?: string;
   columns: ColumnConfig<T>[];
   data: T[];
+  searchQuery?: string; 
+  onSearchChange?: (value: string) => void; 
 }
 
 export function DataTableWidget<T>({ 
   title = "Campaign Report", 
   columns, 
-  data 
+  data,
+  searchQuery: externalSearch, 
+  onSearchChange: onExternalChange
 }: DataTableWidgetProps<T>) {
-  
-  // 1. Manage the search input state here
-  const [searchQuery, setSearchQuery] = useState("");
 
-  // 2. Filter the data based on what the user types
+  // 1. Local state only used IF no external props are provided
+  const [internalSearch, setInternalSearch] = useState("");
+
+  // 2. Determine which search value to use (External vs Internal)
+  const currentSearchValue = externalSearch !== undefined ? externalSearch : internalSearch;
+
+  const handleSearchChange = (val: string) => {
+    if (onExternalChange) {
+      onExternalChange(val); // Updates URL/ViewModel
+    } else {
+      setInternalSearch(val); // Updates local state for legacy pages
+    }
+  };
+
+  // 3. Combined Filter Logic (Declared only ONCE)
   const filteredData = useMemo(() => {
-    // If the search bar is empty, just return the original data
-    if (!searchQuery) return data;
+    if (!currentSearchValue) return data;
+    const lowerCaseQuery = currentSearchValue.toLowerCase();
 
-    const lowerCaseQuery = searchQuery.toLowerCase();
-
-    // Filter through every row
     return data.filter((row: any) => {
-      // Check every single column/value in that row for a match
       return Object.values(row).some((val) =>
         String(val).toLowerCase().includes(lowerCaseQuery)
       );
     });
-  }, [data, searchQuery]);
+  }, [data, currentSearchValue]);
 
   return (
     <div className="flex flex-col gap-[10px] w-full">
-      {/* 3. Pass the state to the Toolbar so it updates when typed */}
-
       <TableToolBar 
-  title={title}
-  searchValue={searchQuery}
-  onSearchChange={setSearchQuery} 
-/>
+        title={title}
+        searchValue={currentSearchValue}
+        onSearchChange={handleSearchChange} 
+      />
 
-      {/* 4. Pass only the FILTERED data to your Table */}
       <DynamicTable
         columns={columns}
         data={filteredData}

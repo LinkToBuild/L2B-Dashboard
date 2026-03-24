@@ -6,20 +6,11 @@ import SectionWrapper from "@/shared/components/SectionWrapper";
 import { InfoCards } from "./InfoCards";
 import { RateIndicator } from "./RateIndicator";
 import { StackedBarChart } from "@/shared/excomponent/charts/StackedBarGraph";
+import {  SupplyDemandData } from "@/features/ordersandoperation/types/index";
 import { Info } from "lucide-react";
-export default function SupplyDemandChart() {
-  const chartSeries = [
-    {
-      dataKey: "availability",
-      label: "Availability",
-      color: "#FBB344", // The Orange color
-    },
-    {
-      dataKey: "requirement",
-      label: "Requirement",
-      color: "#8EADD5", // The Light Blue color
-    },
-  ];
+export default function SupplyDemandChart({ data }: { data: SupplyDemandData[] }) {
+  const chartSeries = [ { dataKey: "availability", label: "Availability", color: "#FBB344" }, { dataKey: "requirement", label: "Requirement", color: "#8EADD5" } ];
+ 
 
   const supplyDemandData = [
     { name: "Excavators", availability: 3800, requirement: 1200 },
