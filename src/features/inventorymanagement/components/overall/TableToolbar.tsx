@@ -1,20 +1,32 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
 import { ListFilter, Info } from "lucide-react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 
-export function TableToolbar() {
-  const [filter, setFilter] = useState<string>("Completed");
+// 1. Define the props we expect from the ViewModel
+export interface TableToolbarProps {
+  searchQuery: string;
+  onSearchChange: (value: string) => void;
+  currentFilter: string;
+  onFilterChange: (filter: string) => void;
+}
+
+export function TableToolbar({
+  searchQuery,
+  onSearchChange,
+  currentFilter,
+  onFilterChange,
+}: TableToolbarProps) {
+  
+  // 2. The dropdown now updates the parent (ViewModel) instead of local state
   const filterMenuItems = [
-    { label: "Completed", onClick: () => setFilter("Completed") },
-    { label: "Started", onClick: () => setFilter("Started") },
-    { label: "Arrived", onClick: () => setFilter("Arrived") },
-    { label: "Canceled", onClick: () => setFilter("Canceled") },
-    { label: "Extended", onClick: () => setFilter("Extended") },
+    { label: "High Value", onClick: () => onFilterChange("High Value") },
+    { label: "Medium Value", onClick: () => onFilterChange("Medium Value") },
+    { label: "Low Value", onClick: () => onFilterChange("Low Value") },
   ];
+
   return (
     <div>
       <div className="flex justify-between place-items-center">
@@ -28,11 +40,13 @@ export function TableToolbar() {
             <a href="" className="underline underline-offset-2">Upload CSV</a>
           </div>
 
+          {/* 3. Wire up the CustomInput to the URL search query */}
           <CustomInput
             sizeVariant="lg"
             label="Search"
             type="search"
-            // helperText="Must be 8 characters"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
           />
 
           <L2BDropdownMenu

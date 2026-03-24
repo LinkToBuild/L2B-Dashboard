@@ -17,7 +17,7 @@ export function VendorScreen() {
  const { infoCards, stats, inventory, orders, currentTab, startDate, endDate, setUrlFilter } =
     useVendorViewModel();
 
-  let customerData = [
+  const customerData = [
     {
       label: "Total",
       percentage_change: -20.89,

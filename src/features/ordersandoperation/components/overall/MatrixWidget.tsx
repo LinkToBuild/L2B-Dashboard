@@ -27,7 +27,7 @@ export default function MatrixWidget() {
     { dataKey: "grossSale", name: "Gross Sale", color: "#8E8E8E" }, // The single grey line
   ];
 
-  let infoCardsData = [
+  const infoCardsData = [
     {
       title: "Gross Sale",
       Stats: "₹9,844",
@@ -42,7 +42,7 @@ export default function MatrixWidget() {
     },
   ];
 
-  let infoCardsData2 = [
+  const infoCardsData2 = [
     {
       title: "Error Rate",
       Stats: "9%",

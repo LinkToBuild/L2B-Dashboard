@@ -9,192 +9,20 @@ import { DynamicTable } from "@/shared/components/Table";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import { ColumnConfig } from "@/shared/components/Table";
 import { AlertTriangle } from "lucide-react";
+import { useInventoryViewModel } from "../viewModel/useInventoryViewModel";
+import { useMemo } from "react";
 
 export function InventoryScreen() {
-  const mockData = [
-    {
-      name: "Truck",
-      capacity: "10-12 ft",
-      brand: "-",
-      analysis: "High Value",
-      quantity: "20.7k",
-      hasQuantityAlert: false,
-      cost: "9.8k/km",
-      fuel: "300/km",
-      operatorFee: "200/hr",
-      vendors: "12",
-      searchRate: "-",
-    },
-    {
-      name: "Bulldozer",
-      capacity: "Truck Dozer",
-      brand: "Volvo",
-      analysis: "Medium Value",
-      quantity: "12.8k",
-      hasQuantityAlert: false,
-      cost: "2.6k/8hr",
-      fuel: "250/hr",
-      operatorFee: "300/hr",
-      vendors: "32",
-      searchRate: "1.2%",
-    },
-    {
-      name: "Borewell",
-      capacity: "Identifying",
-      brand: "Hitachi",
-      analysis: "Low Value",
-      quantity: "23.9k",
-      hasQuantityAlert: false,
-      cost: "1.3k/km",
-      fuel: "-",
-      operatorFee: "100/hr",
-      vendors: "1",
-      searchRate: "3.7%",
-    },
-    {
-      name: "Tipper",
-      capacity: "Conversion",
-      brand: "Volvo",
-      analysis: "Low Value",
-      quantity: "11",
-      hasQuantityAlert: true,
-      cost: "7.7k/km",
-      fuel: "300/km",
-      operatorFee: "100/hr",
-      vendors: "2",
-      searchRate: "1.2%",
-    },
-    {
-      name: "Borewell",
-      capacity: "Identifying",
-      brand: "Volvo",
-      analysis: "Medium Value",
-      quantity: "12.8k",
-      hasQuantityAlert: false,
-      cost: "1k/km",
-      fuel: "-",
-      operatorFee: "100/hr",
-      vendors: "5",
-      searchRate: "3.7%",
-    },
-    {
-      name: "Borewell",
-      capacity: "Identifying",
-      brand: "-",
-      analysis: "Medium Value",
-      quantity: "12",
-      hasQuantityAlert: true,
-      cost: "2k/8hr",
-      fuel: "-",
-      operatorFee: "100/hr",
-      vendors: "12",
-      searchRate: "-",
-    },
-    {
-      name: "Borewell",
-      capacity: "Identifying",
-      brand: "Hitachi",
-      analysis: "Low Value",
-      quantity: "23.9k",
-      hasQuantityAlert: false,
-      cost: "8k/8hr",
-      fuel: "-",
-      operatorFee: "100/hr",
-      vendors: "43",
-      searchRate: "1.2%",
-    },
-    {
-      name: "Truck",
-      capacity: "Drilling",
-      brand: "Hitachi",
-      analysis: "Low Value",
-      quantity: "12.8k",
-      hasQuantityAlert: false,
-      cost: "8k/8hr",
-      fuel: "300/km",
-      operatorFee: "100/hr",
-      vendors: "21",
-      searchRate: "1.2%",
-    },
-    {
-      name: "Borewell",
-      capacity: "Identifying",
-      brand: "Volvo",
-      analysis: "Low Value",
-      quantity: "23.9k",
-      hasQuantityAlert: false,
-      cost: "8k/km",
-      fuel: "-",
-      operatorFee: "300/hr",
-      vendors: "32",
-      searchRate: "3.7%",
-    },
-    {
-      name: "Truck",
-      capacity: "Drilling",
-      brand: "-", // Blank in image
-      analysis: "Low Value",
-      quantity: "12.8k",
-      hasQuantityAlert: false,
-      cost: "8k/8hr",
-      fuel: "300/km",
-      operatorFee: "300/hr",
-      vendors: "12",
-      searchRate: "-",
-    },
-    {
-      name: "Borewell",
-      capacity: "Identifying",
-      brand: "Hitachi",
-      analysis: "Low Value",
-      quantity: "12.8k",
-      hasQuantityAlert: false,
-      cost: "8k/8hr",
-      fuel: "-",
-      operatorFee: "300/hr",
-      vendors: "6",
-      searchRate: "1.2%",
-    },
-    {
-      name: "Borewell",
-      capacity: "Drilling",
-      brand: "Hitachi",
-      analysis: "Low Value",
-      quantity: "23.9k",
-      hasQuantityAlert: false,
-      cost: "8k/km",
-      fuel: "300/hr",
-      operatorFee: "300/hr",
-      vendors: "9",
-      searchRate: "1.2%",
-    },
-    {
-      name: "Borewell",
-      capacity: "Identifying",
-      brand: "Volvo",
-      analysis: "Low Value",
-      quantity: "12.8k",
-      hasQuantityAlert: false,
-      cost: "8k/km",
-      fuel: "-",
-      operatorFee: "300/hr",
-      vendors: "10",
-      searchRate: "3.7%",
-    },
-    {
-      name: "Borewell",
-      capacity: "Drilling",
-      brand: "Hitachi",
-      analysis: "Low Value",
-      quantity: "100",
-      hasQuantityAlert: true,
-      cost: "8k/8hr",
-      fuel: "-",
-      operatorFee: "300/hr",
-      vendors: "1",
-      searchRate: "3.7%",
-    },
-  ];
+  const {
+    currentTab,
+    searchQuery,
+    currentFilter,
+    setUrlFilter,
+    infoCards,
+    tableData,
+    startDate,  
+    endDate
+  } = useInventoryViewModel();
 
   const columns: ColumnConfig<any>[] = [
     { header: "Name", key: "name", width: 120, align: "center" },
@@ -238,16 +66,60 @@ export function InventoryScreen() {
     { header: "No. of vendor", key: "vendors", width: 140, align: "center" },
     { header: "Search Rate", key: "searchRate", width: 120, align: "center" },
   ];
+
+const filteredData = useMemo(() => {
+    let result = tableData;
+
+    // A. Apply the Dropdown Filter first
+    if (currentFilter && currentFilter !== "all") {
+      // Clean the URL string: replace any "+" signs with a normal space
+      const cleanFilter = currentFilter.replace(/\+/g, ' '); 
+      
+      result = result.filter((item) => item.analysis === cleanFilter);
+    }
+
+    // B. Apply the Search Bar Filter second
+    if (searchQuery) {
+      const lowerCaseQuery = searchQuery.toLowerCase();
+      result = result.filter(
+        (item) =>
+          item.name.toLowerCase().includes(lowerCaseQuery) ||
+          item.brand.toLowerCase().includes(lowerCaseQuery)
+      );
+    }
+
+    return result;
+  }, [tableData, searchQuery, currentFilter]);
+
+  
   return (
     <>
       <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  ">
-        <Header></Header>
+        <Header
+          currentTab={currentTab}
+          onTabChange={(tab) => setUrlFilter("tab", tab)}
+          startDate={startDate}
+          onStartDateChange={(date) =>
+            setUrlFilter("startDate", date ? date.toISOString() : null)
+          }
+          endDate={endDate}
+          onEndDateChange={(date) =>
+            setUrlFilter("endDate", date ? date.toISOString() : null)
+          }
+          currentFilter={currentFilter}
+          onFilterChange={(filter) => setUrlFilter("headerFilter", filter)}
+        />
         <SectionWrapper className="flex flex-col gap-[30px]">
-          <InfoCards></InfoCards>
-          <TableToolbar></TableToolbar>
+          <InfoCards data={infoCards} />
+          <TableToolbar
+            searchQuery={searchQuery}
+            onSearchChange={(value) => setUrlFilter("search", value)}
+            currentFilter={currentFilter}
+            onFilterChange={(value) => setUrlFilter("filter", value)}
+          />
           <DynamicTable
             columns={columns}
-            data={mockData}
+            data={filteredData}
             minWidth={1100} // Matches your Frame 427318563.jpg reference for many columns
           />
         </SectionWrapper>

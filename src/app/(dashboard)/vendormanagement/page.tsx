@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
-import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorIndividualScreen";
+// import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorIndividualScreen";
 
 export default function VendorManagementPage() {
   return (

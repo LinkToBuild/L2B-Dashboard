@@ -23,7 +23,7 @@ import { ChartConfig } from "@/components/ui/chart";
 export function CustomerScreen() {
   const [filter, setFilter] = useState<string>("Completed");
 
-  let infoCardsData = [
+  const infoCardsData = [
     {
       title: "Active Orders",
       Stats: "10,90,00",
@@ -38,7 +38,7 @@ export function CustomerScreen() {
     },
   ];
 
-  let customerData = [
+  const customerData = [
     {
       label: "Total",
       percentage_change: -20.89,
