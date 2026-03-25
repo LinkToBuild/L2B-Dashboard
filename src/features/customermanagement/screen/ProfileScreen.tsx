@@ -78,8 +78,8 @@ export default function ProfileLayout({
                 onFilterChange={(val) => setTimeFilter(val)}
               />
               <DynamicTable
-                columns={teamTableColumns} // 👉 Uses Prop
-                data={teamTableData} // 👉 Uses Prop
+                columns={teamTableColumns} 
+                data={teamTableData} 
                 maxHeight={296}
               />
             </div>

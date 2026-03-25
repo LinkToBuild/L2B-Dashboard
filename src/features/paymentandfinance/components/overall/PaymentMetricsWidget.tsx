@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SegmentedOrdersBarChart, {
   SegmentedOrdersBarRow,
 } from "@/shared/excomponent/charts/SegmentedBarChart";
+import { PFSegmentedBarRow } from "@/features/paymentandfinance/types/index";
 
 const rentalOrdersData: SegmentedOrdersBarRow[] = [
   {
@@ -499,51 +500,34 @@ const materialOrdersData: SegmentedOrdersBarRow[] = [
 
 interface PaymentMetricsWidgetProps {
   rowsToShow?: number;
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+  rentalData: PFSegmentedBarRow[];
+  materialData: PFSegmentedBarRow[];
 }
 
-export default function PaymentMetricsWidget({
-  rowsToShow = 7,
+export default function PaymentMetricsWidget ({
+  rowsToShow = 7, activeTab, onTabChange, rentalData, materialData
 }: PaymentMetricsWidgetProps) {
-  const [activeTab, setActiveTab] = React.useState<"rental" | "material">(
-    "rental"
-  );
+ 
 
-  const chartData = (
-    activeTab === "rental" ? rentalOrdersData : materialOrdersData
-  ).slice(0, rowsToShow);
+const chartData = (activeTab === "rental" ? rentalData : materialData).slice(0, rowsToShow);
 
   return (
     <div className="w-full">
       <div className="mb-[18px] mt-[28px] flex justify-start">
-        <Tabs
-          value={activeTab}
-          onValueChange={(value) =>
-            setActiveTab(value as "rental" | "material")
-          }
-          className="h-[48px] w-[225px]"
-        >
+        <Tabs value={activeTab} onValueChange={onTabChange} className="h-[48px] w-[225px]">
           <TabsList className="h-full w-full rounded-[8px] bg-neutral-6 p-[4px]">
-            <TabsTrigger
-              value="rental"
-              className="flex-1 rounded-[6px] text-[16px] font-normal text-neutral-2 data-[state=active]:bg-[#F4B037] data-[state=active]:text-white"
-            >
-              Rental
-            </TabsTrigger>
-            <TabsTrigger
-              value="material"
-              className="flex-1 rounded-[6px] text-[16px] font-normal text-neutral-2 data-[state=active]:bg-[#F4B037] data-[state=active]:text-white"
-            >
-              Material
-            </TabsTrigger>
+            <TabsTrigger value="rental" className="flex-1 rounded-[6px] text-[16px] font-normal text-neutral-2 data-[state=active]:bg-[#F4B037] data-[state=active]:text-white">Rental</TabsTrigger>
+            <TabsTrigger value="material" className="flex-1 rounded-[6px] text-[16px] font-normal text-neutral-2 data-[state=active]:bg-[#F4B037] data-[state=active]:text-white">Material</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
 
       <div className="w-full">
-        <SegmentedOrdersBarChart
+       <SegmentedOrdersBarChart
           data={chartData}
           height="auto"
-          // barHeight={291}
           rowGap={30}
           segmentGap={4}
           maxBarWidth={1250}
