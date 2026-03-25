@@ -9,24 +9,34 @@ import { Calendar } from "@/components/ui/calendar";
 import { DownloadReportButton } from "@/shared/components/DownloadReportButton";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 
-interface NavbarProps {
-  onToggleSidebar: () => void;
+interface GBHeaderProps {
+  currentFilter: string;
+  onFilterChange: (filter: string) => void;
+  startDate?: string | null;
+  onStartDateChange: (date: Date | undefined) => void;
+  endDate?: string | null;
+  onEndDateChange: (date: Date | undefined) => void;
 }
 
-export function Header() {
-  const [activeTab, setActiveTab] = useState<"Rental" | "Material">("Rental");
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-
+export function Header({
+  currentFilter,
+  onFilterChange,
+  startDate,
+  onStartDateChange,
+  endDate,
+  onEndDateChange,
+}: GBHeaderProps) {
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [showEndCalendar, setShowEndCalendar] = useState(false);
-  const [filter, setFilter] = useState<string>("Daily");
+
+  const parsedStartDate = startDate ? new Date(startDate) : undefined;
+  const parsedEndDate = endDate ? new Date(endDate) : undefined;
 
   const filterMenuItems = [
-    { label: "Daily", onClick: () => setFilter("Daily") },
-    { label: "Weekly", onClick: () => setFilter("Weekly") },
-    { label: "Monthly", onClick: () => setFilter("Monthly") },
-    { label: "Yearly", onClick: () => setFilter("Yearly") },
+    { label: "Daily", onClick: () => onFilterChange("Daily") },
+    { label: "Weekly", onClick: () => onFilterChange("Weekly") },
+    { label: "Monthly", onClick: () => onFilterChange("Monthly") },
+    { label: "Yearly", onClick: () => onFilterChange("Yearly") },
   ];
 
   return (
@@ -63,21 +73,21 @@ export function Header() {
                   textSize="text-[16px]"
                   textColor="text-neutral-3"
                   radius="rounded-[4px]"
-                  fontWeight="font-normal"
                   size="medium"
                 >
-                  {startDate ? startDate.toLocaleDateString() : "Start Date"}
+                  {parsedStartDate
+                    ? parsedStartDate.toLocaleDateString()
+                    : "Start Date"}
                 </L2BButton>
-
                 {showStartCalendar && (
                   <div className="absolute top-10 left-0 z-50 bg-white border rounded-lg shadow-lg p-4">
                     <Calendar
                       mode="single"
-                      selected={startDate}
+                      selected={parsedStartDate}
                       captionLayout="dropdown"
                       className="w-[230px] h-[260px]"
                       onSelect={(date) => {
-                        setStartDate(date);
+                        onStartDateChange(date);
                         setShowStartCalendar(false);
                       }}
                     />
@@ -95,21 +105,21 @@ export function Header() {
                   textSize="text-[16px]"
                   textColor="text-neutral-3"
                   radius="rounded-[4px]"
-                  fontWeight="font-normal"
                   size="medium"
                 >
-                  {endDate ? endDate.toLocaleDateString() : "End Date"}
+                  {parsedEndDate
+                    ? parsedEndDate.toLocaleDateString()
+                    : "End Date"}
                 </L2BButton>
-
                 {showEndCalendar && (
                   <div className="absolute top-10 right-0 z-50 bg-white border rounded-lg shadow-lg p-4">
                     <Calendar
                       mode="single"
+                      selected={parsedEndDate}
                       captionLayout="dropdown"
                       className="w-[230px] h-[260px]"
-                      selected={endDate}
                       onSelect={(date) => {
-                        setEndDate(date);
+                        onEndDateChange(date);
                         setShowEndCalendar(false);
                       }}
                     />
