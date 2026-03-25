@@ -1,115 +1,3 @@
-// "use client";
-
-// import React from "react";
-// import { cn } from "@/lib/utils";
-// import { Button } from "@/shared/excomponent/ui/UIButton";
-
-// interface ConfirmationModalProps {
-//   open: boolean;
-//   title: string;
-//   description?: string;
-//   confirmText: string;
-//   cancelText?: string;
-//   onConfirm: () => void;
-//   onCancel: () => void;
-//   icon?: React.ReactNode;
-//   hideCancel?: boolean;
-
-//   confirmButtonClassName?: string;
-//   cancelButtonClassName?: string;
-// }
-
-// export default function ConfirmationModal({
-//   open,
-//   title,
-//   description,
-//   confirmText,
-//   cancelText = "Cancel",
-//   onConfirm,
-//   onCancel,
-//   icon,
-//   hideCancel = false,
-//   confirmButtonClassName,
-//   cancelButtonClassName,
-// }: ConfirmationModalProps) {
-//   return (
-//     <>
-//       <div
-//         className={cn(
-//           "fixed inset-0 z-40 bg-black/30 transition-opacity duration-300",
-//           open
-//             ? "opacity-100 pointer-events-auto"
-//             : "opacity-0 pointer-events-none"
-//         )}
-//         onClick={onCancel}
-//       />
-
-//       <div
-//         className={cn(
-//           "fixed left-1/2 top-1/2 z-50 w-[420px] max-w-[92vw] -translate-x-1/2 -translate-y-1/2 rounded-[16px] bg-white p-6 shadow-xl transition-all duration-300",
-//           open
-//             ? "opacity-100 scale-100 pointer-events-auto"
-//             : "opacity-0 scale-95 pointer-events-none"
-//         )}
-//       >
-//         <div className="flex flex-col items-center text-center">
-//           {icon && <div className="mb-5">{icon}</div>}
-
-//           <h2 className="font-['Poppins'] text-[16px] font-medium leading-[100%] tracking-[0] text-center align-middle text-neutral-1">
-//             {title}
-//           </h2>
-
-//           {description && (
-//             <p className="mt-3 font-['Poppins'] text-[14px] font-normal leading-6 tracking-[0] text-center text-neutral-3">
-//               {description}
-//             </p>
-//           )}
-
-//           <div
-//             className={cn(
-//               "mt-8 flex w-full gap-4",
-//               hideCancel ? "justify-center" : ""
-//             )}
-//           >
-//             {!hideCancel && (
-//               <Button
-//                 onClick={onCancel}
-//                 variant="outline"
-//                 size="default"
-//                 className={cn(
-//                   "flex-1 rounded-[8px] border border-[#D9D9D9] bg-white text-black hover:bg-gray-50",
-//                   cancelButtonClassName
-//                 )}
-//               >
-//                 <span className="font-['Poppins'] text-[16px] font-medium leading-[100%] tracking-[0] text-center align-middle">
-//                   {cancelText}
-//                 </span>
-//               </Button>
-//             )}
-
-//             <Button
-//               onClick={onConfirm}
-//               variant="default"
-//               size="default"
-//               className={cn(
-//                 "h-[40px] rounded-[8px] bg-[#FEB637] px-4 py-3 text-black hover:bg-[#FEB637]/90",
-//                 hideCancel ? "w-[118px]" : "flex-1",
-//                 confirmButtonClassName
-//               )}
-//             >
-//               <span className="font-['Poppins'] text-[16px] font-medium leading-[100%] tracking-[0] text-center align-middle">
-//                 {confirmText}
-//               </span>
-//             </Button>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
-
-
 "use client";
 
 import React from "react";
@@ -159,19 +47,19 @@ const successIcon = (
 );
 
 const dangerCircleIcon = (
-  <CircleX className="h-[72px] w-[72px] text-[#F26D6D]" strokeWidth={1.75} />
+  <CircleX className="h-[60px] w-[60px] text-[#F26D6D]" strokeWidth={1.75} />
 );
 
 const trashIcon = (
-  <Trash2 className="h-[56px] w-[56px] text-[#F25555]" strokeWidth={1.75} />
+  <Trash2 className="h-[60px] w-[60px] text-[#F25555]" strokeWidth={1.75} />
 );
 
 const enableIcon = (
-  <ArrowDownCircle className="h-[56px] w-[56px] text-[#36C275]" strokeWidth={1.75} />
+  <ArrowDownCircle className="h-[60px] w-[60px] text-[#36C275]" strokeWidth={1.75} />
 );
 
 const disableIcon = (
-  <Ban className="h-[56px] w-[56px] text-[#F25555]" strokeWidth={1.75} />
+  <Ban className="h-[60px] w-[60px] text-[#F25555]" strokeWidth={1.75} />
 );
 
 const confirmationConfig = {
@@ -305,7 +193,7 @@ export default function ConfirmationModal({
 
       <div
         className={cn(
-          "fixed left-1/2 top-1/2 z-50 w-[360px] max-w-[402px] -translate-x-1/2 -translate-y-1/2 rounded-[16px] bg-white p-6 shadow-xl transition-all duration-300",
+          "fixed left-1/2 top-1/2 z-50 h-[328] max-w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-[16px] bg-white p-6 shadow-xl transition-all duration-300",
           open
             ? "opacity-100 scale-100 pointer-events-auto"
             : "opacity-0 scale-95 pointer-events-none"
@@ -314,19 +202,19 @@ export default function ConfirmationModal({
         <div className="flex flex-col items-center text-center">
           {finalIcon && <div className="mb-5">{finalIcon}</div>}
 
-          <h2 className="font-['Poppins'] text-[16px] font-medium leading-[140%] tracking-[0] text-center text-neutral-1">
+          <h2 className="font-['Poppins'] text-[24px] font-medium leading-[100%] tracking-[0] text-center text-[#000000]">
             {finalTitle}
           </h2>
 
           {finalDescription ? (
-            <p className="mt-3 font-['Poppins'] text-[14px] font-normal leading-6 tracking-[0] text-center text-neutral-3">
+            <p className="mt-3 font-['Poppins'] text-[16px] font-normal leading-[100%] tracking-[0] text-center text-[#8E8E8E]">
               {finalDescription}
             </p>
           ) : null}
 
           <div
             className={cn(
-              "mt-8 flex w-full gap-4",
+              "mt-[40px] flex w-full gap-4",
               finalHideCancel ? "justify-center" : ""
             )}
           >
@@ -336,7 +224,7 @@ export default function ConfirmationModal({
                 variant="outline"
                 size="default"
                 className={cn(
-                  "flex-1 rounded-[8px] border border-[#D9D9D9] bg-white text-black hover:bg-gray-50",
+                  "flex-1 rounded-[8px] w-[200px] h-[40px] border border-[#D9D9D9] bg-white text-black hover:bg-gray-50",
                   cancelButtonClassName
                 )}
               >
@@ -352,7 +240,7 @@ export default function ConfirmationModal({
               size="default"
               className={cn(
                 "h-[40px] rounded-[8px] px-4 py-3",
-                finalHideCancel ? "w-[118px]" : "flex-1",
+                finalHideCancel ? "w-[200px]" : "flex-1",
                 finalConfirmButtonClassName
               )}
             >

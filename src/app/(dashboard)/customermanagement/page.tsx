@@ -218,9 +218,9 @@ export default function CustomerManagementPage() {
   };
   return (
     <div className="px-8 py-5    min-h-screen bg-[#F8F9FA]">
-      <CustomerScreen />
+      {/* <CustomerScreen /> */}
       {/* <CustomerIndividualScreen></CustomerIndividualScreen> */}
-      {/* <ProfileLayout
+      <ProfileLayout
         role=""
         customerData={customerInfo}
         teamTableData={mockTeamDetails}
@@ -228,7 +228,7 @@ export default function CustomerManagementPage() {
         projectTableData={mockProjectDetails}
         projectTableColumns={projectColumns}
         paymentData={paymentInfo}
-      ></ProfileLayout> */}
+      ></ProfileLayout>
     </div>
   );
 }

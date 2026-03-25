@@ -144,7 +144,6 @@
 
 //=================================Updated================
 
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -269,8 +268,13 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
         </button>
       </div>
 
-      <TooltipProvider delayDuration={100}>
-        <nav className="flex flex-col px-2 py-4 gap-y-[14px] overflow-y-auto self-start">
+      <TooltipProvider delayDuration={180}>
+        <nav
+          className={cn(
+            "flex flex-col px-2 py-4 gap-y-[14px] overflow-y-auto",
+            !isOpen && !isMobile ? "w-full items-center px-0" : "self-start",
+          )}
+        >
           {navigationItems.map((item) => (
             <Tooltip
               key={item.path}
@@ -288,18 +292,22 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
                   }}
                   className={cn(
                     "flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-[16px]",
+                    !isOpen && !isMobile ? "w-[48px] justify-center px-0" : "",
                     pathname === item.path && showActiveHighlight
                       ? "bg-[#FFEDCD] text-[#FEA405]"
                       : "hover:bg-[#FFEDCD] hover:text-[#FEA405]",
                   )}
                 >
-                  <Image
-                    src={item.icon}
-                    alt="icon"
-                    width={24}
-                    height={24}
-                    className="max-w-6 max-h-6"
-                  />
+                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                    <Image
+                      src={item.icon}
+                      alt="icon"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6 object-contain"
+                    />
+                  </div>
+
                   <span
                     className={cn(
                       "transition-all duration-300 whitespace-nowrap",
@@ -333,7 +341,5 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
     </aside>
   );
 }
-
-
 
 
