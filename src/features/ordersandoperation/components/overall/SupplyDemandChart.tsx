@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { LineCharts } from "@/shared/excomponent/charts/LineChart";
+// import { LineCharts } from "@/shared/excomponent/charts/LineChart";
 import SectionWrapper from "@/shared/components/SectionWrapper";
-import { InfoCards } from "./InfoCards";
-import { RateIndicator } from "./RateIndicator";
+// import { InfoCards } from "./InfoCards";
+// import { RateIndicator } from "./RateIndicator";
 import { StackedBarChart } from "@/shared/excomponent/charts/StackedBarGraph";
 import {  SupplyDemandData } from "@/features/ordersandoperation/types/index";
 import { Info } from "lucide-react";
@@ -29,6 +29,8 @@ export default function SupplyDemandChart({ data }: { data: SupplyDemandData[] }
     { name: "Compactors", availability: 3800, requirement: 1200 },
     { name: "Self Loader", availability: 4400, requirement: 0 },
   ];
+
+  
   return (
     <SectionWrapper className="w-full ">
       <div className="flex gap-5 place-items-center">
@@ -39,8 +41,8 @@ export default function SupplyDemandChart({ data }: { data: SupplyDemandData[] }
         data={supplyDemandData}
         series={chartSeries}
         yAxisLabel="Supply Demand Gap"
-        xAxisLabel="" // The image doesn't have a bottom label, so we leave it blank
-        barWidth={12} // Made it slightly thicker to match the visual weight in the image
+        xAxisLabel="" 
+        barWidth={12} 
       />
     </SectionWrapper>
   );

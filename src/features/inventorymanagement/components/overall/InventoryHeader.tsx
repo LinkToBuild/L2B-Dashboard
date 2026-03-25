@@ -17,7 +17,7 @@ export interface HeaderProps {
   onStartDateChange: (date: Date | undefined) => void;
   endDate?: string | null;
   onEndDateChange: (date: Date | undefined) => void;
-  currentFilter: string;
+  currentFilter?: string;
   onFilterChange: (filter: string) => void;
 }
 

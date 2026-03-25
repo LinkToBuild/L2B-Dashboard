@@ -16,7 +16,7 @@ export interface OrdersHeaderProps {
   onStartDateChange: (date: Date | undefined) => void;
   endDate?: string | null;
   onEndDateChange: (date: Date | undefined) => void;
-  currentFilter: string;
+  currentFilter?: string;
   onFilterChange: (filter: string) => void;
 }
 
@@ -37,7 +37,6 @@ export function Header({
   ];
 
   const score = 3.7;
-  const maxScore = 5;
 
   return (
     <SectionWrapper className="">

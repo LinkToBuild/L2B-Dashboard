@@ -41,4 +41,4 @@ You must provide the code in this exact order to prevent TypeScript errors:
 - [ ] Are we passing down `searchQuery` and `currentFilter` to properly filter the table data via `useMemo` in the Screen?
 - [ ] No local `fs` or unused imports remaining?
 
-**PROMPT:** "I am providing the code for the `ordersandoperations` screen. Please execute Step 1 through 6 of this blueprint."
+**PROMPT:** "I am providing the code for the `growthandbehaviour` screen. Please execute Step 1 through 6 of this blueprint."

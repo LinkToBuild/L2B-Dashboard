@@ -160,7 +160,7 @@ export default function VendorIndividualScreen() {
     },
   ];
   return (
-    <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%] flex flex-col gap-[30px]">
+    <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%] flex flex-col gap-[30px] max-w-[1440px]">
       <ProfileHeader
         name="Ramesh Jay"
         avatarUrl="/images/customer1.avif" // Ensure this exists in your public/images folder

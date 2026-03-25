@@ -26,35 +26,35 @@ export default function MatrixWidget({ chartData, infoCards1, infoCards2 }: { ch
 
 const chartLines = [{ dataKey: "grossSale", name: "Gross Sale", color: "#8E8E8E" }];
 
-  const infoCardsData = [
-    {
-      title: "Gross Sale",
-      Stats: "₹9,844",
-      percentage: -20.89,
-      information: "Total gross sales for the selected period.",
-    },
-    {
-      title: "Net Sale",
-      Stats: "₹ 987",
-      percentage: -20.89,
-      information: "Total net sales after deductions.",
-    },
-  ];
+  // const infoCardsData = [
+  //   {
+  //     title: "Gross Sale",
+  //     Stats: "₹9,844",
+  //     percentage: -20.89,
+  //     information: "Total gross sales for the selected period.",
+  //   },
+  //   {
+  //     title: "Net Sale",
+  //     Stats: "₹ 987",
+  //     percentage: -20.89,
+  //     information: "Total net sales after deductions.",
+  //   },
+  // ];
 
-  const infoCardsData2 = [
-    {
-      title: "Error Rate",
-      Stats: "9%",
-      percentage: -20.89,
-      information: "Percentage of orders processed with errors.",
-    },
-    {
-      title: "Perfect Order Rate",
-      Stats: "89%",
-      percentage: -20.89,
-      information: "Percentage of orders completed without any issues.",
-    },
-  ];
+  // const infoCardsData2 = [
+  //   {
+  //     title: "Error Rate",
+  //     Stats: "9%",
+  //     percentage: -20.89,
+  //     information: "Percentage of orders processed with errors.",
+  //   },
+  //   {
+  //     title: "Perfect Order Rate",
+  //     Stats: "89%",
+  //     percentage: -20.89,
+  //     information: "Percentage of orders completed without any issues.",
+  //   },
+  // ];
   return (
     <SectionWrapper className="w-full flex gap-[40px]">
       <div className="w-[50%] flex justify-between">
@@ -68,13 +68,13 @@ const chartLines = [{ dataKey: "grossSale", name: "Gross Sale", color: "#8E8E8E"
           showLegend={false}
         />
         <div className="">
-          <InfoCards data={infoCardsData} className="flex flex-col justify-between  h-full"></InfoCards>
+          <InfoCards data={infoCards1} className="flex flex-col justify-between  h-full"></InfoCards>
         </div>
       </div>
       <div className="w-[50%] flex justify-between">
         <RateIndicator></RateIndicator>
          <div className="">
-          <InfoCards data={infoCardsData2} className="flex flex-col justify-between  h-full"></InfoCards>
+          <InfoCards data={infoCards2} className="flex flex-col justify-between  h-full"></InfoCards>
         </div>
       </div>
     </SectionWrapper>

@@ -8,134 +8,43 @@ import { ColumnConfig } from "@/shared/components/Table";
 import { TicketMetricsWidget } from "../components/overall/TicketMetricsWidget";
 import { SummaryTableWidget } from "../components/overall/SummaryTableWidget";
 import { AlertTriangle } from "lucide-react";
+import { useTicketsViewModel } from "../viewModel/useTicketsViewModel";
+import { TicketItem } from "../types/index";
 
 export function TicketScreen() {
-  const mockTicketData = [
-    {
-      status: "Resolved",
-      dueFor: "18/09/2026",
-      hasWarning: false,
-      raisedOn: "13/09/2026",
-      typeConcern: "Chat",
-      assignedTo: "CS (#0293048)",
-      isYou: false,
-      reOpened: "-",
-      category: "Rental",
-      ticketId: "VN090990999",
-      customerId: "VN090950999",
-      orderId: "#09809180909",
-      item: "Mobile Crane",
-      topic: "Payment gatewa...",
-      issue: "My home page g...",
-      manageAction: "View",
-      manageVariant: "success", // Green text
-    },
-    {
-      status: "Escalated",
-      dueFor: "19/09/2026",
-      hasWarning: true,
-      raisedOn: "13/09/2026",
-      typeConcern: "Call",
-      assignedTo: "L2 (#5998948)",
-      isYou: false,
-      reOpened: "-",
-      category: "Rental",
-      ticketId: "VN090990899",
-      customerId: "VN090880998",
-      orderId: "#09809180909",
-      item: "Tipper",
-      topic: "Payment gatewa...",
-      issue: "My home page g...",
-      manageAction: "View",
-      manageVariant: "info", // Blue text
-    },
-    {
-      status: "Escalated",
-      dueFor: "23/09/2026",
-      hasWarning: false, // No triangle here in the image
-      raisedOn: "13/09/2026",
-      typeConcern: "Ticket",
-      assignedTo: "L3 (#0939803)",
-      isYou: false,
-      reOpened: "-",
-      category: "Rental",
-      ticketId: "VN090090999",
-      customerId: "VN090950999",
-      orderId: "#09909180909",
-      item: "Truck",
-      topic: "Payment gatewa...",
-      issue: "My home page g...",
-      manageAction: "View",
-      manageVariant: "info",
-    },
-    {
-      status: "Resolved",
-      dueFor: "18/09/2026",
-      hasWarning: false,
-      raisedOn: "13/09/2026",
-      typeConcern: "Call",
-      assignedTo: "L3 (#0939093)",
-      isYou: false,
-      reOpened: "+2",
-      category: "Material",
-      ticketId: "VN090990899",
-      customerId: "VN090880998",
-      orderId: "#09809180909",
-      item: "Clay bricks",
-      topic: "Payment gatewa...",
-      issue: "My home page g...",
-      manageAction: "Recording",
-      manageVariant: "success",
-    },
-    {
-      status: "Escalated",
-      dueFor: "19/09/2026",
-      hasWarning: true,
-      raisedOn: "13/09/2026",
-      typeConcern: "Ticket",
-      assignedTo: "", // Handled by the 'isYou' flag below
-      isYou: true,
-      reOpened: "+6",
-      category: "Material",
-      ticketId: "VN090990999",
-      customerId: "VN090920999",
-      orderId: "#09909180909",
-      item: "Cement",
-      topic: "Payment gatewa...",
-      issue: "My home page g...",
-      manageAction: "Solve",
-      manageVariant: "danger", // Red text
-    },
-  ];
+  const {
+    tickets,
+    performanceArea,
+    donutData,
+    infoCards,
+    deptPerformance,
+    escalatedTickets,
+    metricsFilter,
+    tableFilter,
+    searchQuery,
+    setUrlFilter,
+  } = useTicketsViewModel();
 
-  const columns: ColumnConfig<any>[] = [
+  const columns: ColumnConfig<TicketItem>[] = [
     {
       header: "Status",
       key: "status",
       width: 130,
       align: "center",
-      render: (val: string) => {
-        // Switch colors based on Resolved vs Escalated
-        const isResolved = val === "Resolved";
-        return (
-          <span
-            className={`px-4 py-1.5 rounded-full text-sm font-medium ${
-              isResolved
-                ? "bg-[#EEF8F2] text-[#55B585]" // Green pill
-                : "bg-[#EEF4FB] text-[#6993C0]" // Blue pill
-            }`}
-          >
-            {val}
-          </span>
-        );
-      },
+      render: (val: string) => (
+        <span
+          className={`px-4 py-1.5 rounded-full text-sm font-medium ${val === "Resolved" ? "bg-[#EEF8F2] text-[#55B585]" : "bg-[#EEF4FB] text-[#6993C0]"}`}
+        >
+          {val}
+        </span>
+      ),
     },
     {
       header: "Due For",
       key: "dueFor",
       width: 140,
       align: "center",
-      render: (value: string, row: any) => (
+      render: (value: string, row: TicketItem) => (
         <div className="flex items-center justify-center gap-2 text-sm text-neutral-3">
           {row.hasWarning && (
             <AlertTriangle className="w-4 h-4 fill-danger-1 text-white" />
@@ -151,8 +60,7 @@ export function TicketScreen() {
       key: "assignedTo",
       width: 160,
       align: "center",
-      render: (val: string, row: any) => {
-        // Special render for the row assigned to the user
+      render: (val: string, row: TicketItem) => {
         if (row.isYou) {
           return (
             <span className="text-neutral-3 text-sm">
@@ -172,16 +80,13 @@ export function TicketScreen() {
       key: "category",
       width: 120,
       align: "center",
-      render: (val: string) => {
-        const isRental = val === "Rental";
-        return (
-          <span
-            className={`text-sm ${isRental ? "text-[#D99A29]" : "text-[#3B82F6]"}`}
-          >
-            {val}
-          </span>
-        );
-      },
+      render: (val: string) => (
+        <span
+          className={`text-sm ${val === "Rental" ? "text-[#D99A29]" : "text-[#3B82F6]"}`}
+        >
+          {val}
+        </span>
+      ),
     },
     {
       header: "Ticket Id",
@@ -195,7 +100,7 @@ export function TicketScreen() {
       ),
     },
     {
-      header: "Costumer Id", // Kept your exact spelling from the image
+      header: "Customer Id",
       key: "customerId",
       width: 140,
       align: "center",
@@ -214,15 +119,13 @@ export function TicketScreen() {
       key: "manageAction",
       width: 100,
       align: "center",
-      render: (val: string, row: any) => {
-        // Map the variant string to your tailwind text colors
+      render: (val: string, row: TicketItem) => {
         const colorMap: Record<string, string> = {
           success: "text-success-1",
-          info: "text-[#3B82F6]", // matching the blue
+          info: "text-[#3B82F6]",
           danger: "text-danger-1",
         };
         const colorClass = colorMap[row.manageVariant] || "text-neutral-3";
-
         return (
           <button
             className={`${colorClass} text-sm font-medium underline transition-colors`}
@@ -240,15 +143,28 @@ export function TicketScreen() {
         <SectionWrapper className="flex flex-col gap-[40px]">
           <div className="flex">
             <div className="w-1/2 ">
-              <TicketMetricsWidget />
+              <TicketMetricsWidget 
+              performanceData={performanceArea} 
+              donutData={donutData} 
+              infoCardsData={infoCards}
+              currentFilter={metricsFilter}
+              onFilterChange={(val) => setUrlFilter("metricsFilter", val)}
+            />
             </div>
-            <SummaryTableWidget></SummaryTableWidget>
+            <SummaryTableWidget
+              deptPerformance={deptPerformance}
+              escalatedTickets={escalatedTickets}
+            />
           </div>
           <DataTableWidget
-            title="All Tickets"
-            columns={columns}
-            data={mockTicketData}
-          ></DataTableWidget>
+          title="All Tickets"
+          columns={columns}
+          data={tickets}
+          searchQuery={searchQuery}
+          onSearchChange={(val) => setUrlFilter("search", val)}
+          currentFilter={tableFilter} 
+          onFilterChange={(val) => setUrlFilter("tableFilter", val === "All" ? null : val)}
+        />
         </SectionWrapper>
       </div>
     </>

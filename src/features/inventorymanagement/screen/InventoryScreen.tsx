@@ -91,10 +91,10 @@ const filteredData = useMemo(() => {
     return result;
   }, [tableData, searchQuery, currentFilter]);
 
-  
+
   return (
     <>
-      <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  ">
+      <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px]">
         <Header
           currentTab={currentTab}
           onTabChange={(tab) => setUrlFilter("tab", tab)}

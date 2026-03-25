@@ -95,7 +95,7 @@ export function PFScreen() {
   } satisfies ChartConfig;
 
   return (
-    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]">
+    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px]">
       <Header />
 
       <SectionWrapper className="">
