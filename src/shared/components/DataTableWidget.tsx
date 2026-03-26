@@ -19,10 +19,12 @@ export function DataTableWidget<T>({
   title = "Campaign Report", 
   columns, 
   data,
+  
   searchQuery = "", 
   onSearchChange,
   currentFilter = "All", // Default to showing everything
   onFilterChange
+  
 }: DataTableWidgetProps<T>) {
 
   // 1. Create the dynamic filter items based on whether onFilterChange exists

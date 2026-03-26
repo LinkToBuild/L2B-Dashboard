@@ -1,7 +1,7 @@
 "use client";
 
 import { CustomerScreen } from "@/features/customermanagement/screen/CustomerScreen";
-// import CustomerIndividualScreen from "@/features/customermanagement/screen/CustomerIndividualScreen";
+import CustomerIndividualScreen from "@/features/customermanagement/screen/CustomerIndividualScreen";
 // import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
 // import { ColumnConfig } from "@/shared/components/Table";
 // import { useState } from "react";
@@ -217,8 +217,8 @@ export default function CustomerManagementPage() {
   // };
   return (
     <div className="px-8 py-5    min-h-screen bg-[#F8F9FA]">
-      <CustomerScreen />
-      {/* <CustomerIndividualScreen></CustomerIndividualScreen> */}
+      {/* <CustomerScreen /> */}
+      <CustomerIndividualScreen></CustomerIndividualScreen>
       {/* <ProfileLayout
         role=""
         customerData={customerInfo}

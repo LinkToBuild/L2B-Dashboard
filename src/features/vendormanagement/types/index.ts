@@ -39,3 +39,40 @@ export interface InfoCardStat {
   percentage: number;
   information: string;
 }
+
+
+// ... existing overall types
+
+export interface VendorIndividualStat {
+  title: string;
+  Stats: string;
+  percentage: number | null;
+  information: string;
+}
+
+export interface VendorPaymentPieData {
+  method: string;
+  percentage: number;
+  fill: string;
+}
+
+export interface VendorPerformanceData {
+  day: string;
+  score: number;
+}
+
+export interface VendorDetailedBooking {
+  name: string;
+  status: string;
+  channel: string;
+  goal: string;
+  targetSize: string;
+  actualSize: string;
+  impression: string;
+  click: string;
+  engagement: string;
+  conversion: string;
+  cpc: string;
+  cpa: string;
+  revenue: string;
+}
