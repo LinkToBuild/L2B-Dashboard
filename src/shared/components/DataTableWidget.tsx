@@ -1,54 +1,73 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-
-// IMPORTANT: Adjust these import paths to match where your files are actually located!
-
-import { TableToolBar } from "./TableToolBar"; // Adjust path as needed
+import React, { useMemo } from "react";
+import { TableToolBar, FilterMenuItem } from "./TableToolBar"; 
 import { DynamicTable, ColumnConfig } from "./Table"; 
 
 interface DataTableWidgetProps<T> {
   title?: string;
   columns: ColumnConfig<T>[];
   data: T[];
+  searchQuery?: string; 
+  onSearchChange?: (value: string) => void; 
+  // ADD THESE TWO PROPS
+  currentFilter?: string;
+  onFilterChange?: (filterValue: string) => void;
 }
 
 export function DataTableWidget<T>({ 
   title = "Campaign Report", 
   columns, 
-  data 
-}: DataTableWidgetProps<T>) {
+  data,
   
-  // 1. Manage the search input state here
-  const [searchQuery, setSearchQuery] = useState("");
+  searchQuery = "", 
+  onSearchChange,
+  currentFilter = "All", // Default to showing everything
+  onFilterChange
+  
+}: DataTableWidgetProps<T>) {
 
-  // 2. Filter the data based on what the user types
+  // 1. Create the dynamic filter items based on whether onFilterChange exists
+  const filterMenuItems: FilterMenuItem[] = onFilterChange ? [
+    { label: "All", onClick: () => onFilterChange("All") },
+    { label: "Resolved", onClick: () => onFilterChange("Resolved") },
+    { label: "Escalated", onClick: () => onFilterChange("Escalated") },
+  ] : [];
+
+  // 2. Filter the data based on BOTH Search AND Dropdown Filter
   const filteredData = useMemo(() => {
-    // If the search bar is empty, just return the original data
-    if (!searchQuery) return data;
+    let result = data;
 
-    const lowerCaseQuery = searchQuery.toLowerCase();
-
-    // Filter through every row
-    return data.filter((row: any) => {
-      // Check every single column/value in that row for a match
-      return Object.values(row).some((val) =>
-        String(val).toLowerCase().includes(lowerCaseQuery)
+    // A. Apply the Dropdown Filter first
+    if (currentFilter && currentFilter !== "All") {
+      result = result.filter((row: any) => 
+        // Assuming your rows have a 'status' property. Adjust if needed.
+        row.status?.toLowerCase() === currentFilter.toLowerCase()
       );
-    });
-  }, [data, searchQuery]);
+    }
+
+    // B. Apply the Search Bar Filter second
+    if (searchQuery) {
+      const lowerCaseQuery = searchQuery.toLowerCase();
+      result = result.filter((row: any) => {
+        return Object.values(row).some((val) =>
+          String(val).toLowerCase().includes(lowerCaseQuery)
+        );
+      });
+    }
+
+    return result;
+  }, [data, searchQuery, currentFilter]);
 
   return (
     <div className="flex flex-col gap-[10px] w-full">
-      {/* 3. Pass the state to the Toolbar so it updates when typed */}
-
       <TableToolBar 
-  title={title}
-  searchValue={searchQuery}
-  onSearchChange={setSearchQuery} 
-/>
+        title={title}
+        searchValue={searchQuery}
+        onSearchChange={onSearchChange} 
+        filterItems={filterMenuItems} // Pass the dynamic items here!
+      />
 
-      {/* 4. Pass only the FILTERED data to your Table */}
       <DynamicTable
         columns={columns}
         data={filteredData}

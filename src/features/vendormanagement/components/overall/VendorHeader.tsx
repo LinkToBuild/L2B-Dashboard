@@ -9,32 +9,48 @@ import { Info } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { TabSwitcher } from "@/shared/excomponent/ui/L2BTabSwitcher";
 
-interface NavbarProps {
-  onToggleSidebar: () => void;
+interface HeaderProps {
+  currentTab: string;
+  currentStartDate?: string | null;
+  currentEndDate?: string | null;
+  onTabChange: (tab: string) => void;
+  onFilterChange: (filter: string) => void;
+  onDateChange: (start: Date | undefined, end: Date | undefined) => void;
 }
 
-export function Header() {
+export function Header({
+  currentTab,
+  onTabChange,
+  currentStartDate,
+  currentEndDate,
+  onFilterChange,
+  onDateChange,
+}: HeaderProps) {
   const [activeTab, setActiveTab] = useState<"Rental" | "Material">("Rental");
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
 
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [showEndCalendar, setShowEndCalendar] = useState(false);
+
+  const [localStart, setLocalStart] = useState<Date | undefined>();
+  const [localEnd, setLocalEnd] = useState<Date | undefined>();
+
   const [filter, setFilter] = useState<string>("Daily");
 
   const filterMenuItems = [
-    { label: "Daily", onClick: () => setFilter("Daily") },
-    { label: "Weekly", onClick: () => setFilter("Weekly") },
-    { label: "Monthly", onClick: () => setFilter("Monthly") },
-    { label: "Yearly", onClick: () => setFilter("Yearly") },
+    { label: "Daily", onClick: () => onFilterChange("Daily") },
+    { label: "Weekly", onClick: () => onFilterChange("Weekly") },
+    { label: "Monthly", onClick: () => onFilterChange("Monthly") },
+    { label: "Yearly", onClick: () => onFilterChange("Yearly") },
   ];
 
   return (
     <>
-      <SectionWrapper className="">
+    
         <div className=" flex h-[52px]   justify-between ">
           <div className=" h-full flex  font-normal place-items-center gap-2">
-            <p className="text-[#1F1F1F] xl:text-[24px] ">Overview</p>
+            <p className="text-[#1F1F1F] xl:text-[24px] ">{currentTab} Overview</p>
             <p className="text-[12px] text-[#CACACA]">
               (Comparison based on previous week's performance.)
             </p>
@@ -60,18 +76,21 @@ export function Header() {
                   fontWeight="font-normal"
                   size="medium"
                 >
-                  {startDate ? startDate.toLocaleDateString() : "Start Date"}
+                  {currentStartDate
+                    ? new Date(currentStartDate).toLocaleDateString("en-GB")
+                    : "Start Date"}
                 </L2BButton>
                 {showStartCalendar && (
                   <div className="absolute top-10 left-0 z-50 bg-white border rounded-lg shadow-lg p-4">
                     <Calendar
                       mode="single"
-                      selected={startDate}
+                      selected={localStart} // Use local state temporarily
                       captionLayout="dropdown"
                       className=" w-[230px] h-[260px]"
                       onSelect={(date) => {
-                        setStartDate(date);
-                        setShowStartCalendar(false);
+                        setLocalStart(date); // Save locally
+                        setShowStartCalendar(false); // Close calendar
+                        onDateChange(date, localEnd); // SEND TO VIEWMODEL!
                       }}
                     />
                   </div>
@@ -90,7 +109,9 @@ export function Header() {
                   fontWeight="font-normal"
                   size="medium"
                 >
-                  {endDate ? endDate.toLocaleDateString() : "End Date"}
+                  {currentEndDate
+                    ? new Date(currentEndDate).toLocaleDateString("en-GB")
+                    : "End Date"}
                 </L2BButton>
                 {showEndCalendar && (
                   <div className="absolute top-10 right-0 z-50 bg-white border rounded-lg shadow-lg p-4">
@@ -98,10 +119,11 @@ export function Header() {
                       mode="single"
                       captionLayout="dropdown"
                       className=" w-[230px] h-[260px]"
-                      selected={endDate}
+                      selected={localEnd}
                       onSelect={(date) => {
-                        setEndDate(date);
+                        setLocalEnd(date);
                         setShowEndCalendar(false);
+                        onDateChange(localStart, date); // SEND TO VIEWMODEL!
                       }}
                     />
                   </div>
@@ -140,11 +162,10 @@ export function Header() {
               </L2BButton>
             </div> */}
             <div>
-              <TabSwitcher></TabSwitcher>
+              <TabSwitcher activeTab={currentTab} onChange={onTabChange} />
             </div>
           </div>
         </div>
-      </SectionWrapper>
     </>
   );
 }

@@ -10,6 +10,8 @@ import GrowthMetricsWidget from "../components/overall/GrowthMetricsWidget";
 import { ColumnConfig, DynamicTable } from "@/shared/components/Table";
 import mapImg from "@/public/images/mapImg.png";
 import GrowthMetricsBottom from "../components/overall/GrowthFunnelsSection";
+import { useGBViewModel } from "../viewModel/useGBViewModel";
+import { GBSearchRow } from "../types/index";
 
 const searchData = [
   {
@@ -88,12 +90,55 @@ const locationStats = [
 ];
 
 export function GBScreen() {
+  const {
+    searchData,
+    locationStats,
+    growthChartData,
+    statCards,
+    rfmData,
+    rentalFunnel,
+    materialFunnel,
+    rentalMetrics,
+    materialMetrics,
+    headerFilter,
+    startDate,
+    endDate,
+    rentalSearch,
+    rentalFilter,
+    materialSearch,
+    materialFilter,
+    setUrlFilter,
+  } = useGBViewModel();
+
+  const searchColumns: ColumnConfig<GBSearchRow>[] = [
+    { header: "Searches", key: "searches", width: 500, align: "left" },
+    { header: "Location", key: "location", width: 115, align: "center" },
+    { header: "No. of user", key: "users", width: 125, align: "center" },
+    { header: "No of Clicks", key: "clicks", width: 125, align: "center" },
+    { header: "No Result", key: "noResult", width: 115, align: "center" },
+  ];
+
   return (
-    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]">
-      <Header />
+    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px]">
+      <Header
+        currentFilter={headerFilter}
+        onFilterChange={(val) => setUrlFilter("headerFilter", val)}
+        startDate={startDate}
+        onStartDateChange={(date) =>
+          setUrlFilter("startDate", date ? date.toISOString() : null)
+        }
+        endDate={endDate}
+        onEndDateChange={(date) =>
+          setUrlFilter("endDate", date ? date.toISOString() : null)
+        }
+      />
 
       <SectionWrapper className="flex flex-col gap-[20px]">
-        <GrowthMetricsWidget />
+        <GrowthMetricsWidget
+          chartData={growthChartData}
+          statCardsData={statCards}
+          rfmData={rfmData}
+        />
 
         <div className="flex items-start gap-[54px]">
           <div className="w-[952px] h-[294px] bg-white rounded-[16px]">
@@ -129,7 +174,6 @@ export function GBScreen() {
                       <span>{item.label}</span>
                       <span>({item.value})</span>
                     </div>
-
                     <div className="h-[6px] w-full rounded-full bg-neutral-7">
                       <div
                         className={`h-[6px] rounded-full bg-[#88A8D6] ${item.width}`}
@@ -142,7 +186,20 @@ export function GBScreen() {
           </div>
         </div>
 
-        <GrowthMetricsBottom />
+        <GrowthMetricsBottom
+          rentalFunnel={rentalFunnel}
+          materialFunnel={materialFunnel}
+          rentalMetrics={rentalMetrics}
+          materialMetrics={materialMetrics}
+          rentalSearch={rentalSearch}
+          onRentalSearchChange={(val) => setUrlFilter("rentalSearch", val)}
+          rentalFilter={rentalFilter}
+          onRentalFilterChange={(val) => setUrlFilter("rentalFilter", val)}
+          materialSearch={materialSearch}
+          onMaterialSearchChange={(val) => setUrlFilter("materialSearch", val)}
+          materialFilter={materialFilter}
+          onMaterialFilterChange={(val) => setUrlFilter("materialFilter", val)}
+        />
       </SectionWrapper>
     </div>
   );

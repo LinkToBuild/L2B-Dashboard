@@ -23,7 +23,7 @@ import { ChartConfig } from "@/components/ui/chart";
 export function CustomerScreen() {
   const [filter, setFilter] = useState<string>("Completed");
 
-  let infoCardsData = [
+  const infoCardsData = [
     {
       title: "Active Orders",
       Stats: "10,90,00",
@@ -38,7 +38,7 @@ export function CustomerScreen() {
     },
   ];
 
-  let customerData = [
+  const customerData = [
     {
       label: "Total",
       percentage_change: -20.89,
@@ -310,7 +310,7 @@ export function CustomerScreen() {
   ];
 
   return (
-    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  ">
+    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px]">
       {/* Rendering the Header you just built */}
       <Header />
       <SectionWrapper className="flex w-full gap-[34px]">

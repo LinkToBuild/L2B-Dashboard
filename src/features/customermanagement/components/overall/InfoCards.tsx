@@ -6,7 +6,7 @@ import { StatCard } from "@/shared/excomponent/ui/StatCard";
 import { Stats } from "fs";
 
 export function InfoCards() {
-    let infoCardsData = [
+    const infoCardsData = [
         {
           title: "Active Orders", 
           Stats: "10,90,00",
