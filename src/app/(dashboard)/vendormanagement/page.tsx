@@ -1,36 +1,8 @@
-// import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
-// import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorIndividualScreen";
-// import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
-
-// export default function VendorManagementPage() {
-//   return (
-//     <div className="px-8 py-5 min-h-screen bg-[#F8F9FA]">
-//       {/* <VendorScreen />; */}
-//       {/* <VendorIndividualScreen></VendorIndividualScreen> */}
-      
-//     </div>
-//   );
-// }
-
-
-// import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
-// import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorIndividualScreen";
-// import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
-
-// export default function VendorManagementPage() {
-//   return (
-//     <div className="px-8 py-5 min-h-screen bg-[#F8F9FA]">
-//       {/* <VendorScreen />; */}
-//       {/* <VendorIndividualScreen></VendorIndividualScreen> */}
-      
-//     </div>
-//   );
-// }
-
-
 "use client";
 
 import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
+import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorIndividualScreen";
+import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
 import { ColumnConfig } from "@/shared/components/Table";
 import { useState } from "react";
 
@@ -249,7 +221,9 @@ export default function VendorManagementPage() {
 
   return (
     <div className="px-8 py-5 min-h-screen bg-[#F8F9FA]">
-      <ProfileLayout
+      <VendorIndividualScreen></VendorIndividualScreen>
+      {/* <VendorScreen></VendorScreen> */}
+      {/* <ProfileLayout
   role=""
   customerData={customerInfo}
   teamTableData={mockTeamDetails}
@@ -261,7 +235,7 @@ export default function VendorManagementPage() {
   teamTitle="Operator\\Driver (87)"
   projectTitle="Machine details (90)"
   paymentTitle="Payment details"
-/>
+/> */}
     </div>
   );
 }
