@@ -129,60 +129,32 @@
 
 
 //================================test=========================================
-
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Minus, Plus, Info } from "lucide-react";
 import Header from "@/features/customermanagement/components/profile/Header";
 import PersonalInfo from "@/features/customermanagement/components/profile/PersonalInfo";
 import CompanyInfo from "@/features/customermanagement/components/profile/CompanyInfo";
-import TableToolbar from "../components/profile/TableToolbar";
+import TableToolbar from "@/features/customermanagement/components/profile/TableToolbar";
 import { DynamicTable, ColumnConfig } from "@/shared/components/Table";
-import { PaymentMethodCard } from "../components/profile/PaymentMethodCard";
-import { WalletModal } from "@/features/customermanagement/components/profile/mockdata/WalletModal";
-import { AddPaymentMethodPanel } from "@/shared/components/AddPaymentMethodPanel";
+import { PaymentMethodCard } from "@/features/customermanagement/components/profile/PaymentMethodCard";
+import { WalletPanel } from "@/shared/components/FloatingPanel/WalletPanel";
+import { MoneyActionPanel } from "@/shared/components/FloatingPanel/MoneyPanel";
+import { AddPaymentMethodPanel } from "@/shared/components/FloatingPanel/AddPaymentMethodPanel";
 import { AssignRemoveSiteModal } from "@/features/customermanagement/components/profile/mockdata/AssignRemoveSiteModal";
 import { Button } from "@/shared/excomponent/ui/UIButton";
-import ConfirmationModal from "@/shared/components/ConfirmationModal";
+import ConfirmationModal from "@/shared/components/FloatingPanel/ConfirmationModal";
 import {
   ActionPanel,
-  ActionPanelType,
-} from "@/shared/components/ActionTablePanel";
-import { MachineDetailsModal } from "@/shared/components/ActionTablePanel2";
-
-import { addProjectDetailsMockData } from "@/features/customermanagement/components/profile/mockdata/AddProjectDetailsModal";
-import { addProjectTeamMembersMockData } from "@/features/customermanagement/components/profile/mockdata/AddProjectTeamMembersModal";
-import { receiverDetailsMockData } from "@/features/customermanagement/components/profile/mockdata/ReceiverDetailsModal";
-import { siteMembersMockData } from "@/features/customermanagement/components/profile/mockdata/SiteMembersModal";
-import { assignedMachinesMockData } from "@/features/vendormanagement/components/profile/mockdata/AssignedMachines";
+} from "@/shared/components/FloatingPanel/ActionTablePanel";
+import { MachineDetailsModal } from "@/shared/components/FloatingPanel/ActionTablePanel2";
 import { machineDocumentDetailsMockData } from "@/features/vendormanagement/components/profile/mockdata/MachineDocumentDetails";
-
-type ProjectTableRow = {
-  siteName?: string;
-  address?: string;
-  teamMembers?: number;
-  receiverName?: string;
-  status?: string;
-  documents?: string;
-  [key: string]: any;
-};
-
-type TeamTableRow = {
-  name?: string;
-  memberName?: string;
-  employeeName?: string;
-  nameId?: string;
-  memberCode?: string;
-  employeeId?: string;
-  associatedSite?: string | number;
-  associatedSites?: string | number;
-  siteCount?: string | number;
-  dlNo?: string;
-  dlNumber?: string;
-  licenseNo?: string;
-  [key: string]: any;
-};
+import {
+  useProfileScreenController,
+  ProjectTableRow,
+  TeamTableRow,
+} from "@/shared/components/FloatingPanel/useProfileScreenController";
 
 export interface ProfileScreenProps {
   role?: string;
@@ -214,211 +186,16 @@ export default function ProfileLayout({
   projectTitle = "Project details",
   paymentTitle = "Payment details",
 }: ProfileScreenProps) {
-  const [teamFilter, setTeamFilter] = useState("Site A");
-  const [projectFilter, setProjectFilter] = useState("Site A");
-
-  const [isRemovePaymentModalOpen, setIsRemovePaymentModalOpen] =
-    useState(false);
-  const [isRemoveTeamMemberModalOpen, setIsRemoveTeamMemberModalOpen] =
-    useState(false);
-  const [isDisableMachineModalOpen, setIsDisableMachineModalOpen] =
-    useState(false);
-  const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
-  const [isAddPaymentMethodOpen, setIsAddPaymentMethodOpen] = useState(false);
-  const [isMachineDocumentModalOpen, setIsMachineDocumentModalOpen] =
-    useState(false);
-
-  const [isAssignRemoveSiteModalOpen, setIsAssignRemoveSiteModalOpen] =
-    useState(false);
-  const [selectedMemberName, setSelectedMemberName] = useState("");
-  const [selectedMemberCode, setSelectedMemberCode] = useState("");
-  const [selectedMachineRow, setSelectedMachineRow] =
-    useState<ProjectTableRow | null>(null);
-  const [selectedDocumentRow, setSelectedDocumentRow] =
-    useState<ProjectTableRow | null>(null);
-
-  const [isActionPanelOpen, setIsActionPanelOpen] = useState(false);
-  const [actionPanelType, setActionPanelType] =
-    useState<ActionPanelType | null>(null);
-
-  const [selectedProjectRow, setSelectedProjectRow] =
-    useState<ProjectTableRow | null>(null);
-  const [selectedSiteTitle, setSelectedSiteTitle] =
-    useState("Site A (20 members)");
-  const [projectDetailsData, setProjectDetailsData] = useState<any>(null);
-
-  const handleOpenWalletModal = () => {
-    setIsWalletModalOpen(true);
-  };
-
-  const handleCloseWalletModal = () => {
-    setIsWalletModalOpen(false);
-  };
-
-  const handleAddMoney = () => {
-    console.log("Add money clicked");
-  };
-
-  const handleWalletFilterClick = () => {
-    console.log("Wallet filter clicked");
-  };
-
-  const handleRemovePayment = () => {
-    setIsRemovePaymentModalOpen(true);
-  };
-
-  const handleCloseRemovePaymentModal = () => {
-    setIsRemovePaymentModalOpen(false);
-  };
-
-  const handleConfirmRemovePayment = () => {
-    console.log("Payment method removed");
-    setIsRemovePaymentModalOpen(false);
-  };
-
-  const handleOpenRemoveTeamMemberModal = () => {
-    setIsRemoveTeamMemberModalOpen(true);
-  };
-
-  const handleCloseRemoveTeamMemberModal = () => {
-    setIsRemoveTeamMemberModalOpen(false);
-  };
-
-  const handleConfirmRemoveTeamMember = () => {
-    console.log("Team member removed");
-    setIsRemoveTeamMemberModalOpen(false);
-  };
-
-  const handleOpenDisableMachineModal = (row: ProjectTableRow) => {
-    setSelectedMachineRow(row);
-    setIsDisableMachineModalOpen(true);
-  };
-
-  const handleCloseDisableMachineModal = () => {
-    setIsDisableMachineModalOpen(false);
-    setSelectedMachineRow(null);
-  };
-
-  const handleConfirmDisableMachine = () => {
-    console.log("Disable machine confirmed", selectedMachineRow);
-    setIsDisableMachineModalOpen(false);
-    setSelectedMachineRow(null);
-  };
-
-  const handleOpenAddPaymentMethod = () => {
-    setIsAddPaymentMethodOpen(true);
-  };
-
-  const handleCloseAddPaymentMethod = () => {
-    setIsAddPaymentMethodOpen(false);
-  };
-
-  const handleUpdatePaymentMethod = (data: {
-    accountNo: string;
-    ifscCode: string;
-    bankBranchName: string;
-    mobileNo: string;
-    upiId: string;
-    cancelledCheck: string;
-  }) => {
-    console.log("Updated payment method:", data);
-    setIsAddPaymentMethodOpen(false);
-  };
-
-  const handleCloseActionPanel = () => {
-    setIsActionPanelOpen(false);
-    setActionPanelType(null);
-  };
-
-  const handleOpenReceiverDetails = (row: ProjectTableRow) => {
-    setSelectedProjectRow(row);
-    setActionPanelType("receiverDetails");
-    setIsActionPanelOpen(true);
-  };
-
-  const handleAssignReceiver = (data: any[]) => {
-    console.log("Assign clicked", {
-      selectedProjectRow,
-      receiverTableData: data,
-    });
-    handleCloseActionPanel();
-  };
-
-  const handleOpenSiteMembers = (_row: ProjectTableRow) => {
-    setSelectedSiteTitle("Site A (20 members)");
-    setActionPanelType("siteMembers");
-    setIsActionPanelOpen(true);
-  };
-
-  const handleOpenAssignedMachines = (row: TeamTableRow) => {
-    console.log("Assigned machines row:", row);
-    setActionPanelType("assignedMachines");
-    setIsActionPanelOpen(true);
-  };
-
-  const handleOpenMachineDocumentModal = (row: ProjectTableRow) => {
-    setSelectedDocumentRow(row);
-    setIsMachineDocumentModalOpen(true);
-  };
-
-  const handleCloseMachineDocumentModal = () => {
-    setIsMachineDocumentModalOpen(false);
-    setSelectedDocumentRow(null);
-  };
-
-  const handleOpenAddProjectModal = () => {
-    setActionPanelType("addProjectDetails");
-    setIsActionPanelOpen(true);
-  };
-
-  const handleNextProjectDetails = (data: any) => {
-    setProjectDetailsData(data);
-    setActionPanelType("addProjectTeamMembers");
-  };
-
-  const handleBackToProjectDetails = () => {
-    setActionPanelType("addProjectDetails");
-  };
-
-  const handleOpenAssignRemoveSiteModal = (
-    memberName: string,
-    memberCode: string
-  ) => {
-    setSelectedMemberName(memberName);
-    setSelectedMemberCode(memberCode);
-    setIsAssignRemoveSiteModalOpen(true);
-  };
-
-  const handleCloseAssignRemoveSiteModal = () => {
-    setIsAssignRemoveSiteModalOpen(false);
-  };
-
-  const handleSaveAssignedSites = (updatedSites: any[]) => {
-    console.log("updatedSites", {
-      memberName: selectedMemberName,
-      memberCode: selectedMemberCode,
-      updatedSites,
-    });
-    setIsAssignRemoveSiteModalOpen(false);
-  };
-
-  const NO_PAYMENT_ROLES = ["Customer Worker"];
-  const NO_TABLES_ROLES = ["Customer Individual"];
-  const SINGLE_TABLE_ROLES = [
-    "Individual Vendor",
-    "Individual Operator",
-    "L2B Operator",
-  ];
-
-  const showPayment = !NO_PAYMENT_ROLES.includes(role);
-  const showTables = !NO_TABLES_ROLES.includes(role);
-  const isSingleTable = SINGLE_TABLE_ROLES.includes(role);
+  const controller = useProfileScreenController({
+    role,
+    headerTitle,
+  });
 
   const enhancedTeamTableColumns: ColumnConfig<TeamTableRow>[] = useMemo(
     () =>
       teamTableColumns.map((column) => {
         const normalizedKey = String(column.key).toLowerCase();
-        const normalizedHeader = column.header.toLowerCase();
+        const normalizedHeader = String(column.header).toLowerCase();
 
         const isManageColumn =
           normalizedKey.includes("assign") ||
@@ -443,12 +220,14 @@ export default function ProfileLayout({
                 <div className="flex items-center justify-center gap-2">
                   <button
                     type="button"
-                    onClick={() => handleOpenAssignedMachines(row)}
+                    onClick={() => controller.handleOpenAssignedMachines(row)}
                     className="text-[13px] font-medium text-[#56C293] underline transition-opacity hover:opacity-80"
                   >
                     View
                   </button>
-                  <span className="font-medium text-neutral-400">{dlValue}</span>
+                  <span className="font-medium text-neutral-400">
+                    {dlValue}
+                  </span>
                 </div>
               );
             },
@@ -465,7 +244,10 @@ export default function ProfileLayout({
                 row.nameId || row.memberCode || row.employeeId || "#AD2435354";
 
               const associatedValue =
-                row.associatedSite ?? row.associatedSites ?? row.siteCount ?? "-";
+                row.associatedSite ??
+                row.associatedSites ??
+                row.siteCount ??
+                "-";
 
               const hasNoAssociatedSite =
                 associatedValue === "-" ||
@@ -480,7 +262,10 @@ export default function ProfileLayout({
                   <div className="flex items-center justify-center">
                     <Button
                       onClick={() =>
-                        handleOpenAssignRemoveSiteModal(memberName, memberCode)
+                        controller.handleOpenAssignRemoveSiteModal(
+                          memberName,
+                          memberCode
+                        )
                       }
                       className="h-[30px] min-w-[82px] rounded-[10px] border border-[#56C293] bg-white !px-[14px] !py-0 !text-[12px] !font-medium !text-[#56C293] shadow-none hover:bg-white"
                     >
@@ -493,7 +278,7 @@ export default function ProfileLayout({
               return (
                 <div className="flex items-center justify-center gap-[10px]">
                   <Button
-                    onClick={handleOpenRemoveTeamMemberModal}
+                    onClick={controller.handleOpenRemoveTeamMemberModal}
                     className="h-[30px] min-w-[82px] rounded-[10px] border border-[#F05A5A] bg-white !px-[14px] !py-0 !text-[13px] !font-medium !text-[#F05A5A] shadow-none hover:bg-white"
                   >
                     Remove
@@ -501,7 +286,10 @@ export default function ProfileLayout({
 
                   <Button
                     onClick={() =>
-                      handleOpenAssignRemoveSiteModal(memberName, memberCode)
+                      controller.handleOpenAssignRemoveSiteModal(
+                        memberName,
+                        memberCode
+                      )
                     }
                     className="h-[30px] min-w-[82px] rounded-[10px] border border-[#56C293] bg-white !px-[14px] !py-0 !text-[13px] !font-medium !text-[#56C293] shadow-none hover:bg-white"
                   >
@@ -515,17 +303,18 @@ export default function ProfileLayout({
 
         return column as ColumnConfig<TeamTableRow>;
       }),
-    [teamTableColumns]
+    [teamTableColumns, controller]
   );
 
   const enhancedProjectTableColumns: ColumnConfig<ProjectTableRow>[] = useMemo(
     () =>
       projectTableColumns.map((column) => {
         const normalizedKey = String(column.key).toLowerCase();
-        const normalizedHeader = column.header.toLowerCase();
+        const normalizedHeader = String(column.header).toLowerCase();
 
         const isStatusColumn =
-          normalizedKey.includes("status") || normalizedHeader.includes("status");
+          normalizedKey.includes("status") ||
+          normalizedHeader.includes("status");
 
         const isTeamMemberColumn =
           normalizedKey.includes("team") ||
@@ -559,7 +348,7 @@ export default function ProfileLayout({
                 <button
                   type="button"
                   onClick={() => {
-                    if (isDisable) handleOpenDisableMachineModal(row);
+                    if (isDisable) controller.handleOpenDisableMachineModal(row);
                   }}
                   className={`inline-flex min-w-[70px] items-center justify-center rounded-full px-3 py-1 text-[12px] font-medium ${
                     statusClasses[String(value)] ||
@@ -581,7 +370,7 @@ export default function ProfileLayout({
                 <span className="font-medium text-neutral-500">{value}</span>
                 <button
                   type="button"
-                  onClick={() => handleOpenSiteMembers(row)}
+                  onClick={() => controller.handleOpenSiteMembers(row)}
                   className="text-[13px] font-medium text-[#56C293] underline transition-opacity hover:opacity-80"
                 >
                   View
@@ -605,7 +394,7 @@ export default function ProfileLayout({
 
                   <button
                     type="button"
-                    onClick={() => handleOpenReceiverDetails(row)}
+                    onClick={() => controller.handleOpenReceiverDetails(row)}
                     className="flex items-center justify-center transition-opacity hover:opacity-80"
                   >
                     {isAssigned ? (
@@ -633,7 +422,7 @@ export default function ProfileLayout({
                 <span className="font-medium text-neutral-400">{value}</span>
                 <button
                   type="button"
-                  onClick={() => handleOpenMachineDocumentModal(row)}
+                  onClick={() => controller.handleOpenMachineDocumentModal(row)}
                   className="text-[13px] font-medium text-[#56C293] underline transition-opacity hover:opacity-80"
                 >
                   View
@@ -645,41 +434,8 @@ export default function ProfileLayout({
 
         return column as ColumnConfig<ProjectTableRow>;
       }),
-    [projectTableColumns]
+    [projectTableColumns, controller]
   );
-
-  const actionPanelData = useMemo(() => {
-    switch (actionPanelType) {
-      case "addProjectDetails":
-        return addProjectDetailsMockData;
-
-      case "addProjectTeamMembers":
-        return {
-          ...addProjectTeamMembersMockData,
-          projectDetails:
-            projectDetailsData || addProjectTeamMembersMockData.projectDetails,
-        };
-
-      case "receiverDetails":
-        return {
-          ...receiverDetailsMockData,
-          receiverName: selectedProjectRow?.receiverName,
-          status: selectedProjectRow?.status,
-        };
-
-      case "siteMembers":
-        return {
-          ...siteMembersMockData,
-          title: selectedSiteTitle,
-        };
-
-      case "assignedMachines":
-        return assignedMachinesMockData;
-
-      default:
-        return null;
-    }
-  }, [actionPanelType, projectDetailsData, selectedProjectRow, selectedSiteTitle]);
 
   return (
     <>
@@ -687,7 +443,7 @@ export default function ProfileLayout({
         <Header
           title={headerTitle}
           walletBalance="100000"
-          onWalletClick={handleOpenWalletModal}
+          onWalletClick={controller.handleOpenWalletModal}
         />
 
         <div className="flex gap-[24px]">
@@ -701,13 +457,13 @@ export default function ProfileLayout({
           </div>
 
           <div className="flex w-1/2 flex-col gap-[24px]">
-            {showTables && (
+            {controller.showTables && (
               <div className="flex flex-col gap-[12px]">
                 <TableToolbar
                   title={teamTitle}
                   filterOptions={["Site A", "Site B", "Site C", "Site D"]}
-                  activeFilter={teamFilter}
-                  onFilterChange={(val) => setTeamFilter(val)}
+                  activeFilter={controller.teamFilter}
+                  onFilterChange={(val) => controller.setTeamFilter(val)}
                 />
                 <DynamicTable
                   columns={enhancedTeamTableColumns}
@@ -717,15 +473,15 @@ export default function ProfileLayout({
               </div>
             )}
 
-            {showTables && !isSingleTable && (
+            {controller.showTables && !controller.isSingleTable && (
               <div className="flex flex-col gap-[12px]">
                 <TableToolbar
                   title={projectTitle}
                   filterOptions={["Site A", "Site B", "Site C", "Site D"]}
-                  activeFilter={projectFilter}
-                  onFilterChange={(val) => setProjectFilter(val)}
+                  activeFilter={controller.projectFilter}
+                  onFilterChange={(val) => controller.setProjectFilter(val)}
                   actionText="Add new project"
-                  onActionClick={handleOpenAddProjectModal}
+                  onActionClick={controller.handleOpenAddProjectModal}
                 />
 
                 <DynamicTable
@@ -736,7 +492,7 @@ export default function ProfileLayout({
               </div>
             )}
 
-            {showPayment && paymentData && (
+            {controller.showPayment && paymentData && (
               <div className="flex flex-col">
                 <div className="flex items-start justify-between gap-[12px]">
                   <div className="flex min-w-0 items-center gap-2">
@@ -748,7 +504,7 @@ export default function ProfileLayout({
 
                   <button
                     type="button"
-                    onClick={handleOpenAddPaymentMethod}
+                    onClick={controller.handleOpenAddPaymentMethod}
                     className="shrink-0 whitespace-nowrap text-[13px] font-medium text-[#56C293] transition-opacity hover:opacity-80"
                   >
                     Add Payment method
@@ -758,7 +514,7 @@ export default function ProfileLayout({
                 <PaymentMethodCard
                   bankName={paymentData.bankName}
                   accountDetails={paymentData.accountDetails}
-                  onRemove={handleRemovePayment}
+                  onRemove={controller.handleRemovePayment}
                 />
               </div>
             )}
@@ -766,18 +522,18 @@ export default function ProfileLayout({
         </div>
       </div>
 
-      {actionPanelType && actionPanelData && (
+      {controller.actionPanelType && controller.actionPanelData && (
         <ActionPanel
-          open={isActionPanelOpen}
-          onClose={handleCloseActionPanel}
-          type={actionPanelType}
-          data={actionPanelData}
-          onNext={handleNextProjectDetails}
-          onBack={handleBackToProjectDetails}
-          onAssign={handleAssignReceiver}
+          open={controller.isActionPanelOpen}
+          onClose={controller.handleCloseActionPanel}
+          type={controller.actionPanelType}
+          data={controller.actionPanelData}
+          onNext={controller.handleNextProjectDetails}
+          onBack={controller.handleBackToProjectDetails}
+          onAssign={controller.handleAssignReceiver}
           onAddProject={(payload) => {
             console.log("Final add project payload:", payload);
-            handleCloseActionPanel();
+            controller.handleCloseActionPanel();
           }}
           onActionClick={(row) => {
             console.log("Action clicked", row);
@@ -786,33 +542,112 @@ export default function ProfileLayout({
       )}
 
       <MachineDetailsModal
-        open={isMachineDocumentModalOpen}
-        onClose={handleCloseMachineDocumentModal}
+        open={controller.isMachineDocumentModalOpen}
+        onClose={controller.handleCloseMachineDocumentModal}
         type="machineDocumentDetails"
         data={machineDocumentDetailsMockData}
+        onTopActionChange={controller.handleMachineDocumentTopActionChange}
       />
 
-      <WalletModal
-        open={isWalletModalOpen}
-        onClose={handleCloseWalletModal}
-        walletBalance="₹ 6,00,000"
-        onAddMoney={handleAddMoney}
-        onFilterClick={handleWalletFilterClick}
-      />
-
-      {isAddPaymentMethodOpen && (
+      {controller.isWalletModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 p-4">
           <button
             type="button"
-            onClick={handleCloseAddPaymentMethod}
+            onClick={controller.handleCloseWalletModal}
+            className="absolute inset-0"
+            aria-label="Close wallet panel"
+          />
+
+          <div className="relative">
+            <WalletPanel
+              {...controller.walletPanelData}
+              onAddMoney={controller.handleAddMoney}
+              onTransfer={controller.handleTransfer}
+              onRequest={controller.handleRequest}
+              onFilterClick={controller.handleWalletFilterClick}
+            />
+          </div>
+        </div>
+      )}
+
+      {controller.isAddMoneyPanelOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 p-4">
+          <button
+            type="button"
+            onClick={controller.handleCloseAddMoneyPanel}
+            className="absolute inset-0"
+            aria-label="Close add money panel"
+          />
+
+          <div className="relative">
+            <MoneyActionPanel
+              type="addMoney"
+              amount={controller.moneyAmount}
+              onAmountChange={controller.setMoneyAmount}
+              onCancel={controller.handleCloseAddMoneyPanel}
+              onSubmit={controller.handleSubmitAddMoney}
+            />
+          </div>
+        </div>
+      )}
+
+      {controller.isTransferMoneyPanelOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 p-4">
+          <button
+            type="button"
+            onClick={controller.handleCloseTransferMoneyPanel}
+            className="absolute inset-0"
+            aria-label="Close transfer money panel"
+          />
+
+          <div className="relative">
+            <MoneyActionPanel
+              type="transferMoney"
+              amount={controller.moneyAmount}
+              onAmountChange={controller.setMoneyAmount}
+              receiver={controller.selectedReceiver}
+              onReceiverChange={controller.setSelectedReceiver}
+              onCancel={controller.handleCloseTransferMoneyPanel}
+              onSubmit={controller.handleSubmitTransferMoney}
+            />
+          </div>
+        </div>
+      )}
+
+      {controller.isRequestMoneyPanelOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 p-4">
+          <button
+            type="button"
+            onClick={controller.handleCloseRequestMoneyPanel}
+            className="absolute inset-0"
+            aria-label="Close request money panel"
+          />
+
+          <div className="relative">
+            <MoneyActionPanel
+              type="requestMoney"
+              amount={controller.moneyAmount}
+              onAmountChange={controller.setMoneyAmount}
+              onCancel={controller.handleCloseRequestMoneyPanel}
+              onSubmit={controller.handleSubmitRequestMoney}
+            />
+          </div>
+        </div>
+      )}
+
+      {controller.isAddPaymentMethodOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 p-4">
+          <button
+            type="button"
+            onClick={controller.handleCloseAddPaymentMethod}
             className="absolute inset-0"
             aria-label="Close add payment method"
           />
 
           <div className="relative">
             <AddPaymentMethodPanel
-              onCancel={handleCloseAddPaymentMethod}
-              onUpdate={handleUpdatePaymentMethod}
+              onCancel={controller.handleCloseAddPaymentMethod}
+              onUpdate={controller.handleUpdatePaymentMethod}
               panelWidth="w-[572px]"
               panelHeight="h-[418px]"
             />
@@ -821,32 +656,65 @@ export default function ProfileLayout({
       )}
 
       <AssignRemoveSiteModal
-        open={isAssignRemoveSiteModalOpen}
-        onClose={handleCloseAssignRemoveSiteModal}
-        memberName={selectedMemberName}
-        memberCode={selectedMemberCode}
-        onSave={handleSaveAssignedSites}
+        open={controller.isAssignRemoveSiteModalOpen}
+        onClose={controller.handleCloseAssignRemoveSiteModal}
+        memberName={controller.selectedMemberName}
+        memberCode={controller.selectedMemberCode}
+        onSave={controller.handleSaveAssignedSites}
       />
 
       <ConfirmationModal
-        open={isRemovePaymentModalOpen}
+        open={controller.isRemovePaymentModalOpen}
         type="removePaymentCard"
-        onConfirm={handleConfirmRemovePayment}
-        onCancel={handleCloseRemovePaymentModal}
+        onConfirm={controller.handleConfirmRemovePayment}
+        onCancel={controller.handleCloseRemovePaymentModal}
       />
 
       <ConfirmationModal
-        open={isRemoveTeamMemberModalOpen}
+        open={controller.isRemoveTeamMemberModalOpen}
         type="removeTeamMember"
-        onConfirm={handleConfirmRemoveTeamMember}
-        onCancel={handleCloseRemoveTeamMemberModal}
+        onConfirm={controller.handleConfirmRemoveTeamMember}
+        onCancel={controller.handleCloseRemoveTeamMemberModal}
       />
 
       <ConfirmationModal
-        open={isDisableMachineModalOpen}
+        open={controller.isDisableMachineModalOpen}
         type="disableMachine"
-        onConfirm={handleConfirmDisableMachine}
-        onCancel={handleCloseDisableMachineModal}
+        onConfirm={controller.handleConfirmDisableMachine}
+        onCancel={controller.handleCloseDisableMachineModal}
+      />
+
+      <ConfirmationModal
+        open={controller.isEnableDocumentModalOpen}
+        type="enableMachine"
+        onConfirm={() => {
+          controller.setIsEnableDocumentModalOpen(false);
+        }}
+        onCancel={() => {
+          controller.setIsEnableDocumentModalOpen(false);
+        }}
+      />
+
+      <ConfirmationModal
+        open={controller.isDisableDocumentModalOpen}
+        type="disableMachine"
+        onConfirm={() => {
+          controller.setIsDisableDocumentModalOpen(false);
+        }}
+        onCancel={() => {
+          controller.setIsDisableDocumentModalOpen(false);
+        }}
+      />
+
+      <ConfirmationModal
+        open={controller.isRemoveDocumentModalOpen}
+        type="removeMachine"
+        onConfirm={() => {
+          controller.setIsRemoveDocumentModalOpen(false);
+        }}
+        onCancel={() => {
+          controller.setIsRemoveDocumentModalOpen(false);
+        }}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import type { MachineDetailsModalData } from "@/shared/components/ActionTablePanel2";
+import type { MachineDetailsModalData } from "@/shared/components/FloatingPanel/ActionTablePanel2";
 import type { ColumnConfig } from "@/shared/components/Table";
 
 type MachineDocumentRow = {
@@ -84,13 +84,7 @@ export const machineDocumentDetailsMockData: MachineDetailsModalData = {
     "Enable",
     "Disable",
     "Remove",
-    "Rejected",
-    "Approve",
-    "Pending",
-    "On hold",
   ],
-  tableMaxHeight: 110,
-  tableMinWidth: 540,
   columns: machineDocumentColumns as ColumnConfig<{ id: string; [key: string]: any }>[],
   rows: [
     {

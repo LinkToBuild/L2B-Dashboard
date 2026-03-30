@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Button } from "@/shared/excomponent/ui/UIButton";
-import ConfirmationModal from "@/shared/components/ConfirmationModal";
+import ConfirmationModal from "@/shared/components/FloatingPanel/ConfirmationModal";
 
 type AssignSiteRow = {
   id: string;

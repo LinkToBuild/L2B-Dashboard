@@ -6,7 +6,7 @@ export const assignedMachinesMockData = {
   actionColumnKey: "manage",
   removeValue: "Remove",
   inactiveValue: "Select",
-  actionMode: "toggle", // or "callback" if you want outside handling
+  actionMode: "toggle",
   columns: [
     {
       header: "Machine",
@@ -43,6 +43,22 @@ export const assignedMachinesMockData = {
       header: "Manage",
       key: "manage",
       align: "center",
+      render: (value: string) => {
+        const isRemove = value === "Remove";
+
+        return (
+          <button
+            type="button"
+            className={`min-w-[88px] rounded-[10px] px-4 py-[6px] text-[13px] font-medium ${
+              isRemove
+                ? "border border-[#FFD9D9] bg-white text-[#FF6B6B]"
+                : "border border-[#D8F3E5] bg-white text-[#56C293]"
+            }`}
+          >
+            {value}
+          </button>
+        );
+      },
     },
   ],
   rows: [

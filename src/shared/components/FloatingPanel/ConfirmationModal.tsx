@@ -6,8 +6,6 @@ import { Button } from "@/shared/excomponent/ui/UIButton";
 import {
   CircleX,
   Trash2,
-  Power,
-  PowerOff,
   ArrowDownCircle,
   Ban
 } from "lucide-react";
@@ -193,61 +191,63 @@ export default function ConfirmationModal({
 
       <div
         className={cn(
-          "fixed left-1/2 top-1/2 z-50 h-[328] max-w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-[16px] bg-white p-6 shadow-xl transition-all duration-300",
+          "fixed left-1/2 top-1/2 z-50 h-[328px] max-w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-[16px] bg-white px-6 py-5 shadow-xl transition-all duration-300",
           open
             ? "opacity-100 scale-100 pointer-events-auto"
             : "opacity-0 scale-95 pointer-events-none"
         )}
       >
-        <div className="flex flex-col items-center text-center">
-          {finalIcon && <div className="mb-5">{finalIcon}</div>}
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="flex h-[248px] w-[424px] flex-col items-center text-center">
+            {finalIcon && <div className="mb-[14px] flex shrink-0 items-center justify-center">{finalIcon}</div>}
 
-          <h2 className="font-['Poppins'] text-[24px] font-medium leading-[100%] tracking-[0] text-center text-[#000000]">
-            {finalTitle}
-          </h2>
+            <h2 className="font-['Poppins'] text-[24px] font-medium leading-[100%] tracking-[0] text-center text-[#000000]">
+              {finalTitle}
+            </h2>
 
-          {finalDescription ? (
-            <p className="mt-3 font-['Poppins'] text-[16px] font-normal leading-[100%] tracking-[0] text-center text-[#8E8E8E]">
-              {finalDescription}
-            </p>
-          ) : null}
+            {finalDescription ? (
+              <p className="mt-3 max-w-[424px] font-['Poppins'] text-[16px] font-normal leading-[100%] tracking-[0] text-center text-[#8E8E8E]">
+                {finalDescription}
+              </p>
+            ) : null}
 
-          <div
-            className={cn(
-              "mt-[40px] flex w-full gap-4",
-              finalHideCancel ? "justify-center" : ""
-            )}
-          >
-            {!finalHideCancel && (
+            <div
+              className={cn(
+                "mt-auto flex w-full items-center gap-6 pt-[28px]",
+                finalHideCancel ? "justify-center" : ""
+              )}
+            >
+              {!finalHideCancel && (
+                <Button
+                  onClick={onCancel}
+                  variant="outline"
+                  size="default"
+                  className={cn(
+                    "h-[40px] w-[200px] rounded-[8px] border border-[#D9D9D9] bg-white text-black shadow-none hover:bg-gray-50",
+                    cancelButtonClassName
+                  )}
+                >
+                  <span className="font-['Poppins'] text-[16px] font-medium leading-[100%] tracking-[0] text-center">
+                    {finalCancelText}
+                  </span>
+                </Button>
+              )}
+
               <Button
-                onClick={onCancel}
-                variant="outline"
+                onClick={onConfirm}
+                variant="default"
                 size="default"
                 className={cn(
-                  "flex-1 rounded-[8px] w-[200px] h-[40px] border border-[#D9D9D9] bg-white text-black hover:bg-gray-50",
-                  cancelButtonClassName
+                  "h-[40px] rounded-[8px] px-4 py-3 shadow-none",
+                  finalHideCancel ? "w-[200px]" : "flex-1",
+                  finalConfirmButtonClassName
                 )}
               >
                 <span className="font-['Poppins'] text-[16px] font-medium leading-[100%] tracking-[0] text-center">
-                  {finalCancelText}
+                  {finalConfirmText}
                 </span>
               </Button>
-            )}
-
-            <Button
-              onClick={onConfirm}
-              variant="default"
-              size="default"
-              className={cn(
-                "h-[40px] rounded-[8px] px-4 py-3",
-                finalHideCancel ? "w-[200px]" : "flex-1",
-                finalConfirmButtonClassName
-              )}
-            >
-              <span className="font-['Poppins'] text-[16px] font-medium leading-[100%] tracking-[0] text-center">
-                {finalConfirmText}
-              </span>
-            </Button>
+            </div>
           </div>
         </div>
       </div>
