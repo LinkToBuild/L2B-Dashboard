@@ -1,10 +1,11 @@
 "use client";
 
-import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
+// import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
 import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorIndividualScreen";
-import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
+// import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
 import { ColumnConfig } from "@/shared/components/Table";
-import { useState } from "react";
+import { useState ,Suspense} from "react";
+
 
 export default function VendorManagementPage() {
   const [timeFilter, setTimeFilter] = useState("Site A");
@@ -221,6 +222,7 @@ export default function VendorManagementPage() {
 
   return (
     <div className="px-8 py-5 min-h-screen bg-[#F8F9FA]">
+      <Suspense fallback={<div className="p-10 text-neutral-400">Loading Vendor Details...</div>}>
       <VendorIndividualScreen></VendorIndividualScreen>
       {/* <VendorScreen></VendorScreen> */}
       {/* <ProfileLayout
@@ -236,6 +238,11 @@ export default function VendorManagementPage() {
   projectTitle="Machine details (90)"
   paymentTitle="Payment details"
 /> */}
+</Suspense>
     </div>
   );
 }
+
+
+
+
