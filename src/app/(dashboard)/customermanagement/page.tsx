@@ -5,9 +5,10 @@ import CustomerIndividualScreen from "@/features/customermanagement/screen/Custo
 import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
 import { ColumnConfig } from "@/shared/components/Table";
 import { useState } from "react";
+import { Suspense } from "react";
 
 export default function CustomerManagementPage() {
- const mockTeamDetails = [
+  const mockTeamDetails = [
     {
       name: "Suresh Reddy",
       id: "#DSV2144443",
@@ -86,8 +87,6 @@ export default function CustomerManagementPage() {
       ),
     },
   ];
-
-
 
   const mockProjectDetails = [
     {
@@ -217,7 +216,15 @@ export default function CustomerManagementPage() {
   };
   return (
     <div className="px-8 py-5    min-h-screen bg-[#F8F9FA]">
-      <CustomerScreen />
+      <Suspense
+        fallback={
+          <div className="flex w-full items-center justify-center p-10 text-neutral-500">
+            Loading Dashboard...
+          </div>
+        }
+      >
+        <CustomerScreen />
+      </Suspense>
       {/* <CustomerIndividualScreen></CustomerIndividualScreen> */}
       {/* <ProfileLayout
         role=""
