@@ -107,7 +107,7 @@ export default function OrderScreen() {
   ];
   return (
     <>
-      <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
+      <SectionWrapper className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
         <Header
           currentTab={currentTab}
           onTabChange={(tab) => setUrlFilter("tab", tab)}
@@ -129,7 +129,7 @@ export default function OrderScreen() {
         />
 
         <SupplyDemandChart data={supplyDemandData} />
-        <SectionWrapper className="">
+        
           <DataTableWidget
             title={`All Orders (${currentTab})`} // Dynamically updating title based on Tab!
             columns={columns}
@@ -137,8 +137,8 @@ export default function OrderScreen() {
             searchQuery={searchQuery}
             onSearchChange={(val) => setUrlFilter("search", val)}
           />
-        </SectionWrapper>
-      </div>
+        
+      </SectionWrapper>
     </>
   );
 }

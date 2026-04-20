@@ -39,7 +39,7 @@ export function Header({
   const score = 3.7;
 
   return (
-    <SectionWrapper className="">
+    <div className="">
       <div className="flex h-[52px] justify-between">
         <div className="h-full flex font-normal place-items-center gap-2">
           {/* Changed Title as noticed! */}
@@ -87,6 +87,6 @@ export function Header({
           </div>
         </div>
       </div>
-    </SectionWrapper>
+    </div>
   );
 }

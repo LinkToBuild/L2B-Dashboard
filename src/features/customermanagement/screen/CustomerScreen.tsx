@@ -106,7 +106,7 @@ export function CustomerScreen() {
   ];
 
   return (
-    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px]">
+    <SectionWrapper className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
       {/* Rendering the Header you just built */}
       <Header />
       {/* <SectionWrapper className="flex w-full gap-[34px] border border-red-500">
@@ -191,14 +191,14 @@ export function CustomerScreen() {
         </div>
       </SectionWrapper> */}
 
-      <SectionWrapper className="">
+     
         <DataMatrixSection
           paymentData={paymentData}
           infoCardsData={infoCardsData}
           customerData={customerData}
         />
-      </SectionWrapper>
-      <SectionWrapper className="flex flex-col gap-5">
+  
+      <div className="flex flex-col gap-5">
         <TableToolBar
           currentFilter={currentStatusFilter}
           searchQuery={searchQuery}
@@ -212,7 +212,7 @@ export function CustomerScreen() {
         ) : (
           <DynamicTable columns={columns} data={orders} minWidth={1100} />
         )}
-      </SectionWrapper>
-    </div>
+      </div>
+    </SectionWrapper>
   );
 }

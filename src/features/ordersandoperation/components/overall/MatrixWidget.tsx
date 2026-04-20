@@ -69,7 +69,7 @@ export default function MatrixWidget({
   //   },
   // ];
   return (
-    <SectionWrapper className="w-full gap-[20px] flex h-[211px] 2xl:h-[250px]">
+    <div className="w-full gap-[20px] flex h-[211px] 2xl:h-[250px]">
       <div className="w-[55%]  flex justify-between gap-[20px]">
         <LineCharts
           data={chartData}
@@ -95,6 +95,6 @@ export default function MatrixWidget({
           ></InfoCards>
         </div>
       </div>
-    </SectionWrapper>
+    </div>
   );
 }

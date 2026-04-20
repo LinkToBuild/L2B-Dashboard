@@ -128,7 +128,7 @@ export function Header() {
         </div>
       </div>
     </SectionWrapper> */}
-      <SectionWrapper className="">
+      <div className="">
         <div className=" flex h-[52px]   justify-between ">
           <div className=" h-full flex  font-normal place-items-center gap-2">
             <p className="text-[#1F1F1F] xl:text-[24px] ">Overview</p>
@@ -232,7 +232,7 @@ export function Header() {
             </div>
           </div>
         </div>
-      </SectionWrapper>
+      </div>
     </>
   );
 }
