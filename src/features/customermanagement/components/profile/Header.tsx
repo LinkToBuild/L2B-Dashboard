@@ -9,10 +9,11 @@ import { CustomInput } from "@/shared/excomponent/ui/TextField";
 export interface ProfileHeaderProps {
   title: string;
   role?: string;
-  walletBalance?: string | number; // Made optional since workers don't need it
+  walletBalance?: string | number; 
+  onWalletClick?: () => void;// Made optional since workers don't need it
 }
 
-export default function Header({ title, role, walletBalance = "0" }: ProfileHeaderProps) {
+export default function Header({ title, role, walletBalance = "0", onWalletClick }: ProfileHeaderProps) {
   // 3. Clean boolean logic for conditional rendering
   const showWallet = role !== "worker";
 
@@ -30,7 +31,9 @@ export default function Header({ title, role, walletBalance = "0" }: ProfileHead
           <div className="flex justify-between place-items-center w-[209px] h-full rounded-[16px] px-[12px] py-[8px] border border-success-1 text-[12px] font-normal text-success-1">
             <span>Wallet Balance :</span>
             <span className="font-medium">{walletBalance}</span>
-            <button type="button" className="hover:opacity-80 transition-opacity">
+            <button type="button" 
+              onClick={onWalletClick}
+            className="hover:opacity-80 transition-opacity">
               <CirclePlus className="text-success-2 h-[20px] w-[20px]" />
             </button>
           </div>
