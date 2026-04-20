@@ -7,9 +7,21 @@ import { StatCard } from "@/shared/excomponent/ui/StatCard";
 import { LegendData } from "@/shared/components/Legend";
 import mapImg from "@/public/images/mapImg.png";
 import Image from "next/image";
+import { PaymentData, InfoCardData, CustomerMetric } from "../../types";
 import { SideBoard } from "@/shared/components/SideBoard";
 
-export default function DataMatrixSection() {
+interface DataMatrixSectionProps {
+    paymentData: PaymentData[];
+    infoCardsData: InfoCardData[];
+    customerData: CustomerMetric[];
+  }
+export default function DataMatrixSection({ 
+  paymentData, 
+  infoCardsData, 
+  customerData 
+}: DataMatrixSectionProps) {
+  
+
   const paymentConfig = {
     percentage: { label: "Percentage" },
     upi: { label: "UPI", color: "#356583" }, // Darkest Blue
@@ -18,77 +30,7 @@ export default function DataMatrixSection() {
     paylater: { label: "Paylater", color: "#CDE0ED" }, // Lightest Blue
   } satisfies ChartConfig;
 
-  const paymentData = [
-    { method: "upi", percentage: 28, fill: "356583" },
-    { method: "cod", percentage: 30, fill: "var(--color-cod)" },
-    { method: "netbanking", percentage: 22, fill: "var(--color-netbanking)" },
-    { method: "paylater", percentage: 20, fill: "var(--color-paylater)" },
-  ];
 
-  const infoCardsData = [
-    {
-      title: "Active Orders",
-      Stats: "10,90,00",
-      percentage: -20.89,
-      information: "Total number of active orders currently in progress.",
-    },
-    {
-      title: "Completed ",
-      Stats: "9,000",
-      percentage: -20.89,
-      information: "Total number of active orders currently in progress.",
-    },
-  ];
-  const customerData = [
-    {
-      label: "Total",
-      percentage_change: -20.89,
-      trend: "down",
-      value: "809.8k",
-    },
-    {
-      label: "Active",
-      percentage_change: -20.89,
-      trend: "down",
-      value: "109.8k",
-    },
-    {
-      label: "New",
-      percentage_change: 20.89,
-      trend: "up",
-      value: "109k",
-    },
-    {
-      label: "Repeat",
-      percentage_change: 20.89,
-      trend: "up",
-      value: "309k",
-    },
-    {
-      label: "Potential",
-      percentage_change: -20.89,
-      trend: "down",
-      value: "109k",
-    },
-    {
-      label: "At Risk",
-      percentage_change: 20.89,
-      trend: "up",
-      value: "10k",
-    },
-    {
-      label: "Dormant",
-      percentage_change: 20.89,
-      trend: "up",
-      value: "9k",
-    },
-    {
-      label: "Restricted",
-      percentage_change: -20.89,
-      trend: "down",
-      value: "9k",
-    },
-  ];
   return (
     <div className="flex w-full gap-[34px]">
       <div className="flex flex-col gap-[30px] ">
@@ -111,7 +53,7 @@ export default function DataMatrixSection() {
               </div>
               <div className=" xl:w-[40%] 2xl:w-[245px] h-[299px] flex flex-col gap-[27px] ">
                 <div className="w-full flex flex-col gap-[27px]">
-                  {infoCardsData.map((card, index) => (
+                  {infoCardsData?.map((card, index) => (
                     <StatCard
                       key={index}
                       title={card.title}

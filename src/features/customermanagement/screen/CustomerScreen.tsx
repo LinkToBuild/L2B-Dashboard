@@ -19,212 +19,25 @@ import { DynamicTable } from "@/shared/components/Table";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import { ColumnConfig } from "@/shared/components/Table"; // Adjust path if needed
 import { ChartConfig } from "@/components/ui/chart";
+import DataMatrixSection from "../components/overall/DataMatrixSection";
+import TableToolBar from "../components/overall/TableToolBar";
+import { useCustomerViewModel } from "../viewModel/useCustomerViewModel";
+import { OrderRow } from "../types";
 
 export function CustomerScreen() {
   const [filter, setFilter] = useState<string>("Completed");
 
-  const infoCardsData = [
-    {
-      title: "Active Orders",
-      Stats: "10,90,00",
-      percentage: -20.89,
-      information: "Total number of active orders currently in progress.",
-    },
-    {
-      title: "Completed ",
-      Stats: "9,000",
-      percentage: -20.89,
-      information: "Total number of active orders currently in progress.",
-    },
-  ];
-
-  const customerData = [
-    {
-      label: "Total",
-      percentage_change: -20.89,
-      trend: "down",
-      value: "809.8k",
-    },
-    {
-      label: "Active",
-      percentage_change: -20.89,
-      trend: "down",
-      value: "109.8k",
-    },
-    {
-      label: "New",
-      percentage_change: 20.89,
-      trend: "up",
-      value: "109k",
-    },
-    {
-      label: "Repeat",
-      percentage_change: 20.89,
-      trend: "up",
-      value: "309k",
-    },
-    {
-      label: "Potential",
-      percentage_change: -20.89,
-      trend: "down",
-      value: "109k",
-    },
-    {
-      label: "At Risk",
-      percentage_change: 20.89,
-      trend: "up",
-      value: "10k",
-    },
-    {
-      label: "Dormant",
-      percentage_change: 20.89,
-      trend: "up",
-      value: "9k",
-    },
-    {
-      label: "Restricted",
-      percentage_change: -20.89,
-      trend: "down",
-      value: "9k",
-    },
-  ];
-
-  const filterMenuItems = [
-    { label: "Completed", onClick: () => setFilter("Completed") },
-    { label: "Started", onClick: () => setFilter("Started") },
-    { label: "Arrived", onClick: () => setFilter("Arrived") },
-    { label: "Canceled", onClick: () => setFilter("Canceled") },
-    { label: "Extended", onClick: () => setFilter("Extended") },
-  ];
-
-  const mockOrders = [
-    {
-      status: "Completed",
-      orderId: "#ORD-88293",
-      equipment: "Mud-pump",
-      capacity: "10 ton",
-      bookingDate: "12/03/2026",
-      startsOn: "12/03/2026",
-      endOn: "14/03/2026",
-      extended: "14/03/2026 (12:30)",
-      firstLocation: "HPM HQ, Banga...",
-      secondLocation: "-",
-      customerId: "V-OD-12345",
-      vendorId: "V-OD-12345",
-      operatorId: "op-12345X-S",
-      ratings: "5.0",
-      payment: "COD",
-      coupon: "FIRSTBUY50",
-    },
-    {
-      status: "Started",
-      orderId: "#ORD-88294",
-      equipment: "Truck",
-      capacity: "20 ton",
-      bookingDate: "12/03/2026",
-      startsOn: "-",
-      endOn: "-",
-      extended: "-",
-      firstLocation: "HPM HQ, Banga...",
-      secondLocation: "WXP HQ, Ban...",
-      customerId: "V-OD-12346",
-      vendorId: "V-OD-12346",
-      operatorId: "op-12346X-S",
-      ratings: "-",
-      payment: "Online",
-      coupon: "-",
-    },
-    {
-      status: "Arrived",
-      orderId: "#ORD-88295",
-      equipment: "Truck",
-      capacity: "20 ton",
-      bookingDate: "12/03/2026",
-      startsOn: "12/03/2026",
-      endOn: "14/03/2026",
-      extended: "-",
-      firstLocation: "HPM HQ, Banga...",
-      secondLocation: "WXP HQ, Ban...",
-      customerId: "V-OD-12347",
-      vendorId: "V-OD-12347",
-      operatorId: "op-12347X-S",
-      ratings: "-",
-      payment: "Online",
-      coupon: "-",
-    },
-    {
-      status: "Completed",
-      orderId: "#ORD-88296",
-      equipment: "Mud-pump",
-      capacity: "10 ton",
-      bookingDate: "12/03/2026",
-      startsOn: "12/03/2026",
-      endOn: "14/03/2026",
-      extended: "Online", // Matching the "Online" text visible in row 4 of the image
-      firstLocation: "HPM HQ, Banga...",
-      secondLocation: "-",
-      customerId: "V-OD-12348",
-      vendorId: "V-OD-12348",
-      operatorId: "op-12348X-S",
-      ratings: "-",
-      payment: "Online",
-      coupon: "-",
-    },
-    {
-      status: "Completed",
-      orderId: "#ORD-88297",
-      equipment: "Truck",
-      capacity: "20 ton",
-      bookingDate: "12/03/2026",
-      startsOn: "12/03/2026",
-      endOn: "14/03/2026",
-      extended: "-",
-      firstLocation: "HPM HQ, Banga...",
-      secondLocation: "WXP HQ, Ban...",
-      customerId: "V-OD-12349",
-      vendorId: "V-OD-12349",
-      operatorId: "op-12349X-S",
-      ratings: "-",
-      payment: "Online",
-      coupon: "-",
-    },
-    {
-      status: "Completed",
-      orderId: "#ORD-88298",
-      equipment: "Truck",
-      capacity: "20 ton",
-      bookingDate: "12/03/2026",
-      startsOn: "12/03/2026",
-      endOn: "14/03/2026",
-      extended: "-",
-      firstLocation: "HPM HQ, Banga...",
-      secondLocation: "-",
-      customerId: "V-OD-12350",
-      vendorId: "V-OD-12350",
-      operatorId: "op-12350X-S",
-      ratings: "-",
-      payment: "Online",
-      coupon: "-",
-    },
-    {
-      status: "Extended",
-      orderId: "#ORD-88299",
-      equipment: "Truck",
-      capacity: "20 ton",
-      bookingDate: "12/03/2026",
-      startsOn: "12/03/2026",
-      endOn: "14/03/2026",
-      extended: "14/03/2026 (12:30)",
-      firstLocation: "HPM HQ, Banga...",
-      secondLocation: "WXP HQ, Ban...",
-      customerId: "V-OD-12351",
-      vendorId: "V-OD-12351",
-      operatorId: "op-12351X-S",
-      ratings: "-",
-      payment: "Online",
-      coupon: "-",
-    },
-  ];
+  const {
+    orders,
+    isLoading,
+    currentStatusFilter,
+    searchQuery,
+    setStatusFilter,
+    setSearchQuery,
+    paymentData,
+    infoCardsData,
+    customerData,
+  } = useCustomerViewModel();
 
   const columns: ColumnConfig<any>[] = [
     {
@@ -292,28 +105,11 @@ export function CustomerScreen() {
     },
   ];
 
-
-  const paymentConfig = {
-    percentage: { label: "Percentage" },
-    upi: { label: "UPI", color: "#356583" }, // Darkest Blue
-    cod: { label: "COD", color: "#86A8C3" }, // Medium Blue
-    netbanking: { label: "Net Banking", color: "#3F82B7" }, // Bright Blue
-    paylater: { label: "Paylater", color: "#CDE0ED" }, // Lightest Blue
-  } satisfies ChartConfig;
-
-
-  const paymentData = [
-    { method: "upi", percentage: 28, fill: "356583" },
-    { method: "cod", percentage: 30, fill: "var(--color-cod)" },
-    { method: "netbanking", percentage: 22, fill: "var(--color-netbanking)" },
-    { method: "paylater", percentage: 20, fill: "var(--color-paylater)" },
-  ];
-
   return (
     <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px]">
       {/* Rendering the Header you just built */}
       <Header />
-      <SectionWrapper className="flex w-full gap-[34px]">
+      {/* <SectionWrapper className="flex w-full gap-[34px] border border-red-500">
         <div className="flex flex-col gap-[30px]">
           <InfoCards />
           <div className="  flex gap-[10px] 2xl:gap-[33px]">
@@ -393,45 +189,30 @@ export function CustomerScreen() {
             data={customerData}
           ></SideBoard>
         </div>
-      </SectionWrapper>
-      <SectionWrapper className="">
-        <div className="flex flex-col gap-5">
-          <div className="flex justify-between place-items-center">
-            <div className="flex gap-[10px] place-items-center ">
-              <p className="text-[24px] text-neutral-2 font-normal">
-                All Orders
-              </p>
-              <Info className="w-4 h-4 text-neutral-3"></Info>
-            </div>
-            <div className="flex gap-[12px]">
-              <CustomInput
-                sizeVariant="lg"
-                label="Search"
-                type="search"
-                // helperText="Must be 8 characters"
-              />
+      </SectionWrapper> */}
 
-              <L2BDropdownMenu
-                trigger={
-                  <button className="p-2 bg-white border border-neutral-6 rounded-lg text-neutral-2 hover:bg-neutral-7 transition-colors">
-                    <ListFilter size={25} />
-                  </button>
-                }
-                items={filterMenuItems}
-              />
-            </div>
+      <SectionWrapper className="">
+        <DataMatrixSection
+          paymentData={paymentData}
+          infoCardsData={infoCardsData}
+          customerData={customerData}
+        />
+      </SectionWrapper>
+      <SectionWrapper className="flex flex-col gap-5">
+        <TableToolBar
+          currentFilter={currentStatusFilter}
+          searchQuery={searchQuery}
+          onFilterChange={setStatusFilter}
+          onSearchChange={setSearchQuery}
+        />
+        {isLoading ? (
+          <div className="w-full h-64 flex items-center justify-center text-neutral-500">
+            Loading orders...
           </div>
-          <div>
-            <DynamicTable
-              columns={columns}
-              data={mockOrders}
-              minWidth={1100} // Matches your Frame 427318563.jpg reference for many columns
-            />
-          </div>
-        </div>
+        ) : (
+          <DynamicTable columns={columns} data={orders} minWidth={1100} />
+        )}
       </SectionWrapper>
     </div>
   );
 }
-
- 
