@@ -5,7 +5,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased suppressHydrationWarning`}>
+      <body className={`${poppins.variable} font-sans antialiased suppressHydrationWarning bg-[#FDFDFD]`}>
         <AppRouterCacheProvider>
           {children}
         </AppRouterCacheProvider>

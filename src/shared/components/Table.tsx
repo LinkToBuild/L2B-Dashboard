@@ -32,7 +32,7 @@ export function DynamicTable<T>({
   columns,
   data,
   minWidth = 650,
-  maxHeight = "500px"
+  maxHeight = "500px",
 }: DynamicTableProps<T>) {
   return (
     <TableContainer
@@ -43,10 +43,49 @@ export function DynamicTable<T>({
         borderRadius: "12px",
         overflow: "auto",
         maxHeight: maxHeight,
+
+        "&::-webkit-scrollbar": {
+          width: "7px", 
+          height: "7px",
+        },
+        "&::-webkit-scrollbar-track": {
+          backgroundColor: "#880808", 
+          borderTopRightRadius: "12px",
+          borderBottomRightRadius: "12px",
+        },
+        "&::-webkit-scrollbar-button": {
+          display: "none !important",
+          width: "0px !important",
+          height: "0px !important",
+          WebkitAppearance: "none !important", 
+        },
+        "&::-webkit-scrollbar-button:vertical:start:decrement, &::-webkit-scrollbar-button:vertical:end:increment":
+          {
+            display: "none !important",
+          },
+        "&::-webkit-scrollbar-button:horizontal:start:decrement, &::-webkit-scrollbar-button:horizontal:end:increment":
+          {
+            display: "none !important",
+          },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "#C1C1C1",
+          borderRadius: "30px",
+          "&:hover": {
+            backgroundColor: "#A8A8A8", 
+          },
+        },
+
+       
+        scrollbarWidth: "thin",
+        scrollbarColor: "#FFFFFF #E1E1E1",
       }}
     >
       <Table aria-label="dynamic table">
-        <TableHead sx={{ background: "linear-gradient(180deg, #FFFEFE 0%, #FFF0D8 100%)" }}>
+        <TableHead
+          sx={{
+            background: "linear-gradient(180deg, #FFFEFE 0%, #FFF0D8 100%)",
+          }}
+        >
           <TableRow>
             {columns.map((column, index) => (
               <TableCell
@@ -87,12 +126,12 @@ export function DynamicTable<T>({
                       color: "#1F1F1F",
                       fontSize: "12px",
                       minWidth: column.width || "150px",
-                      padding: "24px 16px", // Increased padding to make the cell taller
-                      position: "relative", // Required for the absolute line to position correctly
-                      borderBottom: "1px solid #E1E1E1", // Horizontal row line
-                      borderRight: "none", // Disable standard border
+                      padding: "24px 16px", 
+                      position: "relative",
+                      borderBottom: "1px solid #E1E1E1", 
+                      borderRight: "none", 
 
-                      // The "Levitating" Vertical Line
+                     
                       "&::after": {
                         content: '""',
                         position: "absolute",

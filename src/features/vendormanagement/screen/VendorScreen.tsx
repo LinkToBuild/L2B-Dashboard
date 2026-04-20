@@ -140,7 +140,7 @@ export function VendorScreen() {
 
   return (
     <>
-      <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%] flex flex-col gap-[30px] max-w-[1440px]  [@media(min-width:1700px)]:mx-auto">
+      <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%]  flex flex-col gap-[30px] max-w-[1440px]  [@media(min-width:1700px)]:mx-auto ">
         <Header
           currentTab={currentTab}
           onTabChange={(tab) => setUrlFilter("tab", tab)}
@@ -153,8 +153,8 @@ export function VendorScreen() {
           }}
         />
         <div className="flex flex-col gap-[30px]">
-          <div className=" w-full flex justify-between">
-            <div className=" w-[76%] flex flex-col gap-[10px]">
+          <div className=" w-full flex justify-between ">
+            <div className=" xl:w-[72%] 2xl:w-[76%] flex flex-col gap-[10px] ">
               <div className="flex flex-col gap-y-[20px] mb-[32px]">
                 <InfoCards data={infoCards?.slice(0, 4) || []} />
                 <InfoCards data={infoCards?.slice(4, 8) || []} />

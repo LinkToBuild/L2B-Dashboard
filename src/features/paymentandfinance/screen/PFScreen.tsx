@@ -26,7 +26,7 @@ export function PFScreen() {
   } = usePFViewModel();
 
   return (
-    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px]">
+    <SectionWrapper className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
       <Header
         currentFilter={headerFilter}
         onFilterChange={(val) => setUrlFilter("headerFilter", val)}
@@ -42,10 +42,10 @@ export function PFScreen() {
         onGlobalTabChange={(val) => setUrlFilter("globalTab", val)}
       />
 
-      <SectionWrapper className="">
-        <div className="flex w-full gap-[83px]">
+      <div className="">
+        <div className="flex w-full xl:gap-[60px] 2xl:gap-[83px] justify-between ">
           <div className="w-[700px] h-[356px] 2xl:w-[730px] flex flex-col gap-[10px]">
-            <div className="w-full h-full flex items-center justify-evenly border border-neutral-5 p-[20px] rounded-[12px]">
+            <div className="w-full h-full flex items-center gap-[10px] justify-evenly border border-neutral-5 p-[20px] rounded-[12px]">
               <div className="">
                 <ChartPieDonut
                   data={paymentModeData}
@@ -73,31 +73,47 @@ export function PFScreen() {
                 </div>
 
                 <div className="h-[48px] grid grid-cols-2">
-                 <LegendData color="#36678C" label="UPI" percentage={28} />
+                  <LegendData color="#36678C" label="UPI" percentage={28} />
                   <LegendData color="#8DAFD1" label="COD" percentage={30} />
-                  <LegendData color="#4889BC" label="Net Banking" percentage={22} />
-                  <LegendData color="#CBDEEC" label="Paylater" percentage={20} />
+                  <LegendData
+                    color="#4889BC"
+                    label="Net Banking"
+                    percentage={22}
+                  />
+                  <LegendData
+                    color="#CBDEEC"
+                    label="Paylater"
+                    percentage={20}
+                  />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="w-[400px] shrink-0">
-            <div className="grid grid-cols-2 gap-x-[120px] gap-y-[20px]">
-             {metricsCards.map((card, index) => (
-                <StatCard key={index} title={card.title} value={card.Stats} percentage={card.percentage} information={card.information} />
+          <div className="w-full xl:w-[470px] 2xl:w-[530px] shrink-0 overflow-hidden p-2 ">
+            <div className="flex flex-wrap justify-between w-full -mb-[4%]">
+              {metricsCards.map((card, index) => (
+                <div key={index} className=" mb-[4%] flex ">
+                  <StatCard
+                    title={card.title}
+                    value={card.Stats}
+                    percentage={card.percentage}
+                    information={card.information}
+                    className="xl:w-[224px] xl:h-[98px]"
+                  />
+                </div>
               ))}
             </div>
           </div>
         </div>
 
-        <PaymentMetricsWidget 
+        <PaymentMetricsWidget
           activeTab={categoryTab}
           onTabChange={(val) => setUrlFilter("categoryTab", val)}
           rentalData={rentalOrders}
           materialData={materialOrders}
         />
-      </SectionWrapper>
-    </div>
+      </div>
+    </SectionWrapper>
   );
 }

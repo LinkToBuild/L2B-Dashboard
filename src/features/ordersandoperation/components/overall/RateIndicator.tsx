@@ -4,7 +4,12 @@ import React, { useState, useEffect } from "react";
 import { IndicatorChart } from "@/shared/excomponent/charts/IndicatorChart";
 import { Info } from "lucide-react";
 
-export function RateIndicator() {
+interface RateIndicatorProps {
+  width?: number | string;
+  height?:number | string;
+}
+
+export function RateIndicator({ width = "100%" , height = '100%' }: RateIndicatorProps) {
   const [score, setScore] = useState(75);
 
   useEffect(() => {
@@ -27,13 +32,13 @@ export function RateIndicator() {
   }, []);
   return (
     <>
-      <div className="border border-neutral-5 w-[342px] h-[216px] rounded-[12px] p-[12px]">
+      <div style={{ width , height }} className="border border-neutral-5  h-[216px] rounded-[12px] p-[12px]">
         <div className="flex w-full justify-between">
           <p className="text-[16px] font-normal">Fulfillment Rate</p>
           <p className="text-success-2 text-[12px] font-normal">+20.89%</p>
           <Info className="text-neutral-3 w-4 h-4"></Info>
         </div>
-        <IndicatorChart value={score} width={237} height={220} />
+        <IndicatorChart value={score} width='100%' height={220} />
       </div>
     </>
   );

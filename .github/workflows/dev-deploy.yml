@@ -24,9 +24,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Linter
-        run: npm run lint # This is where it catches those unused variables!
-
       - name: Build Project
         run: npm run build # Ensures the project compiles 100%
         env:

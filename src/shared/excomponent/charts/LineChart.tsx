@@ -64,7 +64,7 @@ export function LineCharts({
     // 🎨 FUTURE STYLING COMMENT:
     // If you need to add a background color, padding, borders, or shadows in the future,
     // add classes like 'bg-white p-6 border rounded-[16px]' to the className string below!
-    <div className="flex flex-col  items-center  ">
+    <div className="flex flex-col  items-center  w-full">
       {/* The Graph Area (Now using dynamic width and height) */}
       <div
         style={{ width, height }}

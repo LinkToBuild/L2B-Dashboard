@@ -47,7 +47,7 @@ export function Header({
   ];
 
   return (
-    <SectionWrapper className="">
+    <div className="">
       <div className="flex h-[52px] justify-between">
         <div className="h-full flex font-normal place-items-center gap-2">
           <p className="text-neutral-1 xl:text-[24px]">Inventory Management</p>
@@ -143,6 +143,6 @@ export function Header({
           </div>
         </div>
       </div>
-    </SectionWrapper>
+    </div>
   );
 }

@@ -36,7 +36,7 @@ export function GraphSection({ campaignData, channelData, leadScoreData }: Graph
   ];
 
   return (
-    <div className="w-full flex justify-between">
+    <div className="w-full flex justify-between gap-[22px]">
       <div className="w-[382px] h-[211px]">
         <div className="w-full flex flex-col gap-4">
           <div className="flex gap-3 place-items-center">
@@ -60,7 +60,7 @@ export function GraphSection({ campaignData, channelData, leadScoreData }: Graph
           <p className="text-[18px] 2xl:text-[24px] text-neutral-1 font-normal">Avg Lead Score</p>
           <Info className="w-4 h-4 text-neutral-3" />
         </div>
-        <StackedBarChart width={224} height={230} data={leadScoreData} series={stackchartSeries} />
+        <StackedBarChart width='100%' height={230} data={leadScoreData} series={stackchartSeries} />
       </div>
     </div>
   );

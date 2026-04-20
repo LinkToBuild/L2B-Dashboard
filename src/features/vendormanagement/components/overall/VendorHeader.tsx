@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect  } from "react";
 import { L2BButton } from "@/design-system/components/L2BButton";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
 import { ListFilter } from "lucide-react";
@@ -32,11 +32,18 @@ export function Header({
 
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [showEndCalendar, setShowEndCalendar] = useState(false);
+  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
 
   const [localStart, setLocalStart] = useState<Date | undefined>();
   const [localEnd, setLocalEnd] = useState<Date | undefined>();
 
   const [filter, setFilter] = useState<string>("Daily");
+
+  useEffect(() => {
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const filterMenuItems = [
     { label: "Daily", onClick: () => onFilterChange("Daily") },
@@ -45,13 +52,15 @@ export function Header({
     { label: "Yearly", onClick: () => onFilterChange("Yearly") },
   ];
 
+  
+
   return (
     <>
     
         <div className=" flex h-[52px]   justify-between ">
           <div className=" h-full flex  font-normal place-items-center gap-2">
-            <p className="text-[#1F1F1F] xl:text-[24px] ">{currentTab} Overview</p>
-            <p className="text-[12px] text-[#CACACA]">
+            <p className="text-[#1F1F1F] md:text-[14px] xl:text-[24px] ">{currentTab} Overview</p>
+            <p className="text-[12px] text-[#CACACA] hidden lg:inline-flex">
               (Comparison based on previous week's performance.)
             </p>
           </div>
@@ -70,11 +79,11 @@ export function Header({
                       setShowEndCalendar(false));
                   }}
                   variant="outline"
-                  textSize="text-[16px]"
+                  textSize={screenWidth < 840 ? "text-[14px]" : "text-[16px]"}
                   textColor="text-neutral-3"
                   radius="rounded-[4px]"
                   fontWeight="font-normal"
-                  size="medium"
+                  size={screenWidth < 840 ? "small" : "medium"}
                 >
                   {currentStartDate
                     ? new Date(currentStartDate).toLocaleDateString("en-GB")
@@ -103,11 +112,11 @@ export function Header({
                       setShowStartCalendar(false));
                   }}
                   variant="outline"
-                  textSize="text-[16px]"
+                  textSize={screenWidth < 840 ? "text-[14px]" : "text-[16px]"}
                   textColor="text-neutral-3"
                   radius="rounded-[4px]"
                   fontWeight="font-normal"
-                  size="medium"
+                  size={screenWidth < 840 ? "small" : "medium"}
                 >
                   {currentEndDate
                     ? new Date(currentEndDate).toLocaleDateString("en-GB")
@@ -133,7 +142,7 @@ export function Header({
               <L2BDropdownMenu
                 trigger={
                   <button className="p-2 bg-white border border-neutral-6 rounded-lg text-neutral-2 hover:bg-neutral-7 transition-colors">
-                    <ListFilter size={18} />
+                    <ListFilter size={screenWidth < 840 ? 15 : 18} />
                   </button>
                 }
                 items={filterMenuItems}

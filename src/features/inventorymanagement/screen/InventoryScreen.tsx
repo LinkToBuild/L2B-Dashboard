@@ -94,7 +94,7 @@ const filteredData = useMemo(() => {
 
   return (
     <>
-      <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px]">
+      <SectionWrapper className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
         <Header
           currentTab={currentTab}
           onTabChange={(tab) => setUrlFilter("tab", tab)}
@@ -109,7 +109,7 @@ const filteredData = useMemo(() => {
           currentFilter={currentFilter}
           onFilterChange={(filter) => setUrlFilter("headerFilter", filter)}
         />
-        <SectionWrapper className="flex flex-col gap-[30px]">
+        <div className="flex flex-col gap-[30px]">
           <InfoCards data={infoCards} />
           <TableToolbar
             searchQuery={searchQuery}
@@ -121,9 +121,10 @@ const filteredData = useMemo(() => {
             columns={columns}
             data={filteredData}
             minWidth={1100} // Matches your Frame 427318563.jpg reference for many columns
+            
           />
-        </SectionWrapper>
-      </div>
+        </div>
+      </SectionWrapper>
     </>
   );
 }

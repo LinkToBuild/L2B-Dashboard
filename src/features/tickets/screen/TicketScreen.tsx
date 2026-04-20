@@ -139,17 +139,17 @@ export function TicketScreen() {
 
   return (
     <>
-      <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  ">
-        <SectionWrapper className="flex flex-col gap-[40px]">
+      <SectionWrapper className="flex  flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px]  [@media(min-width:1700px)]:mx-auto ">
+        <div className="flex flex-col gap-[40px]">
           <div className="flex">
             <div className="w-1/2 ">
-              <TicketMetricsWidget 
-              performanceData={performanceArea} 
-              donutData={donutData} 
-              infoCardsData={infoCards}
-              currentFilter={metricsFilter}
-              onFilterChange={(val) => setUrlFilter("metricsFilter", val)}
-            />
+              <TicketMetricsWidget
+                performanceData={performanceArea}
+                donutData={donutData}
+                infoCardsData={infoCards}
+                currentFilter={metricsFilter}
+                onFilterChange={(val) => setUrlFilter("metricsFilter", val)}
+              />
             </div>
             <SummaryTableWidget
               deptPerformance={deptPerformance}
@@ -157,16 +157,18 @@ export function TicketScreen() {
             />
           </div>
           <DataTableWidget
-          title="All Tickets"
-          columns={columns}
-          data={tickets}
-          searchQuery={searchQuery}
-          onSearchChange={(val) => setUrlFilter("search", val)}
-          currentFilter={tableFilter} 
-          onFilterChange={(val) => setUrlFilter("tableFilter", val === "All" ? null : val)}
-        />
-        </SectionWrapper>
-      </div>
+            title="All Tickets"
+            columns={columns}
+            data={tickets}
+            searchQuery={searchQuery}
+            onSearchChange={(val) => setUrlFilter("search", val)}
+            currentFilter={tableFilter}
+            onFilterChange={(val) =>
+              setUrlFilter("tableFilter", val === "All" ? null : val)
+            }
+          />
+        </div>
+      </SectionWrapper>
     </>
   );
 }

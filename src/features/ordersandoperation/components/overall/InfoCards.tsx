@@ -39,6 +39,7 @@ export function InfoCards({
           value={card.Stats}
           percentage={card.percentage}
           information={card.information}
+          className=""
         />
       ))}
     </div>

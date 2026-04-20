@@ -1,10 +1,8 @@
 "use client";
 
+import { Suspense } from "react";
 import { CustomerScreen } from "@/features/customermanagement/screen/CustomerScreen";
 import CustomerIndividualScreen from "@/features/customermanagement/screen/CustomerIndividualScreen";
-// import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
-// import { ColumnConfig } from "@/shared/components/Table";
-// import { useState } from "react";
 
 export default function CustomerManagementPage() {
   // const mockTeamDetails = [
@@ -217,8 +215,10 @@ export default function CustomerManagementPage() {
   // };
   return (
     <div className="px-8 py-5    min-h-screen bg-[#F8F9FA]">
-      {/* <CustomerScreen /> */}
-      <CustomerIndividualScreen></CustomerIndividualScreen>
+      <Suspense fallback={<div className="p-8 text-neutral-3">Loading dashboard...</div>}>
+        <CustomerScreen />
+      </Suspense>
+      {/* <CustomerIndividualScreen></CustomerIndividualScreen> */}
       {/* <ProfileLayout
         role=""
         customerData={customerInfo}

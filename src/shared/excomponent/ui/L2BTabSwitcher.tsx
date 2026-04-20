@@ -13,7 +13,7 @@ export function TabSwitcher({ activeTab, onChange }: TabSwitcherProps) {
     <Tabs 
       value={activeTab} 
       onValueChange={onChange} 
-      className="w-[225px] h-[48px]"
+      className="w-[170px] h-[40px] xl:w-[225px] xl:h-[48px] "
     >
       <TabsList className="w-full h-full bg-neutral-6 rounded-[8px]">
         <TabsTrigger value="Rental">

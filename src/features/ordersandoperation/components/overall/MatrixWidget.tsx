@@ -4,9 +4,20 @@ import React from "react";
 import { LineCharts } from "@/shared/excomponent/charts/LineChart";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { InfoCards } from "./InfoCards";
-import {RateIndicator} from "./RateIndicator";
-import { MatrixChartData, InfoCardData } from "@/features/ordersandoperation/types/index";
-export default function MatrixWidget({ chartData, infoCards1, infoCards2 }: { chartData: MatrixChartData[], infoCards1: InfoCardData[], infoCards2: InfoCardData[] }) {
+import { RateIndicator } from "./RateIndicator";
+import {
+  MatrixChartData,
+  InfoCardData,
+} from "@/features/ordersandoperation/types/index";
+export default function MatrixWidget({
+  chartData,
+  infoCards1,
+  infoCards2,
+}: {
+  chartData: MatrixChartData[];
+  infoCards1: InfoCardData[];
+  infoCards2: InfoCardData[];
+}) {
   // const chartData = [
   //   { day: "0", grossSale: 2500 },
   //   { day: "3", grossSale: 2200 },
@@ -24,7 +35,9 @@ export default function MatrixWidget({ chartData, infoCards1, infoCards2 }: { ch
   //   { day: "30", grossSale: 3800 },
   // ];
 
-const chartLines = [{ dataKey: "grossSale", name: "Gross Sale", color: "#8E8E8E" }];
+  const chartLines = [
+    { dataKey: "grossSale", name: "Gross Sale", color: "#8E8E8E" },
+  ];
 
   // const infoCardsData = [
   //   {
@@ -56,25 +69,30 @@ const chartLines = [{ dataKey: "grossSale", name: "Gross Sale", color: "#8E8E8E"
   //   },
   // ];
   return (
-    <SectionWrapper className="w-full flex gap-[40px]">
-      <div className="w-[50%] flex justify-between">
+    <SectionWrapper className="w-full gap-[20px] flex h-[211px] 2xl:h-[250px]">
+      <div className="w-[55%]  flex justify-between gap-[20px]">
         <LineCharts
           data={chartData}
           lines={chartLines}
           xAxisKey="day" // Tells the chart to use the "day" property for the bottom labels
           yAxisLabel="Total Impression"
-          height={246} // Gives it plenty of room to breathe vertically
-          width={382}
+          height='100%' // Gives it plenty of room to breathe vertically
+          width='100%'
           showLegend={false}
         />
-        <div className="">
-          <InfoCards data={infoCards1} className="flex flex-col justify-between  h-full"></InfoCards>
-        </div>
+
+        <InfoCards
+          data={infoCards1}
+          className="flex flex-col justify-between  h-full"
+        ></InfoCards>
       </div>
-      <div className="w-[50%] flex justify-between">
-        <RateIndicator></RateIndicator>
-         <div className="">
-          <InfoCards data={infoCards2} className="flex flex-col justify-between  h-full"></InfoCards>
+      <div className="w-[45%]  flex justify-center gap-[18px]">
+        <RateIndicator width='60%'></RateIndicator>
+        <div className="">
+          <InfoCards
+            data={infoCards2}
+            className="flex flex-col justify-between  h-full"
+          ></InfoCards>
         </div>
       </div>
     </SectionWrapper>

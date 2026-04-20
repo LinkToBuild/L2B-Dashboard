@@ -69,7 +69,7 @@ export function IndicatorChart({
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center w-full">
       <ReactECharts
         option={option}
         style={{ width, height }}

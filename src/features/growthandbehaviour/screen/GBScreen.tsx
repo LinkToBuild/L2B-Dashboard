@@ -119,7 +119,7 @@ export function GBScreen() {
   ];
 
   return (
-    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px]">
+    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
       <Header
         currentFilter={headerFilter}
         onFilterChange={(val) => setUrlFilter("headerFilter", val)}
@@ -133,7 +133,7 @@ export function GBScreen() {
         }
       />
 
-      <SectionWrapper className="flex flex-col gap-[20px]">
+      <div className="flex flex-col gap-[20px]">
         <GrowthMetricsWidget
           chartData={growthChartData}
           statCardsData={statCards}
@@ -141,7 +141,7 @@ export function GBScreen() {
         />
 
         <div className="flex items-start gap-[54px]">
-          <div className="w-[952px] h-[294px] bg-white rounded-[16px]">
+          <div className="w-2.5/3 h-[294px] bg-white rounded-[16px]">
             <DynamicTable
               columns={searchColumns}
               data={searchData}
@@ -200,7 +200,7 @@ export function GBScreen() {
           materialFilter={materialFilter}
           onMaterialFilterChange={(val) => setUrlFilter("materialFilter", val)}
         />
-      </SectionWrapper>
+      </div>
     </div>
   );
 }

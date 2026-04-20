@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Header } from "../components/overall/Header";
@@ -11,13 +11,19 @@ import SectionWrapper from "@/shared/components/SectionWrapper";
 import { useOrdersViewModel } from "../viewModel/useOrdersViewModel";
 
 export default function OrderScreen() {
-  const { 
-    currentTab, startDate, endDate, currentFilter, searchQuery, 
-    orders, matrixChartData, infoCards1, infoCards2, supplyDemandData, 
-    setUrlFilter 
+  const {
+    currentTab,
+    startDate,
+    endDate,
+    currentFilter,
+    searchQuery,
+    orders,
+    matrixChartData,
+    infoCards1,
+    infoCards2,
+    supplyDemandData,
+    setUrlFilter,
   } = useOrdersViewModel();
-
-
 
   const columns: ColumnConfig<any>[] = [
     {
@@ -101,35 +107,36 @@ export default function OrderScreen() {
   ];
   return (
     <>
-      <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px]">
-        <Header 
-        currentTab={currentTab} 
-        onTabChange={(tab) => setUrlFilter("tab", tab)}
-        startDate={startDate}
-        onStartDateChange={(date) => setUrlFilter("startDate", date ? date.toISOString() : null)}
-        endDate={endDate}
-        onEndDateChange={(date) => setUrlFilter("endDate", date ? date.toISOString() : null)}
-        currentFilter={currentFilter}
-        onFilterChange={(filter) => setUrlFilter("filter", filter)}
-      />
-        <MatrixWidget 
-        chartData={matrixChartData} 
-        infoCards1={infoCards1} 
-        infoCards2={infoCards2} 
-      />
-      
-      <SupplyDemandChart 
-        data={supplyDemandData} 
-      />
-        <SectionWrapper className="">
-          
-       <DataTableWidget
-          title={`All Orders (${currentTab})`} // Dynamically updating title based on Tab!
-          columns={columns}
-          data={orders}
-          searchQuery={searchQuery}
-          onSearchChange={(val) => setUrlFilter("search", val)}
+      <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
+        <Header
+          currentTab={currentTab}
+          onTabChange={(tab) => setUrlFilter("tab", tab)}
+          startDate={startDate}
+          onStartDateChange={(date) =>
+            setUrlFilter("startDate", date ? date.toISOString() : null)
+          }
+          endDate={endDate}
+          onEndDateChange={(date) =>
+            setUrlFilter("endDate", date ? date.toISOString() : null)
+          }
+          currentFilter={currentFilter}
+          onFilterChange={(filter) => setUrlFilter("filter", filter)}
         />
+        <MatrixWidget
+          chartData={matrixChartData}
+          infoCards1={infoCards1}
+          infoCards2={infoCards2}
+        />
+
+        <SupplyDemandChart data={supplyDemandData} />
+        <SectionWrapper className="">
+          <DataTableWidget
+            title={`All Orders (${currentTab})`} // Dynamically updating title based on Tab!
+            columns={columns}
+            data={orders}
+            searchQuery={searchQuery}
+            onSearchChange={(val) => setUrlFilter("search", val)}
+          />
         </SectionWrapper>
       </div>
     </>

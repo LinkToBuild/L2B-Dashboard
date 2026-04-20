@@ -44,7 +44,7 @@ export function MPScreen() {
   ];
 
   return (
-    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px]">
+    <SectionWrapper className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px] [@media(min-width:1700px)]:mx-auto ">
       <Header 
         currentFilter={headerFilter}
         onFilterChange={(val) => setUrlFilter("headerFilter", val)}
@@ -53,7 +53,7 @@ export function MPScreen() {
         endDate={endDate}
         onEndDateChange={(date) => setUrlFilter("endDate", date ? date.toISOString() : null)}
       />
-      <SectionWrapper className="flex flex-col gap-[37px]">
+      <div className="flex flex-col gap-[37px]">
         <InfoCards data={infoCards} />
         <GraphSection 
           campaignData={campaignPerformance} 
@@ -67,7 +67,7 @@ export function MPScreen() {
           searchQuery={searchQuery}
           onSearchChange={(val) => setUrlFilter("search", val)}
         />
-      </SectionWrapper>
-    </div>
+      </div>
+    </SectionWrapper>
   );
 }

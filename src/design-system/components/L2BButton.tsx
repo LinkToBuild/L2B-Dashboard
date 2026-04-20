@@ -44,7 +44,7 @@ export const L2BButton = React.forwardRef<HTMLButtonElement, L2BButtonProps>(
 
     // 2. Fixed Size Mapping (Exactly as you specified)
     const sizes = {
-      small: "w-[58px] h-[40px] ",
+      small: "w-[88px] h-[35px] ",
       medium: "w-[118px] h-[42px] ",
       large: "w-[200px] h-[40px] ",
       full: "w-full h-[40px] ", // Bonus: helpful for full-width modal buttons

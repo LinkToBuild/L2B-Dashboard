@@ -32,7 +32,7 @@ export default function SupplyDemandChart({ data }: { data: SupplyDemandData[] }
 
   
   return (
-    <SectionWrapper className="w-full ">
+    <SectionWrapper className="w-full flex flex-col gap-4">
       <div className="flex gap-5 place-items-center">
         <p className="text-[24px] font-normal">Supply Demand Gap (Rental)</p>
         <Info className="w-5 h-5"></Info>

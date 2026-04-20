@@ -46,7 +46,7 @@ export function SummaryTableWidget({ deptPerformance, escalatedTickets }: Summar
   ];
 
   return (
-    <div className="px-[16px] flex flex-col justify-between">
+    <div className="px-[16px] flex flex-col justify-between w-1/2">
       <div className="flex flex-col gap-[20px]">
         <div className="flex gap-4 place-items-center">
           <p className="text-[24px] text-neutral-1 font-normal">Department Performance</p>
