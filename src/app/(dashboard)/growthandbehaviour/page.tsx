@@ -6,7 +6,7 @@ import { GrowthFloorplanSkeleton } from "@/shared/components/skeletons";
 export default function GBPage() {
   return (
     <DashboardPageShell>
-      <Suspense fallback={<GrowthFloorplanSkeleton />}>
+      <Suspense fallback={<GrowthFloorplanSkeleton showHeader={false} />}>
         <GBScreen />
       </Suspense>
     </DashboardPageShell>

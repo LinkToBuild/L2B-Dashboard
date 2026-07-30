@@ -7,7 +7,7 @@ import { OrdersFloorplanSkeleton } from "@/shared/components/skeletons";
 export default function page() {
   return (
     <DashboardPageShell>
-      <Suspense fallback={<OrdersFloorplanSkeleton />}>
+      <Suspense fallback={<OrdersFloorplanSkeleton showHeader={false} />}>
         <OrderScreen />
       </Suspense>
     </DashboardPageShell>

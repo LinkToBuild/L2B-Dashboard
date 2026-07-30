@@ -230,7 +230,7 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
       {/* Profile footer — opens menu; menu items are UI-only for now */}
       <div
         className={cn(
-          "shrink-0 mt-auto pb-4",
+          "mt-auto shrink-0 pb-4",
           isCollapsed ? "flex justify-center px-0" : "px-3",
         )}
       >
@@ -247,7 +247,7 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
                     src={SIDEBAR_USER.avatarUrl}
                     alt={SIDEBAR_USER.name}
                   />
-                  <AvatarFallback className="bg-neutral-6 text-neutral-2 text-xs font-medium">
+                  <AvatarFallback className="bg-neutral-6 text-xs font-medium text-neutral-2">
                     {SIDEBAR_USER.initials}
                   </AvatarFallback>
                 </Avatar>
@@ -267,7 +267,7 @@ export function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
                     src={SIDEBAR_USER.avatarUrl}
                     alt={SIDEBAR_USER.name}
                   />
-                  <AvatarFallback className="bg-neutral-6 text-neutral-2 text-xs font-medium">
+                  <AvatarFallback className="bg-neutral-6 text-xs font-medium text-neutral-2">
                     {SIDEBAR_USER.initials}
                   </AvatarFallback>
                 </Avatar>

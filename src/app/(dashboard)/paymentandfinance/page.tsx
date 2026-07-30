@@ -6,7 +6,11 @@ import { AnalyticsFloorplanSkeleton } from "@/shared/components/skeletons";
 export default function PFPage() {
   return (
     <DashboardPageShell>
-      <Suspense fallback={<AnalyticsFloorplanSkeleton variant="payment" />}>
+      <Suspense
+        fallback={
+          <AnalyticsFloorplanSkeleton showHeader={false} variant="payment" />
+        }
+      >
         <PFScreen />
       </Suspense>
     </DashboardPageShell>

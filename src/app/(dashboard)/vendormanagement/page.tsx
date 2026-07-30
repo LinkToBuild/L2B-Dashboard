@@ -5,7 +5,10 @@ import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorInd
 import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
 import { ColumnConfig } from "@/shared/components/Table";
 import { DashboardPageShell } from "@/shared/components/DashboardPageShell";
-import { VendorFloorplanSkeleton } from "@/shared/components/skeletons";
+import {
+  DetailFloorplanSkeleton,
+  ProfileHeaderSkeleton,
+} from "@/shared/components/skeletons";
 import { useState, Suspense } from "react";
 
 
@@ -224,7 +227,14 @@ export default function VendorManagementPage() {
 
   return (
     <DashboardPageShell>
-      <Suspense fallback={<VendorFloorplanSkeleton />}>
+      <Suspense
+        fallback={
+          <div className="flex flex-col gap-[30px]">
+            <ProfileHeaderSkeleton />
+            <DetailFloorplanSkeleton />
+          </div>
+        }
+      >
       <VendorIndividualScreen></VendorIndividualScreen>
       {/* <VendorScreen></VendorScreen> */}
       {/* <ProfileLayout

@@ -6,7 +6,7 @@ import { OpsListFloorplanSkeleton } from "@/shared/components/skeletons";
 export default function InventoryManagementPage() {
   return (
     <DashboardPageShell>
-      <Suspense fallback={<OpsListFloorplanSkeleton />}>
+      <Suspense fallback={<OpsListFloorplanSkeleton showHeader={false} />}>
         <InventoryScreen />
       </Suspense>
     </DashboardPageShell>

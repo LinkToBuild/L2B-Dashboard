@@ -7,7 +7,9 @@ export default function MPPage() {
   return (
     <DashboardPageShell>
       <Suspense
-        fallback={<AnalyticsFloorplanSkeleton variant="marketing" />}
+        fallback={
+          <AnalyticsFloorplanSkeleton showHeader={false} variant="marketing" />
+        }
       >
         <MPScreen />
       </Suspense>
