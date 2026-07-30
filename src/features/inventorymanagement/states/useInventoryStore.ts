@@ -15,7 +15,7 @@ export const useInventoryStore = create<InventoryState>((set) => ({
   // Initial State (Currently using mock data directly)
   tableData: mockInventoryTableData, 
   infoCards: mockInventoryCards,
-  isLoading: false,
+  isLoading: true,
 
   // Future API Call Function
   fetchInventoryData: async () => {

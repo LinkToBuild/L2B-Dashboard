@@ -9,6 +9,7 @@ import { ColumnConfig } from "@/shared/components/Table";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { useOrdersViewModel } from "../viewModel/useOrdersViewModel";
+import { OrdersFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export default function OrderScreen() {
   const {
@@ -22,6 +23,7 @@ export default function OrderScreen() {
     infoCards1,
     infoCards2,
     supplyDemandData,
+    isLoading,
     setUrlFilter,
   } = useOrdersViewModel();
 
@@ -122,22 +124,25 @@ export default function OrderScreen() {
           currentFilter={currentFilter}
           onFilterChange={(filter) => setUrlFilter("filter", filter)}
         />
-        <MatrixWidget
-          chartData={matrixChartData}
-          infoCards1={infoCards1}
-          infoCards2={infoCards2}
-        />
-
-        <SupplyDemandChart data={supplyDemandData} />
-        
-          <DataTableWidget
-            title={`All Orders (${currentTab})`} // Dynamically updating title based on Tab!
-            columns={columns}
-            data={orders}
-            searchQuery={searchQuery}
-            onSearchChange={(val) => setUrlFilter("search", val)}
-          />
-        
+        {isLoading ? (
+          <OrdersFloorplanSkeleton showHeader={false} />
+        ) : (
+          <>
+            <MatrixWidget
+              chartData={matrixChartData}
+              infoCards1={infoCards1}
+              infoCards2={infoCards2}
+            />
+            <SupplyDemandChart data={supplyDemandData} />
+            <DataTableWidget
+              title={`All Orders (${currentTab})`}
+              columns={columns}
+              data={orders}
+              searchQuery={searchQuery}
+              onSearchChange={(val) => setUrlFilter("search", val)}
+            />
+          </>
+        )}
       </SectionWrapper>
     </>
   );

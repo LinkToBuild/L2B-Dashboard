@@ -11,6 +11,7 @@ import { ColumnConfig } from "@/shared/components/Table";
 import { AlertTriangle } from "lucide-react";
 import { useInventoryViewModel } from "../viewModel/useInventoryViewModel";
 import { useMemo } from "react";
+import { OpsListFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export function InventoryScreen() {
   const {
@@ -20,8 +21,9 @@ export function InventoryScreen() {
     setUrlFilter,
     infoCards,
     tableData,
-    startDate,  
-    endDate
+    startDate,
+    endDate,
+    isLoading,
   } = useInventoryViewModel();
 
   const columns: ColumnConfig<any>[] = [
@@ -109,21 +111,24 @@ const filteredData = useMemo(() => {
           currentFilter={currentFilter}
           onFilterChange={(filter) => setUrlFilter("headerFilter", filter)}
         />
-        <div className="flex flex-col gap-[30px]">
-          <InfoCards data={infoCards} />
-          <TableToolbar
-            searchQuery={searchQuery}
-            onSearchChange={(value) => setUrlFilter("search", value)}
-            currentFilter={currentFilter}
-            onFilterChange={(value) => setUrlFilter("filter", value)}
-          />
-          <DynamicTable
-            columns={columns}
-            data={filteredData}
-            minWidth={1100} // Matches your Frame 427318563.jpg reference for many columns
-            
-          />
-        </div>
+        {isLoading ? (
+          <OpsListFloorplanSkeleton showHeader={false} />
+        ) : (
+          <div className="flex flex-col gap-[30px]">
+            <InfoCards data={infoCards} />
+            <TableToolbar
+              searchQuery={searchQuery}
+              onSearchChange={(value) => setUrlFilter("search", value)}
+              currentFilter={currentFilter}
+              onFilterChange={(value) => setUrlFilter("filter", value)}
+            />
+            <DynamicTable
+              columns={columns}
+              data={filteredData}
+              minWidth={1100}
+            />
+          </div>
+        )}
       </SectionWrapper>
     </>
   );

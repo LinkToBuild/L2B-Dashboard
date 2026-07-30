@@ -10,6 +10,7 @@ import { SummaryTableWidget } from "../components/overall/SummaryTableWidget";
 import { AlertTriangle } from "lucide-react";
 import { useTicketsViewModel } from "../viewModel/useTicketsViewModel";
 import { TicketItem } from "../types/index";
+import { TicketsFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export function TicketScreen() {
   const {
@@ -22,6 +23,7 @@ export function TicketScreen() {
     metricsFilter,
     tableFilter,
     searchQuery,
+    isLoading,
     setUrlFilter,
   } = useTicketsViewModel();
 
@@ -140,34 +142,38 @@ export function TicketScreen() {
   return (
     <>
       <SectionWrapper className="flex flex-col gap-6">
-        <div className="flex flex-col gap-[40px]">
-          <div className="flex">
-            <div className="w-1/2 ">
-              <TicketMetricsWidget
-                performanceData={performanceArea}
-                donutData={donutData}
-                infoCardsData={infoCards}
-                currentFilter={metricsFilter}
-                onFilterChange={(val) => setUrlFilter("metricsFilter", val)}
+        {isLoading ? (
+          <TicketsFloorplanSkeleton />
+        ) : (
+          <div className="flex flex-col gap-[40px]">
+            <div className="flex">
+              <div className="w-1/2 ">
+                <TicketMetricsWidget
+                  performanceData={performanceArea}
+                  donutData={donutData}
+                  infoCardsData={infoCards}
+                  currentFilter={metricsFilter}
+                  onFilterChange={(val) => setUrlFilter("metricsFilter", val)}
+                />
+              </div>
+              <SummaryTableWidget
+                deptPerformance={deptPerformance}
+                escalatedTickets={escalatedTickets}
               />
             </div>
-            <SummaryTableWidget
-              deptPerformance={deptPerformance}
-              escalatedTickets={escalatedTickets}
+            <DataTableWidget
+              title="All Tickets"
+              columns={columns}
+              data={tickets}
+              searchQuery={searchQuery}
+              onSearchChange={(val) => setUrlFilter("search", val)}
+              currentFilter={tableFilter}
+              onFilterChange={(val) =>
+                setUrlFilter("tableFilter", val === "All" ? null : val)
+              }
             />
           </div>
-          <DataTableWidget
-            title="All Tickets"
-            columns={columns}
-            data={tickets}
-            searchQuery={searchQuery}
-            onSearchChange={(val) => setUrlFilter("search", val)}
-            currentFilter={tableFilter}
-            onFilterChange={(val) =>
-              setUrlFilter("tableFilter", val === "All" ? null : val)
-            }
-          />
-        </div>
+        )}
       </SectionWrapper>
     </>
   );

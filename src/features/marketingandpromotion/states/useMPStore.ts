@@ -24,7 +24,7 @@ export const useMPStore = create<MPState>((set) => ({
   campaignPerformance: mockCampaignPerformance,
   channelDistribution: mockChannelDistribution,
   leadScore: mockLeadScore,
-  isLoading: false,
+  isLoading: true,
 
   fetchMPData: async () => {
     set({ isLoading: true });

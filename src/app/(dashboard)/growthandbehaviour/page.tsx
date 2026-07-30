@@ -1,15 +1,12 @@
 import { GBScreen } from "@/features/growthandbehaviour/screen/GBScreen";
 import { Suspense } from "react";
 import { DashboardPageShell } from "@/shared/components/DashboardPageShell";
+import { GrowthFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export default function GBPage() {
   return (
     <DashboardPageShell>
-      <Suspense
-        fallback={
-          <div className="p-8 text-neutral-3">Loading dashboard...</div>
-        }
-      >
+      <Suspense fallback={<GrowthFloorplanSkeleton />}>
         <GBScreen />
       </Suspense>
     </DashboardPageShell>

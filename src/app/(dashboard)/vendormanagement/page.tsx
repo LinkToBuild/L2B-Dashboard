@@ -5,6 +5,7 @@ import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorInd
 import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
 import { ColumnConfig } from "@/shared/components/Table";
 import { DashboardPageShell } from "@/shared/components/DashboardPageShell";
+import { VendorFloorplanSkeleton } from "@/shared/components/skeletons";
 import { useState, Suspense } from "react";
 
 
@@ -223,9 +224,9 @@ export default function VendorManagementPage() {
 
   return (
     <DashboardPageShell>
-      <Suspense fallback={<div className="p-10 text-neutral-400">Loading Vendor Details...</div>}>
-      {/* <VendorIndividualScreen></VendorIndividualScreen> */}
-      <VendorScreen></VendorScreen>
+      <Suspense fallback={<VendorFloorplanSkeleton />}>
+      <VendorIndividualScreen></VendorIndividualScreen>
+      {/* <VendorScreen></VendorScreen> */}
       {/* <ProfileLayout
   role=""
   customerData={customerInfo}

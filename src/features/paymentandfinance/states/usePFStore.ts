@@ -21,7 +21,7 @@ export const usePFStore = create<PFState>((set) => ({
   paymentModeData: mockPaymentModeData,
   rentalOrders: mockRentalOrdersData,
   materialOrders: mockMaterialOrdersData,
-  isLoading: false,
+  isLoading: true,
 
   fetchPFData: async () => {
     set({ isLoading: true });

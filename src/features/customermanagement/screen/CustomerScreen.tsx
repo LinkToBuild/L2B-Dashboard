@@ -9,6 +9,7 @@ import { ColumnConfig } from "@/shared/components/Table";
 import DataMatrixSection from "../components/overall/DataMatrixSection";
 import TableToolBar from "../components/overall/TableToolBar";
 import { useCustomerViewModel } from "../viewModel/useCustomerViewModel";
+import { OverviewFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export function CustomerScreen() {
   const {
@@ -92,113 +93,28 @@ export function CustomerScreen() {
 
   return (
     <SectionWrapper className="flex flex-col gap-6 ">
-      {/* Rendering the Header you just built */}
       <Header />
-      {/* <SectionWrapper className="flex w-full gap-[34px] border border-red-500">
-        <div className="flex flex-col gap-[30px]">
-          <InfoCards />
-          <div className="  flex gap-[10px] 2xl:gap-[33px]">
-            <div className=" w-[500px] h-[356px] 2xl:w-[635px] flex flex-col gap-[10px] ">
-              <p className="text-[24px] font-normal">Earning</p>
-              <div className="w-full flex    border border-neutral-5 justify-evenly p-4 2xl:p-6 rounded-[12px]">
-                <div className="">
-                  <ChartPieDonut
-                    data={paymentData}
-                    config={paymentConfig}
-                    dataKey="percentage" // The key containing the numbers
-                    nameKey="method" // The key containing the labels
-                    centerLabel="Total Tickets"
-                    centerValue="134"
-                    width={230} // Adjust size easily!
-                    height={230}
-                  />
-                </div>
-                <div className=" xl:w-[40%] 2xl:w-[245px] h-[299px] flex flex-col gap-[27px] ">
-                  <div className="w-full flex flex-col gap-[27px]">
-                    {infoCardsData.map((card, index) => (
-                      <StatCard
-                        key={index}
-                        title={card.title}
-                        value={card.Stats}
-                        percentage={card.percentage}
-                        information={card.information}
-                      />
-                    ))}
-                  </div>
-                  <div className=" h-[48px] grid grid-cols-2  ">
-                    <LegendData color="#3B82F6" label="UPI" percentage={28} />
-                    <LegendData color="#60A5FA" label="COD" percentage={30} />
-                    <LegendData
-                      color="#93C5FD"
-                      label="Net Banking"
-                      percentage={22}
-                    />
-                    <LegendData
-                      color="#BFDBFE"
-                      label="Paylater"
-                      percentage={20}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className=" w-[270px] flex flex-col gap-[10px]">
-              <p className="text-[24px] text-neutral-1 font-normal">
-                High Demand Area
-              </p>
-              <div className="w-full flex flex-col bg-white shadow-md rounded-[12px] h-[354px]">
-                <div className="w-full">
-                  <Image
-                    src={mapImg}
-                    alt="Logo"
-                    className="h-[280px] w-full rounded-[8px]"
-                  />
-                </div>
-                <div className=" flex flex-wrap justify-between gap-2 p-4">
-                  <LegendData color="#EB6F70" label="High Demand"></LegendData>
-                  <LegendData color="#8DAFD1" label="Less Demand"></LegendData>
-                  <LegendData
-                    color="#FEC869"
-                    label="Slightly Less Demand"
-                  ></LegendData>
-                </div>
-              </div>
-            </div>
+      {isLoading ? (
+        <OverviewFloorplanSkeleton showHeader={false} />
+      ) : (
+        <>
+          <DataMatrixSection
+            paymentData={paymentData}
+            infoCardsData={infoCardsData}
+            customerData={customerData}
+            demandMap={demandMap}
+          />
+          <div className="flex flex-col gap-5 ">
+            <TableToolBar
+              currentFilter={currentStatusFilter}
+              searchQuery={searchQuery}
+              onFilterChange={setStatusFilter}
+              onSearchChange={setSearchQuery}
+            />
+            <DynamicTable columns={columns} data={orders} minWidth={1100} />
           </div>
-        </div>
-        <div>
-          <SideBoard
-            title="All Customers"
-            overallPercentage={-20.89}
-            overallTrend="down"
-            data={customerData}
-          ></SideBoard>
-        </div>
-      </SectionWrapper> */}
-
-     
-        <DataMatrixSection
-          paymentData={paymentData}
-          infoCardsData={infoCardsData}
-          customerData={customerData}
-          demandMap={demandMap}
-        />
-  
-      <div className="flex flex-col gap-5 ">
-        <TableToolBar
-          currentFilter={currentStatusFilter}
-          searchQuery={searchQuery}
-          onFilterChange={setStatusFilter}
-          onSearchChange={setSearchQuery}
-        />
-        {isLoading ? (
-          <div className="w-full h-64 flex items-center justify-center text-neutral-500">
-            Loading orders...
-          </div>
-        ) : (
-          <DynamicTable columns={columns} data={orders} minWidth={1100} />
-        )}
-      </div>
+        </>
+      )}
     </SectionWrapper>
   );
 }

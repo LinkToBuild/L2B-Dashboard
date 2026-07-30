@@ -1,15 +1,12 @@
 import { PFScreen } from "@/features/paymentandfinance/screen/PFScreen";
 import { Suspense } from "react";
 import { DashboardPageShell } from "@/shared/components/DashboardPageShell";
+import { AnalyticsFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export default function PFPage() {
   return (
     <DashboardPageShell>
-      <Suspense
-        fallback={
-          <div className="p-8 text-neutral-3">Loading dashboard...</div>
-        }
-      >
+      <Suspense fallback={<AnalyticsFloorplanSkeleton variant="payment" />}>
         <PFScreen />
       </Suspense>
     </DashboardPageShell>

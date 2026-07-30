@@ -12,6 +12,7 @@ import { ColumnConfig } from "@/shared/components/Table";
 import { MapPin } from "lucide-react";
 import { BottomTableToolbar } from "../components/overall/BottomTableToolBar";
 import { useVendorViewModel } from "../viewModel/useVendorViewModel";
+import { VendorFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export function VendorScreen() {
   const {
@@ -22,6 +23,8 @@ export function VendorScreen() {
     currentTab,
     startDate,
     endDate,
+    isLoading,
+    isRefreshing,
     setUrlFilter,
   } = useVendorViewModel();
 
@@ -152,43 +155,44 @@ export function VendorScreen() {
             if (end) setUrlFilter("endDate", end.toISOString());
           }}
         />
-        <div className="flex flex-col gap-[30px]">
-          <div className=" w-full flex justify-between ">
-            <div className=" xl:w-[72%] 2xl:w-[76%] flex flex-col gap-[10px] ">
-              <div className="flex flex-col gap-y-[20px] mb-[32px]">
-                <InfoCards data={infoCards?.slice(0, 4) || []} />
-                <InfoCards data={infoCards?.slice(4, 8) || []} />
+        {isLoading ? (
+          <VendorFloorplanSkeleton showHeader={false} />
+        ) : (
+          <div
+            className={`flex flex-col gap-[30px] transition-opacity duration-200 ${
+              isRefreshing ? "pointer-events-none opacity-60" : "opacity-100"
+            }`}
+            aria-busy={isRefreshing}
+          >
+            <div className=" w-full flex justify-between ">
+              <div className=" xl:w-[72%] 2xl:w-[76%] flex flex-col gap-[10px] ">
+                <div className="flex flex-col gap-y-[20px] mb-[32px]">
+                  <InfoCards data={infoCards?.slice(0, 4) || []} />
+                  <InfoCards data={infoCards?.slice(4, 8) || []} />
+                </div>
+                <TableToolbar></TableToolbar>
+                <DynamicTable
+                  columns={columns}
+                  data={inventory}
+                  minWidth={955}
+                  maxHeight={226}
+                />
               </div>
-              <TableToolbar></TableToolbar>
-
-              {/* TOP TABLE (Inventory) */}
-              <DynamicTable
-                columns={columns}
-                data={inventory} // <--- Replaced mockMaterials
-                minWidth={955}
-                maxHeight={226}
-              />
+              <div className="">
+                <SideBoard
+                  title="All Vendors"
+                  overallPercentage={-20.89}
+                  overallTrend="down"
+                  data={stats}
+                ></SideBoard>
+              </div>
             </div>
-            <div className="">
-              {/* SIDEBOARD (Stats) */}
-              <SideBoard
-                title="All Vendors"
-                overallPercentage={-20.89}
-                overallTrend="down"
-                data={stats} // <--- Replaced customerData
-              ></SideBoard>
+            <div className="flex flex-col gap-[10px]">
+              <BottomTableToolbar></BottomTableToolbar>
+              <DynamicTable columns={column} data={orders} />
             </div>
           </div>
-          <div className="flex flex-col gap-[10px]">
-            <BottomTableToolbar></BottomTableToolbar>
-
-            {/* BOTTOM TABLE (Orders) */}
-            <DynamicTable
-              columns={column}
-              data={orders} // <--- Replaced mockData
-            />
-          </div>
-        </div>
+        )}
       </SectionWrapper>
     </>
   );

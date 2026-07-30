@@ -33,7 +33,7 @@ export const useGBStore = create<GBState>((set) => ({
   materialFunnel: mockMaterialFunnel,
   rentalMetrics: mockRentalMetrics,
   materialMetrics: mockMaterialMetrics,
-  isLoading: false,
+  isLoading: true,
 
   fetchGBData: async () => {
     set({ isLoading: true });

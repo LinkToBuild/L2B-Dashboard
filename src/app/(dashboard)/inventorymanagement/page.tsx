@@ -1,15 +1,12 @@
 import { InventoryScreen } from "@/features/inventorymanagement/screen/InventoryScreen";
 import { Suspense } from "react";
 import { DashboardPageShell } from "@/shared/components/DashboardPageShell";
+import { OpsListFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export default function InventoryManagementPage() {
   return (
     <DashboardPageShell>
-      <Suspense
-        fallback={
-          <div className="p-8 text-neutral-3">Loading dashboard...</div>
-        }
-      >
+      <Suspense fallback={<OpsListFloorplanSkeleton />}>
         <InventoryScreen />
       </Suspense>
     </DashboardPageShell>

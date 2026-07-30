@@ -10,11 +10,22 @@ import { ColumnConfig } from "@/shared/components/Table";
 import { DataTableWidget } from "@/shared/components/DataTableWidget";
 import { useMPViewModel } from "../viewModel/useMPViewModel";
 import { CampaignReportItem } from "../types";
+import { AnalyticsFloorplanSkeleton } from "@/shared/components/skeletons";
 
 export function MPScreen() {
-  const { 
-    campaignReport, infoCards, campaignPerformance, channelDistribution, leadScore, 
-    searchQuery, tableFilter, headerFilter, startDate, endDate, setUrlFilter 
+  const {
+    campaignReport,
+    infoCards,
+    campaignPerformance,
+    channelDistribution,
+    leadScore,
+    searchQuery,
+    tableFilter,
+    headerFilter,
+    startDate,
+    endDate,
+    isLoading,
+    setUrlFilter,
   } = useMPViewModel();
 
   const columns: ColumnConfig<CampaignReportItem>[] = [
@@ -53,26 +64,30 @@ export function MPScreen() {
         endDate={endDate}
         onEndDateChange={(date) => setUrlFilter("endDate", date ? date.toISOString() : null)}
       />
-      <div className="flex flex-col gap-[37px]">
-        <InfoCards data={infoCards} />
-        <GraphSection 
-          campaignData={campaignPerformance} 
-          channelData={channelDistribution} 
-          leadScoreData={leadScore} 
-        />
-        <DataTableWidget
-          title="Campaign Report"
-          columns={columns}
-          data={campaignReport}
-          searchQuery={searchQuery}
-          onSearchChange={(val) => setUrlFilter("search", val)}
-          currentFilter={tableFilter}
-          onFilterChange={(val) =>
-            setUrlFilter("tableFilter", val === "All" ? null : val)
-          }
-          filterOptions={["All", "Completed", "Schedule", "Active", "Pause"]}
-        />
-      </div>
+      {isLoading ? (
+        <AnalyticsFloorplanSkeleton showHeader={false} variant="marketing" />
+      ) : (
+        <div className="flex flex-col gap-[37px]">
+          <InfoCards data={infoCards} />
+          <GraphSection
+            campaignData={campaignPerformance}
+            channelData={channelDistribution}
+            leadScoreData={leadScore}
+          />
+          <DataTableWidget
+            title="Campaign Report"
+            columns={columns}
+            data={campaignReport}
+            searchQuery={searchQuery}
+            onSearchChange={(val) => setUrlFilter("search", val)}
+            currentFilter={tableFilter}
+            onFilterChange={(val) =>
+              setUrlFilter("tableFilter", val === "All" ? null : val)
+            }
+            filterOptions={["All", "Completed", "Schedule", "Active", "Pause"]}
+          />
+        </div>
+      )}
     </SectionWrapper>
   );
 }

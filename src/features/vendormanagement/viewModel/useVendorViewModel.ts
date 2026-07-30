@@ -1,10 +1,7 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useQuery } from "@tanstack/react-query"; // Assuming you use TanStack Query
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { VendorStat, InventoryItem, OrderItem } from "../types";
 import { useVendorStore } from "../state/useVendorStore";
-
-// Temporarily keeping your mock data here until the backend is ready.
-// In the future, this file will just call your API instead!
 import {
   mockCustomerData,
   mockMaterials,
@@ -12,15 +9,12 @@ import {
   mockInfoCardsData,
 } from "../api/mockData";
 
-
-
 export const useVendorViewModel = () => {
   const store = useVendorStore();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // 1. Read filters directly from the URL (defaults to 'rental' and 'all')
   const currentTab = searchParams.get("tab") || "Rental";
   const currentFilter = searchParams.get("filter") || "all";
   const startDate = searchParams.get("startDate");
@@ -31,53 +25,50 @@ export const useVendorViewModel = () => {
   const indFilter = searchParams.get("indFilter") || "Daily";
   const indSearch = searchParams.get("indSearch") || "";
 
-  // 2. Helper to update the URL (which forces the page to grab new data)
   const setUrlFilter = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
     if (value) {
       params.set(key, value);
     } else {
-      params.delete(key); // Allow clearing parameters like dates
+      params.delete(key);
     }
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  // 3. "Fetch" Data (Simulated API Call)
-  // When the URL changes, React Query will automatically refetch using these keys!
-  const { data: vendorData, isLoading } = useQuery({
+  const { data: vendorData, isPending, isFetching } = useQuery({
     queryKey: ["vendors", currentTab, currentFilter, startDate],
     queryFn: async () => {
+      await new Promise((r) => setTimeout(r, 500));
       return {
         stats: mockCustomerData as VendorStat[],
         inventory: mockMaterials as InventoryItem[],
         orders: mockOrders as OrderItem[],
       };
     },
-    initialData: { stats: [], inventory: [], orders: [] },
+    // Industrial ERP defaults: reuse cache, keep prior rows on filter change
+    staleTime: 60_000,
+    refetchOnWindowFocus: false,
+    placeholderData: keepPreviousData,
   });
 
   return {
-    
     ...store,
-    // State
     currentTab,
     currentFilter,
     startDate,
     endDate,
-    isLoading,
-
-    // Data
-    stats: vendorData.stats,
-    inventory: vendorData.inventory,
-    orders: vendorData.orders,
+    /** Cold load only — no cached/placeholder data yet */
+    isLoading: isPending,
+    /** Background refetch / filter change while UI stays mounted */
+    isRefreshing: isFetching && !isPending,
+    stats: vendorData?.stats ?? [],
+    inventory: vendorData?.inventory ?? [],
+    orders: vendorData?.orders ?? [],
     infoCards: mockInfoCardsData,
-
-    indStartDate, 
-    indEndDate, 
-    indFilter, 
+    indStartDate,
+    indEndDate,
+    indFilter,
     indSearch,
-
-    // Actions
     setUrlFilter,
   };
 };

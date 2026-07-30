@@ -8,6 +8,7 @@ import { DataTableWidget } from "@/shared/components/DataTableWidget";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import { ColumnConfig } from "@/shared/components/Table";
 import { useVendorViewModel } from "../viewModel/useVendorViewModel";
+import { DetailFloorplanSkeleton, ProfileHeaderSkeleton } from "@/shared/components/skeletons";
 
 export default function VendorIndividualScreen({ 
   vendorId 
@@ -16,7 +17,7 @@ export default function VendorIndividualScreen({
 }) {
   const { 
     individualStats, paymentData, performanceData, detailedBookings,
-    indStartDate, indEndDate, indFilter, indSearch, setUrlFilter 
+    indStartDate, indEndDate, indFilter, indSearch, isLoading, isRefreshing, setUrlFilter 
   } = useVendorViewModel();
 
   const filteredBookings = useMemo(() => {
@@ -51,23 +52,39 @@ export default function VendorIndividualScreen({
 
   return (
     <SectionWrapper className="flex flex-col gap-[30px]">
-      <ProfileHeader
-        name="Ramesh Jay" avatarUrl="/images/customer1.avif" joinDate="12/09/2025" profileProgress={100} statusTitle="Active" statusColor="success" canEdit={true}
-        fields={[
-          { label: "Vendor Id", value: "ADC12233214", isCopyable: true }, { label: "Vendor Type", value: "Rental Admin" },
-          { label: "Mobile no.", value: "9090909090" }, { label: "Email Id", value: "ramesh090@gmail.com" }, { label: "No. of Machines", value: "109" },
-        ]}
-      />
-      <MetrixSection 
-        stats={individualStats} paymentData={paymentData} performanceData={performanceData}
-        startDate={indStartDate} onStartDateChange={(d: Date) => setUrlFilter("indStartDate", d ? d.toISOString() : null)}
-        endDate={indEndDate} onEndDateChange={(d: Date) => setUrlFilter("indEndDate", d ? d.toISOString() : null)}
-        currentFilter={indFilter} onFilterChange={(v: string) => setUrlFilter("indFilter", v)}
-      />
-      <DataTableWidget 
-        title="Detailed Bookings" columns={columns} data={filteredBookings} 
-        searchQuery={indSearch} onSearchChange={(v: string) => setUrlFilter("indSearch", v)}
-      />
+      {isLoading ? (
+        <>
+          <ProfileHeaderSkeleton />
+          <DetailFloorplanSkeleton />
+        </>
+      ) : (
+        <>
+          <ProfileHeader
+            name="Ramesh Jay" avatarUrl="/images/customer1.avif" joinDate="12/09/2025" profileProgress={100} statusTitle="Active" statusColor="success" canEdit={true}
+            fields={[
+              { label: "Vendor Id", value: "ADC12233214", isCopyable: true }, { label: "Vendor Type", value: "Rental Admin" },
+              { label: "Mobile no.", value: "9090909090" }, { label: "Email Id", value: "ramesh090@gmail.com" }, { label: "No. of Machines", value: "109" },
+            ]}
+          />
+          <div
+            className={`flex flex-col gap-[30px] transition-opacity duration-200 ${
+              isRefreshing ? "pointer-events-none opacity-60" : "opacity-100"
+            }`}
+            aria-busy={isRefreshing}
+          >
+            <MetrixSection 
+              stats={individualStats} paymentData={paymentData} performanceData={performanceData}
+              startDate={indStartDate} onStartDateChange={(d: Date) => setUrlFilter("indStartDate", d ? d.toISOString() : null)}
+              endDate={indEndDate} onEndDateChange={(d: Date) => setUrlFilter("indEndDate", d ? d.toISOString() : null)}
+              currentFilter={indFilter} onFilterChange={(v: string) => setUrlFilter("indFilter", v)}
+            />
+            <DataTableWidget 
+              title="Detailed Bookings" columns={columns} data={filteredBookings} 
+              searchQuery={indSearch} onSearchChange={(v: string) => setUrlFilter("indSearch", v)}
+            />
+          </div>
+        </>
+      )}
     </SectionWrapper>
   );
 }

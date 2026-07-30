@@ -18,7 +18,7 @@ export const useOrdersStore = create<OrdersState>((set) => ({
   infoCards1: mockInfoCards1,
   infoCards2: mockInfoCards2,
   supplyDemandData: mockSupplyDemandData,
-  isLoading: false,
+  isLoading: true,
 
   fetchOrdersData: async () => {
     set({ isLoading: true });

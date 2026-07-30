@@ -1,6 +1,5 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useCallback } from "react";
-import { mockInventoryTableData, mockInventoryCards } from "../api/mockData"; // <-- Import the API!
+import { useCallback, useEffect } from "react";
 import { useInventoryStore } from "../states/useInventoryStore";
 
 export function useInventoryViewModel() {
@@ -16,6 +15,10 @@ export function useInventoryViewModel() {
   
   const { tableData, infoCards, isLoading, fetchInventoryData } = useInventoryStore();
 
+  useEffect(() => {
+    fetchInventoryData();
+  }, [fetchInventoryData]);
+
   const setUrlFilter = useCallback(
     (key: string, value: string | null) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -26,16 +29,15 @@ export function useInventoryViewModel() {
     [searchParams, pathname, router]
   );
 
-  // Return the mock data alongside the URL state
-return {
+  return {
     currentTab,
     startDate,
     endDate,
     currentFilter,
     searchQuery,
-    infoCards,     // Now coming from Zustand
-    tableData,     // Now coming from Zustand
-    isLoading,     // Now coming from Zustand
+    infoCards,
+    tableData,
+    isLoading,
     setUrlFilter,
   };
 }

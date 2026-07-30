@@ -12,15 +12,13 @@ import {
   syncDemandZoneLayers,
 } from "./demandZoneLayers";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 const MapView = dynamic(
   () => import("@/shared/maps/MapView").then((m) => m.MapView),
   {
     ssr: false,
-    loading: () => (
-      <div className="flex h-full w-full items-center justify-center bg-neutral-7 text-[12px] text-neutral-3">
-        Loading map…
-      </div>
-    ),
+    loading: () => <Skeleton className="h-full w-full rounded-none" />,
   },
 );
 
@@ -82,10 +80,8 @@ export function HighDemandAreaMap({
         <div className="relative h-[260px] w-full shrink-0 bg-neutral-7">
           <MapView center={center} zoom={zoom} onReady={handleReady} />
           {isZonesLoading ? (
-            <div className="pointer-events-none absolute inset-x-0 bottom-2 flex justify-center">
-              <span className="rounded bg-white/90 px-2 py-0.5 text-[10px] text-neutral-3 shadow-sm">
-                Loading demand data…
-              </span>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0">
+              <Skeleton className="h-1.5 w-full rounded-none opacity-80" />
             </div>
           ) : null}
         </div>

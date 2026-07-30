@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorIndividualScreen";
 import { DashboardPageShell } from "@/shared/components/DashboardPageShell";
+import { DetailFloorplanSkeleton, ProfileHeaderSkeleton } from "@/shared/components/skeletons";
 
 export default function VendorIndividualPage({
   params,
@@ -11,7 +12,10 @@ export default function VendorIndividualPage({
     <DashboardPageShell>
       <Suspense
         fallback={
-          <div className="p-8 text-neutral-3">Loading vendor profile...</div>
+          <div className="flex flex-col gap-[30px]">
+            <ProfileHeaderSkeleton />
+            <DetailFloorplanSkeleton />
+          </div>
         }
       >
         <VendorIndividualScreen vendorId={params.id} />

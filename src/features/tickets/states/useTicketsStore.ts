@@ -26,7 +26,7 @@ export const useTicketsStore = create<TicketsState>((set) => ({
   infoCards: mockInfoCardsData,
   deptPerformance: mockDeptPerformance,
   escalatedTickets: mockEscalatedTickets,
-  isLoading: false,
+  isLoading: true,
 
   fetchTicketsData: async () => {
     set({ isLoading: true });
