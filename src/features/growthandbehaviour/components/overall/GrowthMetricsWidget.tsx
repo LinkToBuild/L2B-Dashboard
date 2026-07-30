@@ -18,6 +18,11 @@ export default function GrowthMetricsWidget({ chartData, statCardsData, rfmData 
     { dataKey: "andhraPradesh", name: "Andhra Pradesh", color: "#F2AE2E" },
     { dataKey: "vijayawada", name: "Vijayawada", color: "#62C48D" },
     { dataKey: "karnataka", name: "Karnataka", color: "#4289C9" },
+    { dataKey: "tamilNadu", name: "Tamil Nadu", color: "#E07A5F" },
+    { dataKey: "maharashtra", name: "Maharashtra", color: "#9B5DE5" },
+    { dataKey: "telangana", name: "Telangana", color: "#00BBF9" },
+    { dataKey: "kerala", name: "Kerala", color: "#F15BB5" },
+    { dataKey: "delhi", name: "Delhi", color: "#FEE440" },
   ];
 
   return (

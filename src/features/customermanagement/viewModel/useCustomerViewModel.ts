@@ -1,63 +1,52 @@
-import { useEffect, useMemo } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { useCustomerStore } from '../state/useCustomerStore';
+import { useEffect, useMemo } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useCustomerStore } from "../state/useCustomerStore";
+import { BENGALURU_CENTER, DEFAULT_MAP_ZOOM } from "@/shared/maps/config";
 
 export function useCustomerViewModel() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  
-  // 1. Pull ALL data and state from the Zustand Store
-  const { 
-    orders, 
+
+  const {
+    orders,
     paymentData,
     infoCardsData,
     customerData,
-    isLoading, 
-    fetchOrders 
+    demandZones,
+    isLoading,
+    fetchCustomerDashboard,
   } = useCustomerStore();
 
-  // 2. Extract URL parameters for the Orders Table
-  const currentStatusFilter = searchParams.get('status') || 'All';
-  // Ensure we safely decode any URL spaces (though Next.js usually handles this via get())
-  const searchQuery = searchParams.get('search') || '';
+  const currentStatusFilter = searchParams.get("status") || "All";
+  const searchQuery = searchParams.get("search") || "";
 
-  // 3. Initialize data on mount
   useEffect(() => {
-    fetchOrders();
-  }, [fetchOrders]);
+    void fetchCustomerDashboard();
+  }, [fetchCustomerDashboard]);
 
-  // 4. URL state updaters
   const setStatusFilter = (status: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (status === 'All') {
-      params.delete('status');
-    } else {
-      params.set('status', status);
-    }
+    if (status === "All") params.delete("status");
+    else params.set("status", status);
     router.push(`${pathname}?${params.toString()}`);
   };
 
   const setSearchQuery = (query: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (!query) {
-      params.delete('search');
-    } else {
-      params.set('search', query);
-    }
+    if (!query) params.delete("search");
+    else params.set("search", query);
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  // 5. Client-side filtering logic for the Dynamic Table
   const filteredOrders = useMemo(() => {
     return orders.filter((order) => {
-      // Status Filter
-      const matchesStatus = currentStatusFilter === 'All' || order.status === currentStatusFilter;
-      
-      // Search Query Filter (Checks Order ID or Equipment)
+      const matchesStatus =
+        currentStatusFilter === "All" || order.status === currentStatusFilter;
+
       const normalizedSearch = searchQuery.toLowerCase().trim();
-      const matchesSearch = 
-        !normalizedSearch || 
+      const matchesSearch =
+        !normalizedSearch ||
         order.orderId.toLowerCase().includes(normalizedSearch) ||
         order.equipment.toLowerCase().includes(normalizedSearch);
 
@@ -65,22 +54,29 @@ export function useCustomerViewModel() {
     });
   }, [orders, currentStatusFilter, searchQuery]);
 
-  // 6. Return the combined package to the Screen component
+  /**
+   * Map UI model — ViewModel owns viewport defaults + overlay data.
+   * Basemap provider config stays in shared/maps (infra).
+   */
+  const demandMap = useMemo(
+    () => ({
+      center: BENGALURU_CENTER,
+      zoom: DEFAULT_MAP_ZOOM,
+      zones: demandZones,
+      isZonesLoading: isLoading && demandZones.length === 0,
+    }),
+    [demandZones, isLoading],
+  );
+
   return {
-    // Table Data (Filtered)
     orders: filteredOrders,
-    
-    // Matrix & SideBoard Data (Direct pass-through)
     paymentData,
     infoCardsData,
     customerData,
-    
-    // UI State
+    demandMap,
     isLoading,
     currentStatusFilter,
     searchQuery,
-    
-    // Table Actions
     setStatusFilter,
     setSearchQuery,
   };

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Info, ListFilter } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 interface TableToolBarProps {
   onFilterChange?: (filter: string) => void;
@@ -52,7 +53,7 @@ export default function TableToolBar({
     <div className="flex justify-between place-items-center">
       <div className="flex gap-[10px] place-items-center ">
         <p className="text-[24px] text-neutral-2 font-normal">All Orders</p>
-        <Info className="w-4 h-4 text-neutral-3"></Info>
+        <InfoTip label="All Orders" />
       </div>
       <div className="flex gap-[12px]">
         <CustomInput

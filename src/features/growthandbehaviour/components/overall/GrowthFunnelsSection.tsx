@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { useMemo } from "react";
-import { Info, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { FunnelBar } from "@/shared/excomponent/charts/FunnelChart";
 import { TableToolBar } from "@/shared/components/TableToolBar";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 import { GBFunnelBarRow, GBFunnelMetrics } from "../../types";
 
 function FunnelMetricCard({ metrics }: { metrics: GBFunnelMetrics }) {
@@ -12,21 +13,21 @@ function FunnelMetricCard({ metrics }: { metrics: GBFunnelMetrics }) {
     <div className="w-[166px] h-[92px] rounded-[12px] border border-neutral-6 bg-white p-[10px] flex flex-col justify-between shrink-0">
       <div className="grid grid-cols-[40px_16px_1fr] items-center gap-x-[8px] text-[12px] text-neutral-2">
         <span>CAC</span>
-        <Info className="w-3 h-3 text-neutral-3" />
+        <InfoTip label="CAC" size="xs" />
         <span className="px-[8px] py-[1px] rounded-[4px] bg-neutral-7 text-right justify-self-end">
           {metrics.cac}
         </span>
       </div>
       <div className="grid grid-cols-[40px_16px_1fr] items-center gap-x-[8px] text-[12px] text-neutral-2">
         <span>CTR</span>
-        <Info className="w-3 h-3 text-neutral-3" />
+        <InfoTip label="CTR" size="xs" />
         <span className="px-[8px] py-[1px] rounded-[4px] bg-neutral-7 text-right justify-self-end">
           {metrics.ctr}
         </span>
       </div>
       <div className="grid grid-cols-[40px_16px_1fr] items-center gap-x-[8px] text-[12px] text-neutral-2">
         <span>LTV</span>
-        <Info className="w-3 h-3 text-neutral-3" />
+        <InfoTip label="LTV" size="xs" />
         <span className="px-[8px] py-[1px] rounded-[4px] bg-neutral-7 text-right justify-self-end">
           {metrics.ltv}
         </span>

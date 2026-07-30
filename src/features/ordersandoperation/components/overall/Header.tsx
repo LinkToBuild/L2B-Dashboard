@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { L2BButton } from "@/design-system/components/L2BButton";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
-import { ListFilter, Info } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { Calendar } from "@/components/ui/calendar";
 import { TabSwitcher } from "@/shared/excomponent/ui/L2BTabSwitcher";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 
 export interface OrdersHeaderProps {
@@ -37,19 +38,54 @@ export function Header({
   ];
 
   const score = 3.7;
+  const maxScore = 5;
 
   return (
     <div className="">
       <div className="flex h-[52px] justify-between">
         <div className="h-full flex font-normal place-items-center gap-2">
-          {/* Changed Title as noticed! */}
           <p className="text-neutral-1 xl:text-[24px]">Orders & Operations</p>
-          <div title="Net Promoter Score" className="w-[152px] h-[26px] border border-primary-2 rounded-[40px] flex items-center justify-between px-2.5">
-            <div className="flex items-center gap-3">
-              <p className="text-primary-2 text-[10px] font-normal">NPS : {score}</p>
-              <Info className="w-3 h-3 text-neutral-4 cursor-help" />
+          <div
+            title="Net Promoter Score"
+            className="flex h-[26px] w-[152px] items-center justify-between rounded-[40px] border border-primary-2 px-2.5"
+          >
+            <div className="flex items-center gap-1">
+              <p className="text-[10px] font-normal text-primary-2">
+                NPS : {score}
+              </p>
+              <InfoTip label="Net Promoter Score" size="xs" />
             </div>
-            {/* ... Keep your existing dynamic star SVG array here to save space ... */}
+
+            <div className="flex">
+              {[...Array(maxScore)].map((_, index) => {
+                const fillAmount = Math.max(0, Math.min(1, score - index));
+                const fillPercentage = fillAmount * 100;
+
+                return (
+                  <div key={index} className="relative inline-block h-3 w-3">
+                    <svg
+                      className="absolute left-0 top-0 h-[10px] w-[10px] text-neutral-4 opacity-40"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                    <div
+                      className="absolute left-0 top-0 h-full overflow-hidden"
+                      style={{ width: `${fillPercentage}%` }}
+                    >
+                      <svg
+                        className="h-[10px] w-[10px] text-primary-2"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                      </svg>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
         

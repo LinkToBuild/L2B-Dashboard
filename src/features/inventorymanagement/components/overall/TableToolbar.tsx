@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
-import { ListFilter, Info } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 // 1. Define the props we expect from the ViewModel
 export interface TableToolbarProps {
@@ -32,7 +33,7 @@ export function TableToolbar({
       <div className="flex justify-between place-items-center">
         <div className="flex gap-[10px] place-items-center ">
           <p className="text-[24px] text-neutral-2 font-normal">All Equipments</p>
-          <Info className="w-4 h-4 text-neutral-3"></Info>
+          <InfoTip label="All Equipments" />
         </div>
         <div className="flex gap-[18px]">
           <div className=" flex  text-[16px] text-success-2 gap-[20px] place-items-center min-mx-4">

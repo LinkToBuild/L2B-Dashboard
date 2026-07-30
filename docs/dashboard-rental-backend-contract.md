@@ -1,10 +1,12 @@
 # Dashboard Rental Backend Contract
 
 ## Purpose
+
 This document is the source of truth for Dashboard Rental backend implementation.
 It is maintained page-by-page from validated product and UI inputs.
 
 ## Capture Rules
+
 - Record only confirmed behavior from stakeholder input, screenshots, and Figma walkthroughs.
 - Add unresolved points under `Pending Clarifications` with business-friendly wording.
 - Keep this file implementation-ready but understandable for non-technical stakeholders.
@@ -14,14 +16,21 @@ It is maintained page-by-page from validated product and UI inputs.
 ## 1. CustomerManagement
 
 ### 1.0 Design References
+
 - **All customers overview page (CustomerManagement):** `https://www.figma.com/proto/yxSZTRxeArCgbg9CEDbuqi/L2B-Dashboard?node-id=534-16465&t=d7gTWIpwYC38jHsY-0&scaling=min-zoom&content-scaling=fixed&page-id=9%3A17&starting-point-node-id=534%3A16465`
 - **Customer(Admin) individual page:** `https://www.figma.com/proto/yxSZTRxeArCgbg9CEDbuqi/L2B-Dashboard?node-id=532-6176&t=vA5YGzhHSnSswe51-0&scaling=min-zoom&content-scaling=fixed&page-id=9%3A17&starting-point-node-id=532%3A6176&show-proto-sidebar=1`
 
+
+
 ### 1.1 Scope Lock
+
 - Current backend derivation scope for this document section is **Rental**.
 - Material-side differences are captured as UI notes but not primary implementation target in current phase.
 
+
+
 ### 1.1A Dashboard Operator Hierarchy (Access Model Lock)
+
 - **L1 (Admin/Owner):**
   - highest authority in dashboard.
   - can access cross-team controls and privileged override operations.
@@ -35,9 +44,14 @@ It is maintained page-by-page from validated product and UI inputs.
 - **Backend implication lock:**
   - all write actions in dashboard APIs must be role-gated by hierarchy level and team scope (`L1/L2/L3`) instead of only app-customer roles.
 
+
+
 ### 1.2 All Customers Overview Page
 
+
+
 #### A) Page Header Controls
+
 - **Purpose:** control the aggregation context for all dashboard widgets/tables.
 - **UI specification (locked):**
   - `Overview` title.
@@ -50,7 +64,10 @@ It is maintained page-by-page from validated product and UI inputs.
   - all data blocks on page must consume same filter envelope (`start_date`, `end_date`, `period`, `domain_tab`).
   - all responses should include period-comparison metadata used for `increment/decrement`.
 
+
+
 #### B) Top KPI Info Cards
+
 - **Purpose:** high-level operational summary.
 - **UI specification (locked):**
   - cards: `Active Orders`, `Completed`, `Failed Orders`, `Tickets`.
@@ -61,7 +78,10 @@ It is maintained page-by-page from validated product and UI inputs.
   - return normalized KPI payload objects (id/title/value/delta/delta_direction).
   - support zero-state and null-safe values when no data for selected period.
 
+
+
 #### C) Earning Panel
+
 - **Purpose:** payment mix + revenue summary.
 - **UI specification (locked):**
   - pie/donut chart with payment modes:
@@ -78,7 +98,10 @@ It is maintained page-by-page from validated product and UI inputs.
   - chart payload should return per-mode value/percentage.
   - `Net Sale` should map to finance-approved net definition before backend freeze.
 
+
+
 #### D) High Demand Area Panel
+
 - **Purpose:** show geo demand concentration.
 - **UI specification (locked):**
   - map panel with highlighted areas.
@@ -91,7 +114,10 @@ It is maintained page-by-page from validated product and UI inputs.
   - map + legend values must be aligned to same computed bins.
   - location response should support geospatial overlays (or area-level aggregates if map layer is client-rendered).
 
+
+
 #### E) All Customers Side Summary Panel
+
 - **Purpose:** customer segmentation summary.
 - **UI specification (locked):**
   - segments:
@@ -108,7 +134,10 @@ It is maintained page-by-page from validated product and UI inputs.
 - **Backend derivation notes:**
   - keep segment definitions centralized to avoid metric mismatch between dashboard blocks.
 
+
+
 #### F) Bottom All Orders Table (Overview Page)
+
 - **Purpose:** record-level order monitoring from summary page.
 - **UI specification (locked):**
   - toolbar + searchable/filterable table.
@@ -144,9 +173,14 @@ It is maintained page-by-page from validated product and UI inputs.
   - if `Vendor ID` is empty (no vendor accepted from vendor app), dashboard must support manual vendor assignment for that booking as an operations override.
   - vendor assignment trigger is from `Vendor ID` field action (`Assign/Change`) in booking detail context.
 
+
+
 ### 1.3 Customer Individual Page Family (Admin / Worker / Individual)
 
+
+
 #### A) Common Layout Contract
+
 - **Purpose:** single-customer drill-down for operations and profile updates.
 - **UI specification (locked):**
   - same page layout skeleton across all three roles (`Admin`, `Worker`, `Individual`).
@@ -161,7 +195,10 @@ It is maintained page-by-page from validated product and UI inputs.
   - one customer-detail read model + role-specific projection rules.
   - one editable command model with role-specific field edit guards.
 
+
+
 #### B) Individual Page Header Variant Rules
+
 - **Admin variant header (locked):**
   - profile image, joining date, wallet balance, `Edit`, active chip, customer ID, mobile, email, user type, company name.
 - **Worker variant header (locked):**
@@ -175,7 +212,10 @@ It is maintained page-by-page from validated product and UI inputs.
 - **Backend derivation notes:**
   - response should include conditional fields by role variant to avoid frontend guesswork.
 
+
+
 #### C) Individual Page Overview + KPI Cards
+
 - **UI specification (locked):**
   - `Overview` block with `Start Date`, `End Date`, period filter (`Daily`, `Weekly`, `Monthly`, `Yearly`).
   - cards shown:
@@ -190,7 +230,10 @@ It is maintained page-by-page from validated product and UI inputs.
 - **Backend derivation notes:**
   - return split-structure payload for dual-domain cards.
 
+
+
 #### D) Individual Spend + Requested/Wishlist Matrix
+
 - **UI specification (locked):**
   - `Spend` chart compares Rental and Material activity; shows period delta.
   - spend chart payload expectation includes time bucket on x-axis and per-domain series values.
@@ -204,7 +247,10 @@ It is maintained page-by-page from validated product and UI inputs.
 - **Backend derivation notes:**
   - matrix payload should be independent from lower orders table payload for caching/reuse.
 
+
+
 #### E) Individual Page Bottom Orders Toolbar + Table
+
 - **UI specification (locked):**
   - bottom tabs:
     - `Rental Orders`
@@ -240,9 +286,14 @@ It is maintained page-by-page from validated product and UI inputs.
   - vendor list must be filtered by booking equipment type; example: if booking type is `Mobile crane`, show only vendors with mobile-crane inventory.
   - selected vendor + brand + vehicle mapping should be written atomically to avoid partial assignment states.
 
+
+
 ### 1.4 Editable Sideboards (Role-Specific)
 
+
+
 #### A) Customer(Admin) Editable Sideboard
+
 - **UI specification (locked):**
   - trigger: clicking `Edit` on Admin individual header opens right-side sideboard.
   - sideboard header: `Customer profile`, wallet balance pill, top-right search.
@@ -274,7 +325,10 @@ It is maintained page-by-page from validated product and UI inputs.
 - **Backend derivation notes:**
   - requires modular write operations: profile update, team assignment update, project update, payment-method update, KYC status updates.
 
+
+
 #### B) Customer(Worker) Editable Sideboard
+
 - **UI specification (locked):**
   - trigger: clicking `Edit` on Worker individual header opens right-side sideboard.
   - no wallet balance pill.
@@ -297,7 +351,10 @@ It is maintained page-by-page from validated product and UI inputs.
 - **Backend derivation notes:**
   - write scope narrower than Admin; enforce role-based field restrictions.
 
+
+
 #### C) Customer(Individual) Editable Sideboard
+
 - **UI specification (locked):**
   - trigger: clicking `Edit` on Individual header opens right-side sideboard.
   - sideboard header: `Customer profile` with top-right search.
@@ -322,7 +379,10 @@ It is maintained page-by-page from validated product and UI inputs.
 - **Backend derivation notes:**
   - same command shape can be reused with role-context policy checks.
 
+
+
 #### D) Dashboard Support Actions (On Behalf Of Customer)
+
 - **Purpose:** allow L2B help-center/dashboard operators to complete blocked customer operations in case of app-side technical issues.
 - **UI specification (locked from latest input):**
   - add project for Admin customer.
@@ -352,15 +412,22 @@ It is maintained page-by-page from validated product and UI inputs.
   - explicit guardrails for manual vendor assignment (allowed statuses, allowed actor roles, reassignment policy, and notification side effects).
   - whether reassignment is allowed after machine is already assigned and what audit/notification path should be enforced in that case.
 
+
+
 ### 1.5 Pending Decisions (Backend Blocking)
+
 - Exact formula implementation for each KPI and segment bucket versioning/audit strategy.
 - Final manage-action command list for table rows (what exact updates are allowed from dashboard).
 - Final correction/rollback policy for dashboard edits across profile/team/site/project/payment operations.
 
+
+
 ### 1.6 CustomerManagement Endpoint Inventory (Required vs Existing)
+
 This section lists the API surface needed for CustomerManagement dashboard operations and maps it against APIs already available in current backend implementation.
 
 #### A) Required Endpoint Set (Dashboard Rental / CustomerManagement)
+
 1. `GET /api/v1/dashboard/rental/customers/overview/kpis`
 2. `GET /api/v1/dashboard/rental/customers/overview/earnings`
 3. `GET /api/v1/dashboard/rental/customers/overview/demand-map`
@@ -393,8 +460,12 @@ This section lists the API surface needed for CustomerManagement dashboard opera
 30. `PATCH /api/v1/dashboard/rental/approval-requests/{request_id}/approve`
 31. `PATCH /api/v1/dashboard/rental/approval-requests/{request_id}/reject`
 
+
+
 #### B) APIs Already Present In Current Backend (Reusable Building Blocks)
+
 The following APIs already exist today in app backend and can be reused/refactored at service level:
+
 - `POST /api/v1/projects`
 - `PUT /api/v1/projects/{project_id}`
 - `GET /api/v1/projects/{project_id}`
@@ -409,12 +480,18 @@ The following APIs already exist today in app backend and can be reused/refactor
 - `PUT /api/v1/profile`
 - `GET /api/v1/company/{company_id}/members`
 
+
+
 #### C) Coverage Count Snapshot
+
 - **Total required endpoints for CustomerManagement dashboard (current contract):** `31`
 - **Already present in current backend (app-facing primitives):** `13`
 - **New dashboard endpoints still required:** `18`
 
+
+
 #### D) Important Implementation Note
+
 - Even for already-present endpoints, direct dashboard reuse is limited because dashboard needs:
   - on-behalf operations (`acted_by` vs `acted_for`),
   - hierarchy approval flow (`L3 -> L2 -> L1`),
@@ -424,15 +501,24 @@ The following APIs already exist today in app backend and can be reused/refactor
 
 ---
 
+
+
 ## 2. VendorManagement
+
+
+
 ### 2.0 Scope and Intent
+
 - **Purpose:** provide dashboard control-plane for vendor onboarding/operations assignment and live execution visibility for rental bookings.
 - **Implementation reference lock:** API conventions for this section are derived from existing rental/vendor implementation style under:
   - `src/features/vendor/router.py`
   - `src/features/rental/booking/router.py`
   - `src/features/rental/tracking/router.py`
 
+
+
 ### 2.0A Vendor Ecosystem Actor Taxonomy (Locked)
+
 - **Vendor With Company (Admin):**
   - vendor entity with company context.
   - can have multiple machines and linked operators under the vendor company.
@@ -458,7 +544,10 @@ The following APIs already exist today in app backend and can be reused/refactor
     - `Dormant`
   - `Restricted` must always carry/display restriction reason message (same behavior as CustomerManagement).
 
+
+
 ### 2.1 Vendor Overall Screen (Locked From Latest UI Input)
+
 - **Design Reference:** [Figma preview](https://www.figma.com/proto/yxSZTRxeArCgbg9CEDbuqi/L2B-Dashboard?node-id=563-15880&t=fHxJxF2lRNdmPJIi-0&scaling=min-zoom&content-scaling=fixed&page-id=9%3A17&starting-point-node-id=532%3A6176&show-proto-sidebar=1)
 - **Purpose:** L2B team can monitor complete vendor fleet health, equipment coverage, and vendor-linked order operations from one page.
 - **UI specification (locked):**
@@ -488,7 +577,10 @@ The following APIs already exist today in app backend and can be reused/refactor
   - API output must support card deltas, segmented side-summary, equipment table pagination/filtering, and order-table server-side query controls.
   - write surface in this page ties to manage actions from order context (for example assignment/reassignment/escalation paths).
 
+
+
 ### 2.1A Vendor With Company — Individual Screen (Locked From Latest UI Input)
+
 - **Purpose:** detailed operational profile for one company-vendor account with bookings, earnings, machine mix, and order table controls.
 - **UI specification (locked):**
   - header includes:
@@ -527,7 +619,10 @@ The following APIs already exist today in app backend and can be reused/refactor
   - `Edit` and `Manage` flows require role-gated write APIs with `L1/L2/L3` controls and approval hooks where policy requires.
   - chip derivation must be deterministic and auditable (`Dormant` rule in addition to existing 4-chip base).
 
+
+
 ### 2.1B Vendor With Company — Edit Side Page (Locked From Latest UI Input)
+
 - **Purpose:** allow dashboard team to update company-vendor profile, operator mapping, machine assignment duties, compliance references, and payment account links.
 - **UI specification (locked):**
   - page header:
@@ -584,7 +679,7 @@ The following APIs already exist today in app backend and can be reused/refactor
   - footer actions:
     - `Reset changes`
     - `Save changes`
-- **Operator/Driver machine-duty modal (from `View` in No. of Machine):**
+- **Operator/Driver machine-duty modal (from** `View` **in No. of Machine):**
   - modal title: `Assigned Machines`
   - columns:
     - `Machine`
@@ -594,7 +689,7 @@ The following APIs already exist today in app backend and can be reused/refactor
     - `Manage` (`Remove`)
   - bottom `Select` action allows selecting additional machines for the operator/driver and assigning priority.
   - `Remove` in manage column detaches machine duty from selected operator/driver.
-- **Machine document modal (from `Machine details -> Documents -> View`):**
+- **Machine document modal (from** `Machine details -> Documents -> View`**):**
   - modal title: `Document Details`
   - columns shown:
     - `Document`
@@ -618,7 +713,10 @@ The following APIs already exist today in app backend and can be reused/refactor
   - wallet, incentive, add-money, transaction-history, and remove-card operations follow CustomerManagement backend contract style (same audit + approval semantics).
   - add-payment-method flow requires payment-account create/update API with bank/UPI payload validation and cancelled-check file reference handling.
 
+
+
 ### 2.1C Vendor With Company — Operator Under Vendor (Locked From Latest UI Input)
+
 - **Purpose:** operational profile for a specific operator linked under vendor-with-company context.
 - **UI specification (locked):**
   - header includes:
@@ -656,7 +754,10 @@ The following APIs already exist today in app backend and can be reused/refactor
   - write actions (`Edit`, `Manage`) must be role-gated under `L1/L2/L3` hierarchy and team boundaries.
   - operator profile payload should keep linkage context (`vendor_id`, operator linkage type, active assignment summary).
 
+
+
 ### 2.1D Vendor With Company — Operator Under Vendor Edit Side Page (Locked From Latest UI Input)
+
 - **Purpose:** allow dashboard team to edit operator profile, linked company details, skill records, assigned-machine duties, and payment details for operator-under-vendor context.
 - **UI specification (locked):**
   - page header:
@@ -713,7 +814,10 @@ The following APIs already exist today in app backend and can be reused/refactor
   - requires payment-method add/remove for operator context.
   - requires `Restrict` action command with reason and audit trail, with approval gating by `L1/L2/L3` policy.
 
+
+
 ### 2.1E Individual Operator — Individual Screen (Locked From Latest UI Input)
+
 - **Purpose:** operational overview screen for directly registered L2B operator (not necessarily tied to vendor-company profile page context).
 - **UI specification (locked):**
   - header includes:
@@ -752,7 +856,10 @@ The following APIs already exist today in app backend and can be reused/refactor
   - must support operator-type discriminator in API payload (`individual_operator` vs `company_operator`).
   - `Edit`/manage actions follow dashboard hierarchy controls (`L1/L2/L3`) and approval policy where required.
 
+
+
 ### 2.1F Vendor Without Company (Owner-Operator) — Individual Screen (Locked From Latest UI Input)
+
 - **Purpose:** operational profile for independent vendor (owner-operator) who is not under a vendor-company structure.
 - **UI specification (locked):**
   - header includes:
@@ -788,7 +895,10 @@ The following APIs already exist today in app backend and can be reused/refactor
   - should not require company-linked joins for mandatory fields; company-dependent attributes stay nullable/not-applicable.
   - `Edit`/manage operations remain role-gated via dashboard hierarchy and approval policy.
 
+
+
 ### 2.2 Core Vendor Operations Already Present (App Backend)
+
 - `POST /api/v1/vendor/bookings/{booking_id}/accept`
 - `PATCH /api/v1/vendor/equipment/{equipment_id}/location`
 - `POST /api/v1/vendor/bookings/{booking_id}/verify-start-otp`
@@ -798,7 +908,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 - `GET /api/v1/rentals/bookings/{booking_id}`
 - `GET /api/v1/rentals/bookings/{booking_id}/tracking`
 
+
+
 ### 2.3 Dashboard Required Capabilities (VendorManagement)
+
 - Vendor listing with search/filter/sort.
 - Vendor assignment support for unassigned bookings (including brand + machine/vehicle selection).
 - Vendor performance and live-ops visibility (acceptance, assignment, in-progress execution cues).
@@ -806,9 +919,14 @@ The following APIs already exist today in app backend and can be reused/refactor
 - Reassignment handling with full audit metadata.
 - Fleet/equipment visibility by machine category/type and capacity buckets.
 
+
+
 ### 2.4 API Derivation Blocks
 
+
+
 #### A) Vendor Directory and Availability
+
 - **Purpose:** fetch assignable vendors for booking/equipment context.
 - **Data Contract (UI needs):**
   - vendor identity (`vendor_id`, name, code), rating, brand inventory summary, equipment availability signal.
@@ -824,7 +942,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** read-model aggregation from vendor inventory + booking context.
 - **API Needed:** `Read`
 
+
+
 #### B) Vendor Assignment and Reassignment
+
 - **Purpose:** assign vendor/machine to booking when unassigned or when reassignment is approved.
 - **Data Contract (UI needs):**
   - input: `booking_id`, `vendor_id`, `brand_id`, `machine_id` (vehicle number), optional reason.
@@ -837,7 +958,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** write-model with approval + audit hooks.
 - **API Needed:** `Both`
 
+
+
 #### C) Vendor Execution Monitoring
+
 - **Purpose:** track operational progress after assignment.
 - **Data Contract (UI needs):**
   - acceptance timestamp, current operator, GPS freshness, booking status progression.
@@ -848,7 +972,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** read aggregation over vendor + booking + tracking data.
 - **API Needed:** `Read`
 
+
+
 #### D) Vendor Overall Aggregations (Page Widgets + Tables)
+
 - **Purpose:** power top KPI cards, right-side summary, equipment overview table, and all-orders table in vendor overall screen.
 - **Data Contract (UI needs):**
   - KPI metrics with comparison deltas.
@@ -864,7 +991,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** consolidated read models + table query APIs.
 - **API Needed:** `Read` (plus `Write` only for order-level manage actions)
 
+
+
 #### E) Vendor Individual Screen Aggregations and Actions
+
 - **Purpose:** power vendor profile header, vendor-level KPI cards, bookings/earnings analytics, and detailed-bookings table.
 - **Data Contract (UI needs):**
   - header profile payload (`vendor_id`, vendor_type, contact fields, machine_count, join_date, status_chip).
@@ -881,9 +1011,14 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** vendor-specific read projections + controlled write commands.
 - **API Needed:** `Both`
 
+
+
 ### 2.5 VendorManagement Endpoint Inventory (Required vs Existing)
 
+
+
 #### A) Required Endpoint Set (Dashboard Rental / VendorManagement)
+
 1. `GET /api/v1/dashboard/rental/vendors`
 2. `GET /api/v1/dashboard/rental/vendors/{vendor_id}`
 3. `GET /api/v1/dashboard/rental/vendors/overview/kpis`
@@ -932,7 +1067,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 46. `GET /api/v1/dashboard/rental/operators/{operator_id}/analytics`
 47. `GET /api/v1/dashboard/rental/operators/{operator_id}/bookings`
 
+
+
 #### B) APIs Already Present In Current Backend (Reusable Building Blocks)
+
 - `POST /api/v1/vendor/bookings/{booking_id}/accept`
 - `PATCH /api/v1/vendor/equipment/{equipment_id}/location`
 - `POST /api/v1/vendor/bookings/{booking_id}/verify-start-otp`
@@ -942,13 +1080,19 @@ The following APIs already exist today in app backend and can be reused/refactor
 - `GET /api/v1/rentals/bookings/{booking_id}`
 - `GET /api/v1/rentals/bookings/{booking_id}/tracking`
 
+
+
 #### C) Coverage Count Snapshot
+
 - **Total required endpoints for VendorManagement dashboard (current contract):** `47`
 - **Already present in current backend (app-facing primitives):** `8`
 - **New dashboard endpoints still required:** `47` (dashboard-specific surface is net-new; existing endpoints are reusable service primitives)
 - **Endpoint note for owner-operator screen:** no additional net-new endpoints added; current vendor-individual endpoint set is reused with `vendor_type=independent_vendor`.
 
+
+
 ### 2.6 Third-Party Vendor App Dependency Note
+
 - Vendor-facing application is developed by a third party.
 - Existing third-party APIs are not fully known/locked from our side.
 - Dashboard backend should therefore define a stable internal contract and integrate via:
@@ -956,7 +1100,10 @@ The following APIs already exist today in app backend and can be reused/refactor
   - adapter layer for third-party vendor APIs once endpoint specs are shared.
 - Integration uncertainty should not block dashboard contract finalization; unresolved third-party dependencies are tracked in pending decisions.
 
+
+
 ### 2.7 Pending Decisions (VendorManagement)
+
 - Final field-level payload mapping for each `All Orders` column in VendorManagement screen.
 - Exact reassignment guardrails by status and by hierarchy (`L3 -> L2 -> L1`).
 - Whether vendor assignment uses dedicated dashboard approvals or shared generic approval module.
@@ -972,15 +1119,24 @@ The following APIs already exist today in app backend and can be reused/refactor
 - Whether individual-operator screen should share identical chip taxonomy and manage actions with operator-under-vendor screen, or have a reduced control set.
 - Any owner-operator-specific edit constraints (for example max machine count policy) beyond standard vendor profile permissions.
 
+
+
 ## 3. InventoryManagement
+
+
+
 ### 3.0 Scope and Intent
+
 - **Purpose:** provide rental-side fleet/inventory visibility for equipment availability, utilization, and commercial efficiency signals.
 - **Implementation reference lock:** align API conventions with existing rental module patterns under:
   - `src/features/rental/catalog/router.py`
   - `src/features/rental/slot/router.py`
   - `src/features/vendor/router.py`
 
+
+
 ### 3.1 InventoryManagement Overall Screen (Locked From Latest UI Input)
+
 - **Design Reference:** latest inventory page screenshots shared in current thread.
 - **UI specification (locked):**
   - top header controls include:
@@ -1018,9 +1174,14 @@ The following APIs already exist today in app backend and can be reused/refactor
   - requires CSV export and CSV ingestion APIs with validation/error reporting.
   - analysis badge value should be backend-derived and deterministic for consistency.
 
+
+
 ### 3.2 API Derivation Blocks
 
+
+
 #### A) Inventory KPI Aggregations
+
 - **Purpose:** power top inventory KPI strip.
 - **Data Contract (UI needs):**
   - values and deltas for:
@@ -1037,12 +1198,15 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** consolidated aggregation read model.
 - **API Needed:** `Read`
 
+
+
 #### B) All Equipment Table Projection
+
 - **Purpose:** list equipment-level inventory/commercial metrics for operations decisions.
 - **Data Contract (UI needs):**
   - columns:
     - `name`, `capacity`, `brand`, `analysis`, `quantity`, `cost_per_hour_or_km`,
-      `fuel`, `operator_fee`, `vendor_count`, `search_rate`
+    `fuel`, `operator_fee`, `vendor_count`, `search_rate`
   - analysis badge enum mapping:
     - `high_value`, `medium_value`, `low_value`
 - **Filter Inputs:**
@@ -1054,7 +1218,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** read projection from inventory master + utilization metrics.
 - **API Needed:** `Read`
 
+
+
 #### C) CSV Export and Upload Operations
+
 - **Purpose:** bulk visibility and bulk update workflow for inventory team.
 - **Data Contract (UI needs):**
   - export endpoint returns downloadable CSV based on active filters.
@@ -1071,41 +1238,64 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** write pipeline with validation + audit.
 - **API Needed:** `Both`
 
+
+
 ### 3.3 InventoryManagement Endpoint Inventory (Required vs Existing)
 
+
+
 #### A) Required Endpoint Set (Dashboard Rental / InventoryManagement)
+
 1. `GET /api/v1/dashboard/rental/inventory/overview/kpis`
 2. `GET /api/v1/dashboard/rental/inventory/equipment`
 3. `GET /api/v1/dashboard/rental/inventory/equipment/export-csv`
 4. `POST /api/v1/dashboard/rental/inventory/equipment/import-csv`
 
+
+
 #### B) APIs Already Present In Current Backend (Reusable Building Blocks)
+
 - `GET /api/v1/rentals/categories`
 - `GET /api/v1/rentals/subcategories/{slug}/skus`
 - `GET /api/v1/rentals/skus/{slug}`
 - `GET /api/v1/rentals/skus/{slug}/available-dates`
 - `GET /api/v1/rentals/skus/{slug}/slots`
 
+
+
 #### C) Coverage Count Snapshot
+
 - **Total required endpoints for InventoryManagement dashboard (current contract):** `4`
 - **Already present in current backend (app-facing primitives):** `5`
 - **New dashboard endpoints still required:** `4` (dashboard aggregation + CSV operations are net-new; existing APIs are reusable primitives)
 
+
+
 ### 3.4 Pending Decisions (InventoryManagement)
+
 - Exact formula for `Equipment Utilization` (time basis and denominator definition).
 - Final rules for `Analysis` badge classification (`High/Medium/Low Value`).
 - Upload CSV schema contract (mandatory columns, units, allowed enum values).
 - Approval requirements for bulk inventory upload by `L1/L2/L3`.
 
+
+
 ## 4. OrdersAndOperations
+
+
+
 ### 4.0 Scope and Intent
+
 - **Purpose:** provide a single operations-control page for monitoring rental-order throughput, execution quality, supply-demand mismatch, and order-level interventions.
 - **Implementation reference lock:** follow existing rental booking/tracking lifecycle conventions from:
   - `src/features/rental/booking/router.py`
   - `src/features/rental/tracking/router.py`
   - `src/features/vendor/router.py`
 
+
+
 ### 4.1 OrdersAndOperations Overall Screen (Locked From Latest UI Input)
+
 - **Design Reference:** UI screenshot input (latest chunk) with `Order & Operation Metrics`, `Supply Demand Gap (Rental)`, and `All Orders (Rental)` sections.
 - **UI specification (locked):**
   - top header controls use same factor pattern as other dashboard pages:
@@ -1130,9 +1320,14 @@ The following APIs already exist today in app backend and can be reused/refactor
   - requires server-side paginated/sortable/filterable orders table API.
   - order-level manage actions from this table should reuse booking command workflows with dashboard audit metadata.
 
+
+
 ### 4.2 API Derivation Blocks
 
+
+
 #### A) Operations Metric Aggregations
+
 - **Purpose:** power top operations metric strip (line-chart cluster + indicator cluster).
 - **Data Contract (UI needs):**
   - trend series payload for line chart,
@@ -1147,7 +1342,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** consolidated read-model aggregation.
 - **API Needed:** `Read`
 
+
+
 #### B) Supply Demand Gap Visual
+
 - **Purpose:** show mismatch trend between order demand and machine availability.
 - **Data Contract (UI needs):**
   - x-axis buckets,
@@ -1161,7 +1359,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** read aggregation from booking demand + inventory availability.
 - **API Needed:** `Read`
 
+
+
 #### C) All Orders (Rental) Operational Table
+
 - **Purpose:** enable operational intervention at order-row level.
 - **Data Contract (UI needs):**
   - status + order-id + equipment/capacity + booking/start/end timeline + location fields + booking/manage actions.
@@ -1176,9 +1377,14 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Backend Implications:** read table projection + write command handlers.
 - **API Needed:** `Both`
 
+
+
 ### 4.3 OrdersAndOperations Endpoint Inventory (Required vs Existing)
 
+
+
 #### A) Required Endpoint Set (Dashboard Rental / OrdersAndOperations)
+
 1. `GET /api/v1/dashboard/rental/orders-ops/metrics`
 2. `GET /api/v1/dashboard/rental/orders-ops/metrics/trend`
 3. `GET /api/v1/dashboard/rental/orders-ops/supply-demand-gap`
@@ -1186,25 +1392,40 @@ The following APIs already exist today in app backend and can be reused/refactor
 5. `GET /api/v1/dashboard/rental/orders-ops/orders/{booking_id}/details`
 6. `PATCH /api/v1/dashboard/rental/orders-ops/orders/{booking_id}/manage`
 
+
+
 #### B) APIs Already Present In Current Backend (Reusable Building Blocks)
+
 - `GET /api/v1/rentals/bookings`
 - `GET /api/v1/rentals/bookings/{booking_id}`
 - `GET /api/v1/rentals/bookings/{booking_id}/tracking`
 
+
+
 #### C) Coverage Count Snapshot
+
 - **Total required endpoints for OrdersAndOperations dashboard (current contract):** `6`
 - **Already present in current backend (app-facing primitives):** `3`
 - **New dashboard endpoints still required:** `6` (dashboard facade + aggregation surface are net-new; existing APIs are reusable primitives)
 
+
+
 ### 4.4 Pending Decisions (OrdersAndOperations)
+
 - Exact metric names/formulas for top cards and indicator cluster.
 - Final category dimension for supply-demand visual (equipment category vs SKU vs capacity-band).
 - Final row-level manage actions allowed from this page and approval requirements by `L1/L2/L3`.
 - Error/SLA thresholds for flagging operational anomalies.
 - OTP verification and vendor-accept actions are out of current dashboard scope unless explicit UI actions are added later.
 
+
+
 ## 5. TicketsConcerns
+
+
+
 ### 5.0 Intake Template (Fill from UI/Figma)
+
 - **Design Reference:** `<figma link or screen name>`
 - **Purpose:** `<what ops/business decision this page supports>`
 - **Data Contract (UI needs):**
@@ -1221,8 +1442,14 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Pending Decisions:**
   - `<SLA matrix/escalation windows/reopen limits>`
 
+
+
 ## 6. PaymentAndFinance
+
+
+
 ### 6.0 Intake Template (Fill from UI/Figma)
+
 - **Design Reference:** `<figma link or screen name>`
 - **Purpose:** `<what ops/business decision this page supports>`
 - **Data Contract (UI needs):**
@@ -1239,8 +1466,14 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Pending Decisions:**
   - `<refund policy/settlement cutoffs/finance approval gates>`
 
+
+
 ## 7. MarketingAndPromotions
+
+
+
 ### 7.0 Intake Template (Fill from UI/Figma)
+
 - **Design Reference:** `<figma link or screen name>`
 - **Purpose:** `<what ops/business decision this page supports>`
 - **Data Contract (UI needs):**
@@ -1257,8 +1490,14 @@ The following APIs already exist today in app backend and can be reused/refactor
 - **Pending Decisions:**
   - `<stacking policy/eligibility precedence/attribution model>`
 
+
+
 ## 8. GrowthAndBehaviour
+
+
+
 ### 8.0 Intake Template (Fill from UI/Figma)
+
 - **Design Reference:** `<figma link or screen name>`
 - **Purpose:** `<what ops/business decision this page supports>`
 - **Data Contract (UI needs):**
@@ -1277,7 +1516,10 @@ The following APIs already exist today in app backend and can be reused/refactor
 
 ---
 
+
+
 ## Change Log
+
 - 2026-04-07: Initialized master dashboard rental backend contract.
 - 2026-04-07: Added CustomerManagement page intent, header controls, date/filter rules, and Rental/Material tab behavior from first confirmed input.
 - 2026-04-07: Added CustomerManagement top info-card contract (`Active Orders`, `Completed`, `Failed Orders`, `Tickets`) and documented card payload expectations.
@@ -1318,3 +1560,4 @@ The following APIs already exist today in app backend and can be reused/refactor
 - 2026-04-07: Replaced OrdersAndOperations template with locked overall-screen contract (metrics strip, supply-demand-gap visual, all-orders table) and added endpoint inventory (`6` required endpoints + `6` reusable primitives).
 - 2026-04-07: Updated OrdersAndOperations scope to remove OTP verification/vendor-accept action usage (not present in current dashboard UI); retained tracking read usage and adjusted reusable primitive count to `3`.
 - 2026-04-07: Replaced InventoryManagement template with locked rental-side screen contract (KPI strip, all-equipment table, CSV actions), added API derivation blocks and endpoint inventory (`4` required dashboard endpoints + `5` reusable primitives).
+

@@ -163,7 +163,7 @@ export default function L2profileLayout() {
     },
   ];
   return (
-    <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%] flex flex-col gap-[48px] ">
+    <SectionWrapper className="flex flex-col gap-[48px]">
       <ProfileHeader
         name="Abhishek"
         avatarUrl="/images/customer1.avif" // Replace with your actual path

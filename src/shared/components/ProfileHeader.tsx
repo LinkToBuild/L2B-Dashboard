@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Info, Copy, Edit2, CheckCircle2 } from "lucide-react";
+import { Copy, Edit2, CheckCircle2 } from "lucide-react";
 // Import your custom chip here!
 // import { Chip } from "@/components/ui/Chip"; 
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 // 1. Define the strictly typed interfaces
 export interface ProfileField {
@@ -117,7 +118,7 @@ export function ProfileHeader({
               
               <div className="flex items-center gap-1.5 text-xs text-neutral-3 ">
                 <span>Join date : {joinDate}</span>
-                <Info className="w-3.5 h-3.5 cursor-help" />
+                <InfoTip label="Join date" size="sm" />
               </div>
 
               {walletBalance && (

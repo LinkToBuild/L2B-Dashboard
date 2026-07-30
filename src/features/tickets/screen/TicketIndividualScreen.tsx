@@ -255,7 +255,7 @@ const columns: ColumnConfig<TicketRow>[] = [
 
 export function IndividualTicketScreen() {
   return (
-    <div className="flex w-full flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]">
+    <div className="flex w-full flex-col gap-6">
       <SectionWrapper className="flex flex-col gap-[40px]">
         <div className="flex w-full items-start gap-[24px]">
           <div className="w-1/2 min-w-0">

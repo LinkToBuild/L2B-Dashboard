@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { IndicatorChart } from "@/shared/excomponent/charts/IndicatorChart";
-import { Info } from "lucide-react";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 interface RateIndicatorProps {
   width?: number | string;
@@ -32,13 +32,15 @@ export function RateIndicator({ width = "100%" , height = '100%' }: RateIndicato
   }, []);
   return (
     <>
-      <div style={{ width , height }} className="border border-neutral-5  h-[216px] rounded-[12px] p-[12px]">
-        <div className="flex w-full justify-between">
+      <div style={{ width , height }} className="border border-neutral-5 h-[216px] rounded-[12px] p-[12px] flex flex-col overflow-hidden">
+        <div className="flex w-full justify-between shrink-0">
           <p className="text-[16px] font-normal">Fulfillment Rate</p>
           <p className="text-success-2 text-[12px] font-normal">+20.89%</p>
-          <Info className="text-neutral-3 w-4 h-4"></Info>
+          <InfoTip label="Fulfillment Rate" />
         </div>
-        <IndicatorChart value={score} width='100%' height={220} />
+        <div className="min-h-0 flex-1">
+          <IndicatorChart value={score} width="100%" height="100%" />
+        </div>
       </div>
     </>
   );

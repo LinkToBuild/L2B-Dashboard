@@ -8,7 +8,8 @@ import { StackedBarChart } from "@/shared/excomponent/charts/StackedBarGraph";
 import { TableToolbar } from "./TableToolbar";
 import { ColumnConfig } from "@/shared/components/Table";
 import { DynamicTable } from "@/shared/components/Table";
-import { Info, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export default function MetricSection() {
   const stackchartSeries = [
@@ -144,7 +145,7 @@ export default function MetricSection() {
             <div className="w-full flex justify-between">
               <div className="flex place-items-center gap-4">
                 <p className="text-[24px] text-neutral-1 font normal">Spend</p>
-                <Info className="text-neutral-3 w-3 h-3"></Info>
+                <InfoTip label="Spend" size="xs" />
               </div>
               <div className="flex text-danger-1 place-items-center gap-1">
                 <p className="text-[12px] font-normal">-20.89%</p>

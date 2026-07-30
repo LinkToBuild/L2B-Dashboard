@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import { L2BButton } from "@/design-system/components/L2BButton";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
-import { ListFilter, Info } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { Calendar } from "@/components/ui/calendar";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 // 1. Ensure these are all imported perfectly from your ui/tabs file
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"; 
@@ -43,7 +44,7 @@ export function Header({
       <div className="flex h-[52px] justify-between">
         <div className="h-full flex font-normal place-items-center gap-2">
           <p className="text-neutral-1 xl:text-[24px]">Payment & Finance Metrics</p>
-          <Info className="w-3 h-3 cursor-help text-neutral-3" />
+          <InfoTip label="Payment & Finance Metrics" size="xs" />
         </div>
         
         <div className="flex gap-[22px]">

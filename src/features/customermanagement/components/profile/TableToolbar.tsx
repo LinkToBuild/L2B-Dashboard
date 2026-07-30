@@ -2,8 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { Info, ListFilter } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export interface TableToolbarProps {
   title: string;
@@ -68,7 +69,7 @@ export default function TableToolbar({
     <div className="flex items-center justify-between w-full">
       <div className="flex items-center gap-2">
         <h3 className="text-[20px] font-medium text-neutral-1">{title}</h3>
-        <Info className="w-4 h-4 text-neutral-400 cursor-help" />
+        <InfoTip label={title} />
       </div>
 
       <div className="flex items-center gap-4">

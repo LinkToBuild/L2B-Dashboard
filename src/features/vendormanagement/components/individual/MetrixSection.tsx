@@ -6,7 +6,7 @@ import { InfoCards } from "./InfoCards";
 import { ChartPieDonut } from "@/shared/excomponent/charts/PieChart";
 import { LegendData } from "@/shared/components/Legend";
 import { L2BAreaChart } from "@/shared/excomponent/charts/L2BAreaChart";
-import { Info } from "lucide-react";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export default function MetrixSection({
   stats, paymentData, performanceData, startDate, onStartDateChange, endDate, onEndDateChange, currentFilter, onFilterChange
@@ -22,7 +22,7 @@ export default function MetrixSection({
       <div className="flex flex-col gap-[19px]">
         <div className="flex gap-4 place-items-center">
           <p className="text-neutral-1 text-[24px] font-medium">Booking & Earnings</p>
-          <Info className="w-4 h-4 text-neutral-3" />
+          <InfoTip label="Booking & Earnings" />
         </div>
         <div className="flex gap-[10px]">
           <div className="flex gap-[12px] w-[30%]">

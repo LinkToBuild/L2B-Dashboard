@@ -1,11 +1,11 @@
-import React from 'react'
-import {AgentScreen} from '@/features/agentsprofile/screen/AgentScreen'
+import React from "react";
+import { AgentScreen } from "@/features/agentsprofile/screen/AgentScreen";
+import { DashboardPageShell } from "@/shared/components/DashboardPageShell";
 
-export default function page ()  {
+export default function page() {
   return (
-    <div className='px-8 py-5    min-h-screen'>
-        <AgentScreen userLevel="L2" userId="ADC1223"></AgentScreen>
-    </div>
-  )
+    <DashboardPageShell className="bg-transparent">
+      <AgentScreen userLevel="L2" userId="ADC1223" />
+    </DashboardPageShell>
+  );
 }
-

@@ -1,58 +1,66 @@
 import React from "react";
-import SectionWrapper from "@/shared/components/SectionWrapper";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 import { InfoCards } from "../overall/InfoCards";
 import { ChartPieDonut } from "@/shared/excomponent/charts/PieChart";
 import { ChartConfig } from "@/components/ui/chart";
 import { StatCard } from "@/shared/excomponent/ui/StatCard";
 import { LegendData } from "@/shared/components/Legend";
-import mapImg from "@/public/images/mapImg.png";
-import Image from "next/image";
 import { PaymentData, InfoCardData, CustomerMetric } from "../../types";
 import { SideBoard } from "@/shared/components/SideBoard";
+import {
+  HighDemandAreaMap,
+  type DemandMapViewModel,
+} from "./HighDemandAreaMap";
 
 interface DataMatrixSectionProps {
-    paymentData: PaymentData[];
-    infoCardsData: InfoCardData[];
-    customerData: CustomerMetric[];
-  }
-export default function DataMatrixSection({ 
-  paymentData, 
-  infoCardsData, 
-  customerData 
-}: DataMatrixSectionProps) {
-  
+  paymentData: PaymentData[];
+  infoCardsData: InfoCardData[];
+  customerData: CustomerMetric[];
+  demandMap: DemandMapViewModel;
+}
 
+export default function DataMatrixSection({
+  paymentData,
+  infoCardsData,
+  customerData,
+  demandMap,
+}: DataMatrixSectionProps) {
   const paymentConfig = {
     percentage: { label: "Percentage" },
-    upi: { label: "UPI", color: "#356583" }, // Darkest Blue
-    cod: { label: "COD", color: "#86A8C3" }, // Medium Blue
-    netbanking: { label: "Net Banking", color: "#3F82B7" }, // Bright Blue
-    paylater: { label: "Paylater", color: "#CDE0ED" }, // Lightest Blue
+    upi: { label: "UPI", color: "#356583" },
+    cod: { label: "COD", color: "#86A8C3" },
+    netbanking: { label: "Net Banking", color: "#3F82B7" },
+    paylater: { label: "Paylater", color: "#CDE0ED" },
   } satisfies ChartConfig;
 
-
   return (
-    <div className="flex w-full gap-[34px]">
-      <div className="flex flex-col gap-[30px] ">
+    <div className="flex w-full items-start justify-between gap-[34px]">
+      {/* Left: KPIs + Earning + High Demand — fills remaining width */}
+      <div className="flex min-w-0 flex-1 flex-col gap-[30px]">
         <InfoCards />
-        <div className="  flex gap-[10px] 2xl:gap-[33px]">
-          <div className=" w-[500px] h-[356px] 2xl:w-[635px] flex flex-col gap-[10px] ">
-            <p className="text-[24px] font-normal">Earning</p>
-            <div className="w-full flex    border border-neutral-5 justify-evenly p-4 2xl:p-6 rounded-[12px]">
-              <div className="">
+
+        <div className="flex w-full items-stretch gap-[10px] 2xl:gap-[33px]">
+          {/* Earning grows to fill leftover space */}
+          <div className="flex min-w-0 flex-1 flex-col gap-[10px]">
+            <div className="flex items-center gap-2">
+              <p className="text-[24px] font-normal text-neutral-1">Earning</p>
+              <InfoTip label="Payment mix and sales summary for the selected period." />
+            </div>
+            <div className="flex min-h-[360px] w-full flex-1 items-center gap-4 rounded-[12px] border border-neutral-5  px-4 2xl:gap-6 2xl:px-5">
+              <div className="flex min-w-0 flex-1 items-center justify-center">
                 <ChartPieDonut
                   data={paymentData}
                   config={paymentConfig}
-                  dataKey="percentage" // The key containing the numbers
-                  nameKey="method" // The key containing the labels
-                  centerLabel="Total Tickets"
-                  centerValue="134"
-                  width={230} // Adjust size easily!
-                  height={230}
+                  dataKey="percentage"
+                  nameKey="method"
+                  centerLabel="Total Sale"
+                  centerValue="₹13,44,000"
+                  width={320}
+                  height={320}
                 />
               </div>
-              <div className=" xl:w-[40%] 2xl:w-[245px] h-[299px] flex flex-col gap-[27px] ">
-                <div className="w-full flex flex-col gap-[27px]">
+              <div className="flex w-[224px] shrink-0 flex-col items-center justify-center gap-6">
+                <div className="flex flex-col gap-5">
                   {infoCardsData?.map((card, index) => (
                     <StatCard
                       key={index}
@@ -60,19 +68,20 @@ export default function DataMatrixSection({
                       value={card.Stats}
                       percentage={card.percentage}
                       information={card.information}
+                      className="h-[98px] w-[224px] max-w-[224px] shrink-0 lg:h-[98px] lg:w-[224px] 2xl:h-[98px] 2xl:w-[224px]"
                     />
                   ))}
                 </div>
-                <div className=" h-[48px] grid grid-cols-2  ">
-                  <LegendData color="#3B82F6" label="UPI" percentage={28} />
-                  <LegendData color="#60A5FA" label="COD" percentage={30} />
+                <div className="grid w-[224px] grid-cols-2 gap-x-6 gap-y-3 content-start">
+                  <LegendData color="#356583" label="UPI" percentage={28} />
+                  <LegendData color="#86A8C3" label="COD" percentage={30} />
                   <LegendData
-                    color="#93C5FD"
+                    color="#3F82B7"
                     label="Net Banking"
                     percentage={22}
                   />
                   <LegendData
-                    color="#BFDBFE"
+                    color="#CDE0ED"
                     label="Paylater"
                     percentage={20}
                   />
@@ -80,37 +89,19 @@ export default function DataMatrixSection({
               </div>
             </div>
           </div>
-          <div className=" w-[270px] flex flex-col gap-[10px]">
-            <p className="text-[24px] text-neutral-1 font-normal">
-              High Demand Area
-            </p>
-            <div className="w-full flex flex-col bg-white shadow-md rounded-[12px] h-[354px]">
-              <div className="w-full">
-                <Image
-                  src={mapImg}
-                  alt="Logo"
-                  className="h-[280px] w-full rounded-[8px]"
-                />
-              </div>
-              <div className=" flex flex-wrap justify-between gap-2 p-4">
-                <LegendData color="#EB6F70" label="High Demand"></LegendData>
-                <LegendData color="#8DAFD1" label="Less Demand"></LegendData>
-                <LegendData
-                  color="#FEC869"
-                  label="Slightly Less Demand"
-                ></LegendData>
-              </div>
-            </div>
-          </div>
+
+          <HighDemandAreaMap demandMap={demandMap} />
         </div>
       </div>
-      <div>
+
+      {/* All Customers — pinned to the right edge */}
+      <div className="shrink-0">
         <SideBoard
           title="All Customers"
           overallPercentage={-20.89}
           overallTrend="down"
           data={customerData}
-        ></SideBoard>
+        />
       </div>
     </div>
   );

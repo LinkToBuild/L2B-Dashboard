@@ -22,6 +22,11 @@ export interface GrowthMetricsPoint {
   andhraPradesh: number;
   vijayawada: number;
   karnataka: number;
+  tamilNadu: number;
+  maharashtra: number;
+  telangana: number;
+  kerala: number;
+  delhi: number;
 }
 
 export interface GBStatCard {

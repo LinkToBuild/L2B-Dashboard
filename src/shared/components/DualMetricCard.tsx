@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { Info, ChevronUp, ChevronDown } from "lucide-react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export interface DualMetricCardProps {
   title: string;
@@ -63,12 +64,7 @@ export function DualMetricCard({
             )}
           </div>
 
-          <div
-            title={information}
-            className="cursor-help text-neutral-3 flex items-center hover:text-neutral-2 transition-colors"
-          >
-            <Info className="w-4 h-4" />
-          </div>
+          <InfoTip label={information} />
         </div>
       </div>
 

@@ -14,7 +14,7 @@ import { CampaignReportItem } from "../types";
 export function MPScreen() {
   const { 
     campaignReport, infoCards, campaignPerformance, channelDistribution, leadScore, 
-    searchQuery, headerFilter, startDate, endDate, setUrlFilter 
+    searchQuery, tableFilter, headerFilter, startDate, endDate, setUrlFilter 
   } = useMPViewModel();
 
   const columns: ColumnConfig<CampaignReportItem>[] = [
@@ -44,7 +44,7 @@ export function MPScreen() {
   ];
 
   return (
-    <SectionWrapper className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px] [@media(min-width:1700px)]:mx-auto ">
+    <SectionWrapper className="flex flex-col gap-6">
       <Header 
         currentFilter={headerFilter}
         onFilterChange={(val) => setUrlFilter("headerFilter", val)}
@@ -66,6 +66,11 @@ export function MPScreen() {
           data={campaignReport}
           searchQuery={searchQuery}
           onSearchChange={(val) => setUrlFilter("search", val)}
+          currentFilter={tableFilter}
+          onFilterChange={(val) =>
+            setUrlFilter("tableFilter", val === "All" ? null : val)
+          }
+          filterOptions={["All", "Completed", "Schedule", "Active", "Pause"]}
         />
       </div>
     </SectionWrapper>

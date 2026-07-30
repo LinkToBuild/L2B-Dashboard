@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { Info } from "lucide-react";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 import { Header } from "../components/overall/GBHeader";
 import SectionWrapper from "@/shared/components/SectionWrapper";
@@ -119,7 +119,7 @@ export function GBScreen() {
   ];
 
   return (
-    <div className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%] max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
+    <SectionWrapper className="flex flex-col gap-6">
       <Header
         currentFilter={headerFilter}
         onFilterChange={(val) => setUrlFilter("headerFilter", val)}
@@ -151,11 +151,13 @@ export function GBScreen() {
           </div>
 
           <div className="w-[280px] h-[300px] rounded-[16px] border border-neutral-6 bg-white p-[12px] shrink-0">
-            <div className="overflow-hidden rounded-[8px]">
+            <div className="relative h-[126px] w-full overflow-hidden rounded-[8px] bg-neutral-7">
               <Image
                 src={mapImg}
                 alt="Sessions by locations"
-                className="h-[126px] w-full object-cover"
+                fill
+                sizes="256px"
+                className="object-cover"
               />
             </div>
 
@@ -164,7 +166,11 @@ export function GBScreen() {
                 <p className="text-[16px] font-normal text-neutral-2">
                   Sessions by locations
                 </p>
-                <Info className="h-[14px] w-[14px] text-neutral-3" />
+                <InfoTip
+                  label="Sessions by locations"
+                  size="sm"
+                  iconClassName="h-[14px] w-[14px]"
+                />
               </div>
 
               <div className="flex flex-col gap-[14px]">
@@ -201,6 +207,6 @@ export function GBScreen() {
           onMaterialFilterChange={(val) => setUrlFilter("materialFilter", val)}
         />
       </div>
-    </div>
+    </SectionWrapper>
   );
 }

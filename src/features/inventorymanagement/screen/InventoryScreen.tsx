@@ -94,7 +94,7 @@ const filteredData = useMemo(() => {
 
   return (
     <>
-      <SectionWrapper className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
+      <SectionWrapper className="flex flex-col gap-6">
         <Header
           currentTab={currentTab}
           onTabChange={(tab) => setUrlFilter("tab", tab)}

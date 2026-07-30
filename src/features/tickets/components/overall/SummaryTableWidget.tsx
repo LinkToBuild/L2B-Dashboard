@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Info, AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
+import { AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
 import { DynamicTable, ColumnConfig } from "@/shared/components/Table";
 import { DeptPerformanceData, EscalatedData } from "../../types";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 interface SummaryTableProps {
   deptPerformance: DeptPerformanceData[];
@@ -50,14 +51,14 @@ export function SummaryTableWidget({ deptPerformance, escalatedTickets }: Summar
       <div className="flex flex-col gap-[20px]">
         <div className="flex gap-4 place-items-center">
           <p className="text-[24px] text-neutral-1 font-normal">Department Performance</p>
-          <Info className="w-4 h-4" />
+          <InfoTip label="Department Performance" />
         </div>
         <DynamicTable columns={perfColumns} data={deptPerformance} maxHeight={208} />
       </div>
       <div className="flex flex-col gap-[20px]">
         <div className="flex gap-4 place-items-center">
           <p className="text-[24px] text-neutral-1 font-normal">Escalated Ticket</p>
-          <Info className="w-4 h-4" />
+          <InfoTip label="Escalated Ticket" />
         </div>
         <DynamicTable columns={escColumns} data={escalatedTickets} maxHeight={297} />
       </div>

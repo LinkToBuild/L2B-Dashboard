@@ -20,10 +20,10 @@ export function LegendData({ color, label, percentage, isActive = true, onClick 
   return (
     <Wrapper 
       onClick={onClick}
-      className={`w-fit flex gap-[4px] items-center ${
+      className={`w-fit flex gap-[4px] items-center whitespace-nowrap ${
         isInteractive 
           ? `cursor-pointer transition-opacity ${isActive ? "opacity-100" : "opacity-40"}` 
-          : "opacity-100" // Defaults to fully visible if it's just a normal, static legend
+          : "opacity-100"
       }`}
     >
       <div
@@ -31,9 +31,11 @@ export function LegendData({ color, label, percentage, isActive = true, onClick 
         style={{ backgroundColor: color }}
       ></div>
 
-      <div className="flex gap-[2px] xl:text-[9px] 2xl:text-[12px] font-normal text-neutral-2">
+      <div className="text-[12px] font-normal text-neutral-2">
         <span>{label}</span>
-        {percentage !== undefined && <span>{percentage}%</span>}
+        {percentage !== undefined && percentage !== null && (
+          <span>{` ${percentage}%`}</span>
+        )}
       </div>
     </Wrapper>
   );

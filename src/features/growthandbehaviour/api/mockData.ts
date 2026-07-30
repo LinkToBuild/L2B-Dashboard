@@ -17,13 +17,13 @@ export const mockLocationStats: GBLocationStat[] = [
 ];
 
 export const mockGrowthChartData: GrowthMetricsPoint[] = [
-  { day: 1, visitors: 2500, all: 2500, andhraPradesh: 2200, vijayawada: 2100, karnataka: 2300 },
-  { day: 5, visitors: 2450, all: 2450, andhraPradesh: 2180, vijayawada: 2060, karnataka: 2280 },
-  { day: 10, visitors: 2450, all: 2450, andhraPradesh: 2230, vijayawada: 2100, karnataka: 2320 },
-  { day: 15, visitors: 3100, all: 3100, andhraPradesh: 2720, vijayawada: 2550, karnataka: 2920 },
-  { day: 20, visitors: 4100, all: 4100, andhraPradesh: 3520, vijayawada: 3300, karnataka: 3700 },
-  { day: 25, visitors: 3800, all: 3800, andhraPradesh: 3380, vijayawada: 3140, karnataka: 3520 },
-  { day: 30, visitors: 3800, all: 3800, andhraPradesh: 3380, vijayawada: 3140, karnataka: 3520 },
+  { day: 1, visitors: 2500, all: 2500, andhraPradesh: 2200, vijayawada: 2100, karnataka: 2300, tamilNadu: 2050, maharashtra: 2400, telangana: 1980, kerala: 1850, delhi: 2150 },
+  { day: 5, visitors: 2450, all: 2450, andhraPradesh: 2180, vijayawada: 2060, karnataka: 2280, tamilNadu: 2010, maharashtra: 2360, telangana: 1940, kerala: 1820, delhi: 2110 },
+  { day: 10, visitors: 2450, all: 2450, andhraPradesh: 2230, vijayawada: 2100, karnataka: 2320, tamilNadu: 2080, maharashtra: 2380, telangana: 2000, kerala: 1880, delhi: 2180 },
+  { day: 15, visitors: 3100, all: 3100, andhraPradesh: 2720, vijayawada: 2550, karnataka: 2920, tamilNadu: 2600, maharashtra: 3000, telangana: 2480, kerala: 2320, delhi: 2700 },
+  { day: 20, visitors: 4100, all: 4100, andhraPradesh: 3520, vijayawada: 3300, karnataka: 3700, tamilNadu: 3400, maharashtra: 3900, telangana: 3250, kerala: 3050, delhi: 3550 },
+  { day: 25, visitors: 3800, all: 3800, andhraPradesh: 3380, vijayawada: 3140, karnataka: 3520, tamilNadu: 3200, maharashtra: 3650, telangana: 3080, kerala: 2900, delhi: 3350 },
+  { day: 30, visitors: 3800, all: 3800, andhraPradesh: 3380, vijayawada: 3140, karnataka: 3520, tamilNadu: 3220, maharashtra: 3680, telangana: 3100, kerala: 2920, delhi: 3380 },
 ];
 
 export const mockGBStatCards: GBStatCard[] = [

@@ -3,8 +3,9 @@
 import * as React from "react";
 import { useState } from "react";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
-import { ListFilter, Info } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 interface TableToolBarProps {
   title?: string;
@@ -31,7 +32,7 @@ export function TableToolBar({
           <p className="text-[24px] text-neutral-2 font-normal">
             Campaign Report
           </p>
-          <Info className="w-4 h-4 text-neutral-3"></Info>
+          <InfoTip label="Campaign Report" />
         </div>
         <div className="flex gap-[18px]">
           <CustomInput

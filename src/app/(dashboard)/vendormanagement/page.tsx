@@ -2,9 +2,10 @@
 
 // import ProfileLayout from "@/features/customermanagement/screen/ProfileScreen";
 import VendorIndividualScreen from "@/features/vendormanagement/screen/VendorIndividualScreen";
-// import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
+import { VendorScreen } from "@/features/vendormanagement/screen/VendorScreen";
 import { ColumnConfig } from "@/shared/components/Table";
-import { useState ,Suspense} from "react";
+import { DashboardPageShell } from "@/shared/components/DashboardPageShell";
+import { useState, Suspense } from "react";
 
 
 export default function VendorManagementPage() {
@@ -221,10 +222,10 @@ export default function VendorManagementPage() {
   };
 
   return (
-    <div className="px-8 py-5 min-h-screen bg-[#F8F9FA]">
+    <DashboardPageShell>
       <Suspense fallback={<div className="p-10 text-neutral-400">Loading Vendor Details...</div>}>
-      <VendorIndividualScreen></VendorIndividualScreen>
-      {/* <VendorScreen></VendorScreen> */}
+      {/* <VendorIndividualScreen></VendorIndividualScreen> */}
+      <VendorScreen></VendorScreen>
       {/* <ProfileLayout
   role=""
   customerData={customerInfo}
@@ -239,7 +240,7 @@ export default function VendorManagementPage() {
   paymentTitle="Payment details"
 /> */}
 </Suspense>
-    </div>
+    </DashboardPageShell>
   );
 }
 

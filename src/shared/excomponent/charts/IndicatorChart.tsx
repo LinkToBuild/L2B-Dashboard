@@ -20,19 +20,21 @@ export function IndicatorChart({
     series: [
       {
         type: "gauge",
-        startAngle: 180, // Starts at the far left
-        endAngle: 0,     // Ends at the far right (makes a perfect half-circle)
+        startAngle: 180,
+        endAngle: 0,
+        center: ["50%", "70%"],
+        radius: "100%",
         min: 0,
         max: 100,
         
         // 1. The colored track
         axisLine: {
           lineStyle: {
-            width: 25, // How thick the colored band is
+            width: 25,
             color: [
-              [0.33, "#ED6D6D"], // 0-33% is Red
-              [0.66, "#F6B344"], // 33-66% is Yellow/Orange
-              [1, "#72C596"],    // 66-100% is Green
+              [0.33, "#ED6D6D"],
+              [0.66, "#F6B344"],
+              [1, "#72C596"],
             ],
           },
         },
@@ -40,14 +42,14 @@ export function IndicatorChart({
         // 2. The needle
         pointer: {
           show: true,
-          length: "55%",
+          length: "80%",
           width: 5,
           itemStyle: {
-            color: "#4B4B4B", // Dark grey needle to match your design
+            color: "#4B4B4B",
           },
         },
         
-        // 3. Hide all the default ECharts mess (ticks, split lines, outside labels)
+        // 3. Hide default ticks / labels
         axisTick: { show: false },
         splitLine: { show: false },
         axisLabel: { show: false },
@@ -59,21 +61,21 @@ export function IndicatorChart({
           color: "#4B4B4B",
           fontSize: 32,
           fontWeight: "semibold",
-          offsetCenter: [0, "50%"], // Pushes the text down below the needle origin
+          offsetCenter: [0, "35%"],
         },
         
-        // 5. The actual data being passed in
         data: [{ value: value }],
       },
     ],
   };
 
   return (
-    <div className="flex justify-center items-center w-full">
+    <div className="flex h-full w-full items-center justify-center">
       <ReactECharts
         option={option}
         style={{ width, height }}
-        opts={{ renderer: "svg" }} // SVG rendering makes it look incredibly crisp
+        opts={{ renderer: "svg" }}
+        className="h-full w-full"
       />
     </div>
   );

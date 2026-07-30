@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Info, ListFilter, ChevronDown } from "lucide-react";
+import { ListFilter, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DynamicTable, ColumnConfig } from "@/shared/components/Table";
 import { Button } from "@/shared/excomponent/ui/UIButton";
@@ -9,6 +9,7 @@ import {
   L2BDropdownMenu,
   DropdownItem,
 } from "@/shared/excomponent/ui/L2BDropdownMenu";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export type MachineDetailsModalType =
   | "odometerHistory"
@@ -395,7 +396,11 @@ export function MachineDetailsModal({
               {(data as any).title}
             </h2>
             {config.showInfo ? (
-              <Info className="h-[15px] w-[15px] text-[#8D8D8D]" />
+              <InfoTip
+                label={(data as any).title}
+                size="md"
+                iconClassName="h-[15px] w-[15px]"
+              />
             ) : null}
           </div>
 

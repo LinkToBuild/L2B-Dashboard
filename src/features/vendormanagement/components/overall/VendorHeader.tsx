@@ -5,7 +5,6 @@ import { L2BButton } from "@/design-system/components/L2BButton";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
 import { ListFilter } from "lucide-react";
 import SectionWrapper from "@/shared/components/SectionWrapper";
-import { Info } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { TabSwitcher } from "@/shared/excomponent/ui/L2BTabSwitcher";
 

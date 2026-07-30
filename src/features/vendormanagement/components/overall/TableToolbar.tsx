@@ -3,8 +3,9 @@
 import * as React from "react";
 import { useState } from "react";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
-import { ListFilter, Info } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export function TableToolbar() {
   const [filter, setFilter] = useState<string>("Completed");
@@ -22,7 +23,7 @@ export function TableToolbar() {
       <div className="flex justify-between place-items-center">
         <div className="flex gap-[10px] place-items-center ">
           <p className="text-[24px] text-neutral-2 font-normal">Inventory Overview</p>
-          <Info className="w-4 h-4 text-neutral-3"></Info>
+          <InfoTip label="Inventory Overview" />
         </div>
         <div className="">
           <L2BDropdownMenu

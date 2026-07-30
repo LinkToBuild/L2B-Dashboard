@@ -54,6 +54,7 @@ export function LineCharts({
 
   // State now only tracks ONE active line at a time. Defaults to the first line in the array.
   const [activeLine, setActiveLine] = useState<string>(lines[0]?.dataKey || "");
+  const [isLegendExpanded, setIsLegendExpanded] = useState(false);
 
   // Sets the clicked legend as the only active line
   const handleLegendClick = (dataKey: string) => {
@@ -130,20 +131,34 @@ export function LineCharts({
 
       {/* Your Custom Legend Area */}
       {showLegend && (
-        <div className="flex gap-2  mt-6 items-center w-full justify-between ">
-          {lines.map((line) => (
-            <LegendData
-              key={line.dataKey}
-              label={line.name}
-              color={line.color}
-              isActive={activeLine === line.dataKey} // 👈 Checks if it's the active one
-              onClick={() => handleLegendClick(line.dataKey)}
-            />
-          ))}
+        <div className="mt-6 flex w-full items-center gap-2">
+          <div
+            className={`flex min-w-0 flex-1 items-center gap-x-3 whitespace-nowrap ${
+              isLegendExpanded
+                ? "overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                : "overflow-hidden"
+            }`}
+          >
+            {lines.map((line) => (
+              <LegendData
+                key={line.dataKey}
+                label={line.name}
+                color={line.color}
+                isActive={activeLine === line.dataKey}
+                onClick={() => handleLegendClick(line.dataKey)}
+              />
+            ))}
+          </div>
 
-          <button className="text-[14px] text-neutral-3  hover:text-neutral-1 transition-colors">
-            see more {">"}
-          </button>
+          {!isLegendExpanded && (
+            <button
+              type="button"
+              onClick={() => setIsLegendExpanded(true)}
+              className="shrink-0 whitespace-nowrap text-[14px] text-neutral-3 transition-colors hover:text-neutral-1"
+            >
+              see more {">"}
+            </button>
+          )}
         </div>
       )}
     </div>

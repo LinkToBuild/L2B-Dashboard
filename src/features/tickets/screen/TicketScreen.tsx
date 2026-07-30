@@ -139,7 +139,7 @@ export function TicketScreen() {
 
   return (
     <>
-      <SectionWrapper className="flex  flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px]  [@media(min-width:1700px)]:mx-auto ">
+      <SectionWrapper className="flex flex-col gap-6">
         <div className="flex flex-col gap-[40px]">
           <div className="flex">
             <div className="w-1/2 ">

@@ -17,6 +17,7 @@ export function useMPViewModel() {
   }, [fetchMPData]);
 
   const searchQuery = searchParams.get("search") || "";
+  const tableFilter = searchParams.get("tableFilter") || "All";
   const headerFilter = searchParams.get("headerFilter") || "Daily";
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
@@ -30,6 +31,7 @@ export function useMPViewModel() {
 
   return {
     searchQuery,
+    tableFilter,
     headerFilter,
     startDate,
     endDate,

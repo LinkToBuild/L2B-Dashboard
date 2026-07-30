@@ -4,7 +4,7 @@ import React from "react";
 import { TableToolBar } from "@/shared/components/TableToolBar";
 import { ChartPieDonut } from "@/shared/excomponent/charts/PieChart";
 import { L2BAreaChart } from "@/shared/excomponent/charts/L2BAreaChart";
-import { Info } from "lucide-react";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 import { InfoCards } from "./InfoCards";
 import { AreaChartData, DonutChartData, InfoCardData } from "../../types";
 
@@ -63,7 +63,7 @@ export function TicketMetricsWidget({
               <div className="flex w-full justify-between">
                 <p className="text-[16px] font-normal">Work performance</p>
                 <p className="text-danger-1 text-[12px] font-normal">-20.89%</p>
-                <Info className="text-neutral-3 w-4 h-4" />
+                <InfoTip label="Work performance" />
               </div>
               <L2BAreaChart
                 data={performanceData}

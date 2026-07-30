@@ -1,32 +1,16 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
 import { Header } from "../components/overall/CustomerHeader";
-import { InfoCards } from "../components/overall/InfoCards";
-import { ChartPieDonut } from "@/shared/excomponent/charts/PieChart";
-import { StatCard } from "@/shared/excomponent/ui/StatCard";
 import SectionWrapper from "@/shared/components/SectionWrapper";
-import { LegendData } from "@/shared/components/Legend";
-import mapImg from "@/public/images/mapImg.png";
-import Image from "next/image";
-import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
-import { SideBoard } from "@/shared/components/SideBoard";
-import { Info } from "lucide-react";
-import { ListFilter } from "lucide-react";
-import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import { DynamicTable } from "@/shared/components/Table";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
-import { ColumnConfig } from "@/shared/components/Table"; // Adjust path if needed
-import { ChartConfig } from "@/components/ui/chart";
+import { ColumnConfig } from "@/shared/components/Table";
 import DataMatrixSection from "../components/overall/DataMatrixSection";
 import TableToolBar from "../components/overall/TableToolBar";
 import { useCustomerViewModel } from "../viewModel/useCustomerViewModel";
-import { OrderRow } from "../types";
 
 export function CustomerScreen() {
-  const [filter, setFilter] = useState<string>("Completed");
-
   const {
     orders,
     isLoading,
@@ -37,6 +21,7 @@ export function CustomerScreen() {
     paymentData,
     infoCardsData,
     customerData,
+    demandMap,
   } = useCustomerViewModel();
 
   const columns: ColumnConfig<any>[] = [
@@ -106,7 +91,7 @@ export function CustomerScreen() {
   ];
 
   return (
-    <SectionWrapper className="flex flex-col gap-6 md:w-[90%] xl:w-[91%] 2xl:w-[93%]  max-w-[1440px] [@media(min-width:1700px)]:mx-auto">
+    <SectionWrapper className="flex flex-col gap-6 ">
       {/* Rendering the Header you just built */}
       <Header />
       {/* <SectionWrapper className="flex w-full gap-[34px] border border-red-500">
@@ -196,9 +181,10 @@ export function CustomerScreen() {
           paymentData={paymentData}
           infoCardsData={infoCardsData}
           customerData={customerData}
+          demandMap={demandMap}
         />
   
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 ">
         <TableToolBar
           currentFilter={currentStatusFilter}
           searchQuery={searchQuery}

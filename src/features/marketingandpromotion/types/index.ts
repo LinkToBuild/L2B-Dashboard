@@ -25,6 +25,10 @@ export interface CampaignPerformanceData {
   day: string;
   campaign1: number;
   campaign2: number;
+  campaign3: number;
+  campaign4: number;
+  campaign5: number;
+  campaign6: number;
 }
 
 export interface ChannelDistributionData {

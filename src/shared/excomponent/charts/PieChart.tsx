@@ -45,8 +45,11 @@ export function ChartPieDonut({
     <Card className="flex flex-col bg-transparent shadow-none border-0">
       <CardContent className="flex-1 p-0">
         {/* 2. Apply dynamic width and height to a wrapper */}
-        <div style={{ width, height }}>
-          <ChartContainer config={config} className="w-full h-full">
+        <div style={{ width, height }} className="min-w-0 min-h-0">
+          <ChartContainer
+            config={config}
+            className="!aspect-auto h-full w-full min-h-0 justify-center"
+          >
             <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
               <ChartTooltip
                 cursor={false}
@@ -79,15 +82,15 @@ export function ChartPieDonut({
                           {/* 3. Render dynamic center text */}
                           <tspan
                             x={viewBox.cx}
-                            y={(viewBox.cy || 0) - 16}
-                            className="fill-neutral-1 text-sm"
+                            y={(viewBox.cy || 0) - 14}
+                            className="fill-neutral-2 text-[13px]"
                           >
                             {centerLabel}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
-                            y={(viewBox.cy || 0) + 16}
-                            className="fill-neutral-2 text-[24px] font-semibold"
+                            y={(viewBox.cy || 0) + 12}
+                            className="fill-neutral-1 text-[20px] font-semibold"
                           >
                             {centerValue}
                           </tspan>

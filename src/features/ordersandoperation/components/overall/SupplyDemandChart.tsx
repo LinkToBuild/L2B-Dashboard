@@ -7,7 +7,7 @@ import SectionWrapper from "@/shared/components/SectionWrapper";
 // import { RateIndicator } from "./RateIndicator";
 import { StackedBarChart } from "@/shared/excomponent/charts/StackedBarGraph";
 import {  SupplyDemandData } from "@/features/ordersandoperation/types/index";
-import { Info } from "lucide-react";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 export default function SupplyDemandChart({ data }: { data: SupplyDemandData[] }) {
   const chartSeries = [ { dataKey: "availability", label: "Availability", color: "#FBB344" }, { dataKey: "requirement", label: "Requirement", color: "#8EADD5" } ];
  
@@ -35,7 +35,7 @@ export default function SupplyDemandChart({ data }: { data: SupplyDemandData[] }
     <div className="w-full flex flex-col gap-4">
       <div className="flex gap-5 place-items-center">
         <p className="text-[24px] font-normal">Supply Demand Gap (Rental)</p>
-        <Info className="w-5 h-5"></Info>
+        <InfoTip label="Supply Demand Gap (Rental)" size="lg" />
       </div>
       <StackedBarChart
         data={supplyDemandData}

@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import { L2BButton } from "@/design-system/components/L2BButton";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
-import { ListFilter, Info } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { Calendar } from "@/components/ui/calendar";
 import { DownloadReportButton } from "@/shared/components/DownloadReportButton";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 interface GBHeaderProps {
   currentFilter: string;
@@ -49,7 +50,7 @@ export function Header({
             </p>
 
             <p className="text-[12px] text-[#CACACA]">
-              <Info className="w-3 h-3 cursor-help text-neutral-3" />
+              <InfoTip label="Growth & Behaviour Metrics" size="xs" />
             </p>
 
             <StatusBadge

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Info, X, ChevronDown, ChevronsLeft } from "lucide-react";
+import { X, ChevronDown, ChevronsLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import { Button } from "@/shared/excomponent/ui/UIButton";
@@ -10,6 +10,7 @@ import {
   L2BDropdownMenu,
   DropdownItem,
 } from "@/shared/excomponent/ui/L2BDropdownMenu";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export type ActionPanelType =
   | "addProjectDetails"
@@ -623,7 +624,7 @@ export function ActionPanel({
               {config.title}
             </h2>
             {config.showInfoIcon ? (
-              <Info className="h-4 w-4 text-[#8D8D8D]" />
+              <InfoTip label={config.title} />
             ) : null}
           </div>
 

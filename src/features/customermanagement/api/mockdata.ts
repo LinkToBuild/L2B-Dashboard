@@ -1,6 +1,7 @@
 'use client'
 import { OrderRow } from "../types";
 import { PaymentData, InfoCardData, CustomerMetric } from '../types';
+import { DemandZone } from "../types/demandMap";
 
 export const MOCK_ORDERS: OrderRow[] = [
   {
@@ -80,24 +81,24 @@ export const MOCK_ORDERS: OrderRow[] = [
 
 
 export const PAYMENT_DATA: PaymentData[] = [
-  { method: "upi", percentage: 28, fill: "#356583" }, // Replaced hex with direct strings instead of CSS variables for consistency if needed, or keep var(--color-cod)
-  { method: "cod", percentage: 30, fill: "var(--color-cod)" },
-  { method: "netbanking", percentage: 22, fill: "var(--color-netbanking)" },
-  { method: "paylater", percentage: 20, fill: "var(--color-paylater)" },
+  { method: "upi", percentage: 28, fill: "#356583" },
+  { method: "cod", percentage: 30, fill: "#86A8C3" },
+  { method: "netbanking", percentage: 22, fill: "#3F82B7" },
+  { method: "paylater", percentage: 20, fill: "#CDE0ED" },
 ];
 
 export const INFO_CARDS_DATA: InfoCardData[] = [
   {
-    title: "Active Orders",
+    title: "Total Orders",
     Stats: "10,90,00",
     percentage: -20.89,
-    information: "Total number of active orders currently in progress.",
+    information: "Total number of orders in the selected period.",
   },
   {
-    title: "Completed ",
-    Stats: "9,000",
+    title: "Net Sale",
+    Stats: "? 10,90,00",
     percentage: -20.89,
-    information: "Total number of active orders currently in progress.",
+    information: "Net sale amount for the selected period.",
   },
 ];
 
@@ -110,4 +111,29 @@ export const CUSTOMER_SIDEBOARD_DATA: CustomerMetric[] = [
   { label: "At Risk", percentage_change: 20.89, trend: "up", value: "10k" },
   { label: "Dormant", percentage_change: 20.89, trend: "up", value: "9k" },
   { label: "Restricted", percentage_change: -20.89, trend: "down", value: "9k" },
+];
+
+/** Mock demand hotspots - Bengaluru (replace with API GeoJSON later). */
+export const MOCK_DEMAND_ZONES: DemandZone[] = [
+  {
+    id: "zone-high-shantinagar",
+    label: "Shanti Nagar",
+    level: "high",
+    center: [77.6055, 12.9578],
+    radiusMeters: 1400,
+  },
+  {
+    id: "zone-slight-rajajinagar",
+    label: "Rajajinagar",
+    level: "slightlyLess",
+    center: [77.555, 12.988],
+    radiusMeters: 1600,
+  },
+  {
+    id: "zone-less-jayanagar",
+    label: "Jayanagar",
+    level: "less",
+    center: [77.583, 12.93],
+    radiusMeters: 1200,
+  },
 ];

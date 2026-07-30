@@ -9,7 +9,7 @@ import profileimage from "@/public/images/customer1.avif"
 
 export default function CustomerIndividualScreen() {
   return (
-    <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%] flex flex-col gap-[30px] max-w-[1440px]">
+    <SectionWrapper className="flex flex-col gap-[30px]">
       <ProfileHeader
         name="Ramesh Jay"
         avatarUrl="/images/customer1.avif"

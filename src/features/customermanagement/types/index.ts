@@ -1,5 +1,9 @@
-
-export type OrderStatus = "Completed" | "Started" | "Arrived" | "Extended" | "Canceled";
+export type OrderStatus =
+  | "Completed"
+  | "Started"
+  | "Arrived"
+  | "Extended"
+  | "Canceled";
 
 export interface OrderRow {
   status: OrderStatus;
@@ -20,12 +24,6 @@ export interface OrderRow {
   coupon: string;
 }
 
-export interface CustomerState {
-  orders: OrderRow[];
-  isLoading: boolean;
-  fetchOrders: () => Promise<void>;
-}
-
 export interface PaymentData {
   method: string;
   percentage: number;
@@ -34,7 +32,7 @@ export interface PaymentData {
 
 export interface InfoCardData {
   title: string;
-  Stats: string; // Keeping your exact casing
+  Stats: string;
   percentage: number;
   information: string;
 }
@@ -46,11 +44,19 @@ export interface CustomerMetric {
   value: string;
 }
 
-// Add these to your main CustomerState if you haven't already:
+import type { DemandZone } from "./demandMap";
+
+export type { DemandLevel, DemandZone } from "./demandMap";
+export { DEMAND_LEVEL_COLOR } from "./demandMap";
+
+/** Zustand store contract for Customer Management (MVVM Model layer). */
 export interface CustomerState {
-  // ... existing order types ...
+  orders: OrderRow[];
   paymentData: PaymentData[];
   infoCardsData: InfoCardData[];
   customerData: CustomerMetric[];
-  // ...
+  demandZones: DemandZone[];
+  isLoading: boolean;
+  /** Loads the full customer overview payload (orders + widgets + map zones). */
+  fetchCustomerDashboard: () => Promise<void>;
 }

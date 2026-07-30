@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Info, ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export interface SideBoardItem {
   label: string;
@@ -39,7 +40,7 @@ export function SideBoard({
           {overallTrend === "up" ? <ChevronUp className="h-3 w-3 " /> : <ChevronDown className="h-3 w-3 " />}
         </p>
         
-        <Info className="h-5 w-5 text-neutral-3" />
+        <InfoTip label={title} size="lg" />
       </div>
 
       {/* LIST SECTION */}

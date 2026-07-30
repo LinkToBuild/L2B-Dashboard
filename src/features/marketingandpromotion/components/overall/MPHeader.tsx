@@ -5,8 +5,8 @@ import { L2BButton } from "@/design-system/components/L2BButton";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
 import { ListFilter } from "lucide-react";
 import SectionWrapper from "@/shared/components/SectionWrapper";
-import { Info } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 
 export interface MPHeaderProps {
   currentFilter: string;
@@ -47,7 +47,7 @@ export function Header({
               Marketing & Promotion Metrics
             </p>
             <p className="text-[12px] text-[#CACACA]">
-              <Info className="w-3 h-3 cursor-help text-neutral-3"></Info>
+              <InfoTip label="Marketing & Promotion Metrics" size="xs" />
             </p>
           </div>
           <div className="flex gap-[22px] ">

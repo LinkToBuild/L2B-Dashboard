@@ -3,26 +3,9 @@
 import React, { useState } from "react";
 import { L2BButton } from "@/design-system/components/L2BButton";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
+import { TabSwitcher } from "@/shared/excomponent/ui/L2BTabSwitcher";
 import { ListFilter } from "lucide-react";
-// import SectionWrapper from "../common/sectionwrapper";
-import SectionWrapper from "@/shared/components/SectionWrapper";
 import { Calendar } from "@/components/ui/calendar";
-// import {Calendar} from "@/shared/excomponent/ui/calender"
-// import { navbar_filter_icon } from "@/components/ui/data/navbar";
-import filter_icon from "@/public/images/filter-icon.png";
-import { it } from "node:test";
-// import UIButton from "../common/UIButton";
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
-
-interface NavbarProps {
-  onToggleSidebar: () => void;
-}
 
 export function Header() {
   const [activeTab, setActiveTab] = useState<"Rental" | "Material">("Rental");
@@ -209,27 +192,12 @@ export function Header() {
               />
             </div>
 
-            <div className="flex gap-[5px] place-items-center  px-2 bg-neutral-6 rounded-[8px]">
-              <L2BButton
-                variant="primary"
-                textSize="text-[24px]"
-                fontWeight="font-normal"
-                radius="rounded-[8px]"
-                size="medium"
-              >
-                Rental
-              </L2BButton>
-              <L2BButton
-                variant="ghost"
-                textSize="text-[24px]"
-                fontWeight="font-normal"
-                radius="rounded-[8px]"
-                size="medium"
-                textColor="text-neutral-3"
-              >
-                Material
-              </L2BButton>
-            </div>
+            <TabSwitcher
+              activeTab={activeTab}
+              onChange={(value) =>
+                setActiveTab(value as "Rental" | "Material")
+              }
+            />
           </div>
         </div>
       </div>

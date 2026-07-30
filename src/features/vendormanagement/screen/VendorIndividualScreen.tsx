@@ -50,7 +50,7 @@ export default function VendorIndividualScreen({
   ];
 
   return (
-    <SectionWrapper className="md:w-[90%] xl:w-[91%] 2xl:w-[93%] flex flex-col gap-[30px] max-w-[1440px]  ">
+    <SectionWrapper className="flex flex-col gap-[30px]">
       <ProfileHeader
         name="Ramesh Jay" avatarUrl="/images/customer1.avif" joinDate="12/09/2025" profileProgress={100} statusTitle="Active" statusColor="success" canEdit={true}
         fields={[

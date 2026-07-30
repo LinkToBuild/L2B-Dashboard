@@ -22,7 +22,18 @@ export const mockMPInfoCards: MPInfoCardData[] = [
 ];
 
 export const mockCampaignPerformance: CampaignPerformanceData[] = [
-  { day: "3", campaign1: 21000, campaign2: 11000 }, { day: "5", campaign1: 26000, campaign2: 11000 }, { day: "8", campaign1: 22000, campaign2: 11000 }, { day: "10", campaign1: 24000, campaign2: 11000 }, { day: "13", campaign1: 28000, campaign2: 12000 }, { day: "15", campaign1: 31000, campaign2: 33000 }, { day: "18", campaign1: 40000, campaign2: 28000 }, { day: "20", campaign1: 34000, campaign2: 15000 }, { day: "23", campaign1: 36000, campaign2: 5000 }, { day: "25", campaign1: 38000, campaign2: 7000 }, { day: "28", campaign1: 30000, campaign2: 22000 }, { day: "30", campaign1: 26000, campaign2: 29000 },
+  { day: "3", campaign1: 21000, campaign2: 11000, campaign3: 9000, campaign4: 15000, campaign5: 8000, campaign6: 12000 },
+  { day: "5", campaign1: 26000, campaign2: 11000, campaign3: 9500, campaign4: 16000, campaign5: 8500, campaign6: 12500 },
+  { day: "8", campaign1: 22000, campaign2: 11000, campaign3: 10000, campaign4: 14500, campaign5: 9000, campaign6: 13000 },
+  { day: "10", campaign1: 24000, campaign2: 11000, campaign3: 10500, campaign4: 17000, campaign5: 9200, campaign6: 14000 },
+  { day: "13", campaign1: 28000, campaign2: 12000, campaign3: 11000, campaign4: 18000, campaign5: 10000, campaign6: 15000 },
+  { day: "15", campaign1: 31000, campaign2: 33000, campaign3: 14000, campaign4: 21000, campaign5: 12000, campaign6: 18000 },
+  { day: "18", campaign1: 40000, campaign2: 28000, campaign3: 16000, campaign4: 24000, campaign5: 14000, campaign6: 20000 },
+  { day: "20", campaign1: 34000, campaign2: 15000, campaign3: 13000, campaign4: 20000, campaign5: 11000, campaign6: 16000 },
+  { day: "23", campaign1: 36000, campaign2: 5000, campaign3: 12000, campaign4: 19000, campaign5: 10500, campaign6: 15500 },
+  { day: "25", campaign1: 38000, campaign2: 7000, campaign3: 12500, campaign4: 20500, campaign5: 11500, campaign6: 16500 },
+  { day: "28", campaign1: 30000, campaign2: 22000, campaign3: 13500, campaign4: 18500, campaign5: 12500, campaign6: 17500 },
+  { day: "30", campaign1: 26000, campaign2: 29000, campaign3: 14500, campaign4: 19500, campaign5: 13000, campaign6: 18500 },
 ];
 
 export const mockChannelDistribution: ChannelDistributionData[] = [

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { LineCharts } from "@/shared/excomponent/charts/LineChart";
-import { Info } from "lucide-react";
+import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
 import { BarGraph } from "@/shared/excomponent/charts/BarGraph";
 import { StackedBarChart } from "@/shared/excomponent/charts/StackedBarGraph";
 import { CampaignPerformanceData, ChannelDistributionData, LeadScoreData } from "@/features/marketingandpromotion/types/index";
@@ -18,6 +18,9 @@ export function GraphSection({ campaignData, channelData, leadScoreData }: Graph
     { dataKey: "campaign1", name: "Campaign 1", color: "#FBBF24" },
     { dataKey: "campaign2", name: "Campaign 2", color: "#3B82F6" },
     { dataKey: "campaign3", name: "Campaign 3", color: "#6BC497" },
+    { dataKey: "campaign4", name: "Campaign 4", color: "#9B5DE5" },
+    { dataKey: "campaign5", name: "Campaign 5", color: "#F15BB5" },
+    { dataKey: "campaign6", name: "Campaign 6", color: "#00BBF9" },
   ];
 
   const chartSeries = [
@@ -41,7 +44,7 @@ export function GraphSection({ campaignData, channelData, leadScoreData }: Graph
         <div className="w-full flex flex-col gap-4">
           <div className="flex gap-3 place-items-center">
             <p className="text-[18px] 2xl:text-[24px] font-normal text-neutral-1">Campaign Performance</p>
-            <Info className="w-4 h-4 text-neutral-3" />
+            <InfoTip label="Campaign Performance" />
           </div>
           <LineCharts data={campaignData} lines={chartLines} xAxisKey="day" yAxisLabel="Total Impression" height={211} />
         </div>
@@ -49,7 +52,7 @@ export function GraphSection({ campaignData, channelData, leadScoreData }: Graph
       <div className="w-[585px] flex flex-col gap-4">
         <div className="flex gap-3 place-items-center">
           <p className="text-[18px] 2xl:text-[24px] text-neutral-1 font-normal">Channel Distribution</p>
-          <Info className="w-4 h-4 text-neutral-3" />
+          <InfoTip label="Channel Distribution" />
         </div>
         <div>
           <BarGraph data={channelData} series={chartSeries} xAxisKey="groupLabel" width={585} height={230} />
@@ -58,7 +61,7 @@ export function GraphSection({ campaignData, channelData, leadScoreData }: Graph
       <div className="flex flex-col gap-4">
         <div className="flex gap-3 place-items-center">
           <p className="text-[18px] 2xl:text-[24px] text-neutral-1 font-normal">Avg Lead Score</p>
-          <Info className="w-4 h-4 text-neutral-3" />
+          <InfoTip label="Avg Lead Score" />
         </div>
         <StackedBarChart width='100%' height={230} data={leadScoreData} series={stackchartSeries} />
       </div>
