@@ -18,8 +18,8 @@ export default function CustomerManagementPage() {
           </div>
         }
       >
-        {/* <CustomerScreen /> */}
-        <CustomerIndividualScreen />
+        <CustomerScreen />
+        {/* <CustomerIndividualScreen /> */}
       </Suspense>
     </DashboardPageShell>
   );
