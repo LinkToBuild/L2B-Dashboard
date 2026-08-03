@@ -6,6 +6,7 @@ import { Copy, Edit2, CheckCircle2 } from "lucide-react";
 // import { Chip } from "@/components/ui/Chip"; 
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 // 1. Define the strictly typed interfaces
 export interface ProfileField {
@@ -129,20 +130,23 @@ export function ProfileHeader({
             </div>
 
             {/* Edit Action Button */}
-            <button 
+            <L2BButton
+              type="button"
+              variant="bgNone"
+              size="auto"
               onClick={onEditClick}
               disabled={!canEdit}
               className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                canEdit 
-                  ? 'text-success-1 hover:text-green-600' 
-                  : 'text-neutral-3 cursor-not-allowed'
+                canEdit
+                  ? "text-success-1 hover:text-success-2"
+                  : "text-neutral-3 cursor-not-allowed"
               }`}
             >
               {canEdit ? "Edit" : "Ask to Edit"}
-              <div className={`p-1 rounded ${canEdit ? 'bg-success-1 text-white' : 'bg-neutral-5 text-neutral-4'}`}>
+              <div className={`p-1 rounded ${canEdit ? "bg-success-1 text-white" : "bg-neutral-5 text-neutral-4"}`}>
                 <Edit2 className="w-3.5 h-3.5" />
               </div>
-            </button>
+            </L2BButton>
           </div>
 
           {/* Dynamic Fields Grid */}

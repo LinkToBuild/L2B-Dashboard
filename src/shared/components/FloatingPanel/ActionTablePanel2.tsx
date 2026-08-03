@@ -4,7 +4,7 @@ import * as React from "react";
 import { ListFilter, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DynamicTable, ColumnConfig } from "@/shared/components/Table";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import {
   L2BDropdownMenu,
   DropdownItem,
@@ -139,8 +139,10 @@ function StatusDropdownChip({
       className="w-[112px] rounded-[6px] border border-[#D9D9D9] bg-white p-0 shadow-none"
       items={items}
       trigger={
-        <button
+        <L2BButton
           type="button"
+          variant="bgNone"
+          size="auto"
           className={cn(
             "inline-flex h-[30px] items-center gap-[4px] rounded-full px-[12px] text-[10px] font-medium leading-none",
             chipClasses[value] || "bg-[#EC7E7E] text-white"
@@ -148,7 +150,7 @@ function StatusDropdownChip({
         >
           <span>{value}</span>
           <ChevronDown className="h-[12px] w-[12px]" />
-        </button>
+        </L2BButton>
       }
     />
   );
@@ -175,12 +177,14 @@ export function MachineDetailsModal({
             {odometerData.dateText || "16 Dec 2025"}
           </span>
 
-          <button
+          <L2BButton
             type="button"
-            className="flex h-[20px] w-[20px] items-center justify-center rounded-[4px] text-neutral-500 hover:bg-neutral-100"
+            variant="ghost"
+            size="icon"
+            className="flex h-[20px] w-[20px] items-center justify-center rounded-[4px] p-0 text-neutral-3 hover:bg-neutral-6"
           >
             <ListFilter size={14} />
-          </button>
+          </L2BButton>
         </div>
       );
     }
@@ -189,8 +193,10 @@ export function MachineDetailsModal({
 
     if (sharedData.topActionType === "button") {
       return (
-        <button
+        <L2BButton
           type="button"
+          variant="bgNone"
+          size="auto"
           onClick={() => onTopActionChange?.(sharedData.topActionText || "")}
           className={cn(
             "inline-flex h-[30px] items-center rounded-full px-[12px] text-[10px] font-medium leading-none",
@@ -199,7 +205,7 @@ export function MachineDetailsModal({
           )}
         >
           {sharedData.topActionText || "Remove"}
-        </button>
+        </L2BButton>
       );
     }
 
@@ -315,12 +321,14 @@ export function MachineDetailsModal({
             </div>
           </div>
 
-          <Button
+          <L2BButton
             onClick={onDownloadLogs}
-            className="h-[40px] min-w-[140px] rounded-[6px] !bg-[#F6B332] !text-black hover:!bg-[#e3a92f]"
+            variant="primary"
+            radius="rounded-[6px]"
+            className="h-[40px] min-w-[140px] w-auto"
           >
             {odometerData.downloadButtonText || "Download Logs"}
-          </Button>
+          </L2BButton>
         </div>
       </div>
     );

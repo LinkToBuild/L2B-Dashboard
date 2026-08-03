@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { ChevronDown } from "lucide-react";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import {
   L2BDropdownMenu,
   DropdownItem,
@@ -89,19 +89,21 @@ function DropdownField({
         align="end"
         items={items}
         trigger={
-          <button
+          <L2BButton
             type="button"
-            className="flex h-[44px] w-full items-center justify-between rounded-[8px] border border-[#D9D9D9] bg-white px-[14px] text-left text-[15px] font-medium text-[#4A4A4A]"
+            variant="outline"
+            size="full"
+            className="flex h-[44px] items-center justify-between rounded-[8px] border-neutral-4 bg-white px-[14px] text-left text-[15px] font-medium text-neutral-2"
           >
             <span>{value || placeholder}</span>
 
-            <span className="flex h-[14px] w-[14px] items-center justify-center rounded-[4px] bg-[#56C293]">
+            <span className="flex h-[14px] w-[14px] items-center justify-center rounded-[4px] bg-success-1">
               <ChevronDown
                 className="h-[10px] w-[10px] text-white"
                 strokeWidth={2.5}
               />
             </span>
-          </button>
+          </L2BButton>
         }
       />
     </div>
@@ -202,19 +204,23 @@ export function TicketActionModal({
         )}
 
         <div className="mt-[20px] flex items-center justify-end gap-[12px]">
-          <Button
+          <L2BButton
             onClick={onClose}
-            className="h-[40px] w-[83px] rounded-[8px] border border-[#D8D8D8] bg-white !text-[#4A4A4A] shadow-none hover:bg-white"
+            variant="outline"
+            radius="rounded-[8px]"
+            className="h-[40px] w-[83px]"
           >
             Cancel
-          </Button>
+          </L2BButton>
 
-          <Button
+          <L2BButton
             onClick={onSubmit}
-            className="h-[40px] w-[83px] rounded-[8px] !bg-[#F6B332] !text-black hover:!bg-[#e0a227]"
+            variant="primary"
+            radius="rounded-[8px]"
+            className="h-[40px] w-[83px]"
           >
             {content.submitText}
-          </Button>
+          </L2BButton>
         </div>
       </div>
     </div>

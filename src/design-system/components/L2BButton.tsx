@@ -5,8 +5,8 @@ import { Loader2 } from "lucide-react";
 export interface L2BButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** The color theme of the button */
   variant?: "primary" | "auxiliary" | "bgNone" | "outline" | "danger" | "ghost";
-  /** The specific fixed sizes you requested */
-  size?: "small" | "medium" | "large" | "full";
+  /** Fixed CTA sizes, or auto/icon for links and icon-only controls */
+  size?: "small" | "medium" | "large" | "full" | "auto" | "icon";
   /** If true, shows a spinner and disables the button */
   isLoading?: boolean;
   textSize?: string;
@@ -47,7 +47,9 @@ export const L2BButton = React.forwardRef<HTMLButtonElement, L2BButtonProps>(
       small: "w-[88px] h-[35px] ",
       medium: "w-[118px] h-[42px] ",
       large: "w-[200px] h-[40px] ",
-      full: "w-full h-[40px] ", // Bonus: helpful for full-width modal buttons
+      full: "w-full h-[40px] ",
+      auto: "w-auto h-auto px-0 py-0",
+      icon: "w-auto h-auto p-2",
     };
 
     return (

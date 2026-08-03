@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export interface PaymentMethodCardProps {
   /** The title of the card (e.g., "HDFC Bank Account") */
@@ -34,13 +35,15 @@ export function PaymentMethodCard({
 
       {/* The External Action Button */}
       {onRemove && (
-        <button
+        <L2BButton
           type="button"
+          variant="bgNone"
+          size="auto"
           onClick={onRemove}
-          className="text-[14px] font-medium text-[#F05A5A] hover:opacity-80 transition-opacity whitespace-nowrap"
+          className="text-[14px] font-medium text-danger-1 hover:opacity-80 transition-opacity whitespace-nowrap"
         >
           {actionText}
-        </button>
+        </L2BButton>
       )}
       
     </div>

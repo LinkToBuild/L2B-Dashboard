@@ -13,6 +13,7 @@ import { MapPin } from "lucide-react";
 import { BottomTableToolbar } from "../components/overall/BottomTableToolBar";
 import { useVendorViewModel } from "../viewModel/useVendorViewModel";
 import { VendorFloorplanSkeleton } from "@/shared/components/skeletons";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export function VendorScreen() {
   const {
@@ -126,9 +127,9 @@ export function VendorScreen() {
       key: "details",
       width: 140,
       render: () => (
-        <button className="text-success-1 font-medium underline">
+        <L2BButton type="button" variant="bgNone" size="auto" className="text-success-1 font-medium underline">
           View Full
-        </button>
+        </L2BButton>
       ),
     },
     {
@@ -136,7 +137,9 @@ export function VendorScreen() {
       key: "manage",
       width: 100,
       render: () => (
-        <button className="text-aux-2 font-medium underline">Edit</button>
+        <L2BButton type="button" variant="bgNone" size="auto" className="text-aux-2 font-medium underline">
+          Edit
+        </L2BButton>
       ),
     },
   ];

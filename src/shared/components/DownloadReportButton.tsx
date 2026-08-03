@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Download } from "lucide-react";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 interface DownloadReportButtonProps {
   label?: string;
@@ -13,8 +14,10 @@ export function DownloadReportButton({
   onClick,
 }: DownloadReportButtonProps) {
   return (
-    <button
+    <L2BButton
       type="button"
+      variant="bgNone"
+      size="auto"
       onClick={onClick}
       className="flex items-center gap-[9px] w-[171px] h-[24px] text-success-1"
     >
@@ -22,7 +25,6 @@ export function DownloadReportButton({
         {label}
       </span>
       <Download className="w-4 h-4 shrink-0" />
-    </button>
+    </L2BButton>
   );
 }
-

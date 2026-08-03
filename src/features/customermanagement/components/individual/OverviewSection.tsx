@@ -108,9 +108,9 @@ export function OverviewSection() {
 
               <L2BDropdownMenu
                 trigger={
-                  <button className="p-2 bg-white border border-neutral-6 rounded-lg text-neutral-2 hover:bg-neutral-7 transition-colors">
+                  <L2BButton type="button" variant="outline" size="icon" radius="rounded-lg" className="bg-white border-neutral-6 text-neutral-2 hover:bg-neutral-7">
                     <ListFilter size={18} />
-                  </button>
+                  </L2BButton>
                 }
                 items={filterMenuItems}
               />

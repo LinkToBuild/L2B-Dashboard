@@ -143,7 +143,6 @@ export default function ProfileLayout({
 // import { MoneyActionPanel } from "@/shared/components/FloatingPanel/MoneyPanel";
 // import { AddPaymentMethodPanel } from "@/shared/components/FloatingPanel/AddPaymentMethodPanel";
 // import { AssignRemoveSiteModal } from "@/features/customermanagement/components/profile/mockdata/AssignRemoveSiteModal";
-// import { Button } from "@/shared/excomponent/ui/UIButton";
 // // import ConfirmationModal from "@/shared/components/FloatingPanel/ConfirmationModal";
 // import {
 //   ActionPanel,

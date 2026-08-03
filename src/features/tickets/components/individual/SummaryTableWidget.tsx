@@ -6,6 +6,7 @@ import { SegmentedHorizontalBarChart } from "@/shared/excomponent/charts/Segment
 import { DynamicTable, ColumnConfig } from "@/shared/components/Table";
 import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 type WeeklyTaskRow = {
   status: string;
@@ -124,9 +125,9 @@ export function SummaryTableWidget() {
       key: "fullDescription",
       header: "Full Description",
       render: (value: string) => (
-        <div className="text-center text-[12px] font-normal text-[#6CC39A] underline underline-offset-2">
+        <L2BButton type="button" variant="bgNone" size="auto" className="text-[12px] font-normal text-success-1 underline underline-offset-2">
           {value}
-        </div>
+        </L2BButton>
       ),
     },
   ];

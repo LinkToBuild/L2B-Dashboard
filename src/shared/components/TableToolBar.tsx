@@ -5,6 +5,7 @@ import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
 import { ListFilter } from "lucide-react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 // 1. Define what a filter item looks like
 export interface FilterMenuItem {
@@ -62,9 +63,9 @@ export function TableToolBar({
           {showFilter && filterItems.length > 0 && (
             <L2BDropdownMenu
               trigger={
-                <button className="p-2 bg-white border border-neutral-6 rounded-lg text-neutral-2 hover:bg-neutral-7 transition-colors">
+                <L2BButton type="button" variant="outline" size="icon" radius="rounded-lg" className="bg-white border-neutral-6 text-neutral-2 hover:bg-neutral-7">
                   <ListFilter size={25} />
-                </button>
+                </L2BButton>
               }
               items={filterItems}
             />

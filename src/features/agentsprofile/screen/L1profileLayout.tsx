@@ -10,6 +10,7 @@ import { ColumnConfig } from "@/shared/components/Table";
 import { useState } from "react";
 import { DynamicTable } from "@/shared/components/Table";
 import { Copy } from "lucide-react";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export default function L1profileLayout() {
   const [searchText, setSearchText] = useState("");
@@ -151,12 +152,15 @@ export default function L1profileLayout() {
       render: (value: string) => (
         <div className="flex items-center justify-between w-[120px] text-gray-500">
           <span className="truncate">{value}</span>
-          <button
-            className="hover:text-gray-800 transition-colors"
+          <L2BButton
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="bg-transparent p-0 hover:bg-transparent hover:text-gray-800 transition-colors"
             title="Copy Email"
           >
             <Copy size={16} strokeWidth={1.5} />
-          </button>
+          </L2BButton>
         </div>
       ),
     },
@@ -167,13 +171,13 @@ export default function L1profileLayout() {
       align: "center",
       render: () => (
         <div className="flex items-center gap-2 text-[14px]">
-          <button className="text-[#38678C] font-medium hover:opacity-80 transition-opacity">
+          <L2BButton type="button" variant="bgNone" size="auto" className="text-aux-2 font-medium hover:opacity-80 transition-opacity">
             Edit
-          </button>
+          </L2BButton>
           <span className="text-gray-300">|</span>
-          <button className="text-[#F64C4C] font-medium hover:opacity-80 transition-opacity">
+          <L2BButton type="button" variant="bgNone" size="auto" className="text-danger-1 font-medium hover:opacity-80 transition-opacity">
             Remove
-          </button>
+          </L2BButton>
         </div>
       ),
     },

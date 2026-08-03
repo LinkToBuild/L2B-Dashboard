@@ -9,6 +9,7 @@ import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import { ColumnConfig } from "@/shared/components/Table";
 import { useVendorViewModel } from "../viewModel/useVendorViewModel";
 import { DetailFloorplanSkeleton, ProfileHeaderSkeleton } from "@/shared/components/skeletons";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export default function VendorIndividualScreen({ 
   vendorId 
@@ -45,7 +46,7 @@ export default function VendorIndividualScreen({
     { header: "CPA", key: "cpa", width: 100, align: "center" },
     { header: "Revenue", key: "revenue", width: 120, align: "center" },
     { header: "Manage", key: "manage", width: 120, align: "center", render: () => (
-        <button className="text-[#00A85A] underline underline-offset-2 hover:text-green-700 transition-colors font-medium">View Full</button>
+        <L2BButton type="button" variant="bgNone" size="auto" className="text-success-1 underline underline-offset-2 hover:text-success-2 transition-colors font-medium">View Full</L2BButton>
       )
     },
   ];

@@ -7,6 +7,7 @@ import { TicketMetricsWidget } from "../components/individual/TicketMetricsWidge
 import { SummaryTableWidget } from "../components/individual/SummaryTableWidget";
 import { DataTableWidget } from "@/shared/components/DataTableWidget";
 import { ColumnConfig } from "@/shared/components/Table";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 type TicketRow = {
   status: string;
@@ -174,9 +175,9 @@ const columns: ColumnConfig<TicketRow>[] = [
         return (
           <span className="text-sm text-neutral-3">
             (You){" "}
-            <button className="ml-1 text-[#3B82F6] underline hover:text-blue-600">
+            <L2BButton type="button" variant="bgNone" size="auto" className="ml-1 text-aux-2 underline hover:text-aux-1">
               Transfer
-            </button>
+            </L2BButton>
           </span>
         );
       }
@@ -210,9 +211,9 @@ const columns: ColumnConfig<TicketRow>[] = [
     width: 140,
     align: "center",
     render: (val: string) => (
-      <button className="text-sm text-[#3B82F6] underline hover:text-blue-600">
+      <L2BButton type="button" variant="bgNone" size="auto" className="text-sm text-aux-2 underline hover:text-aux-1">
         {val}
-      </button>
+      </L2BButton>
     ),
   },
   {
@@ -221,9 +222,9 @@ const columns: ColumnConfig<TicketRow>[] = [
     width: 140,
     align: "center",
     render: (val: string) => (
-      <button className="text-sm text-[#3B82F6] underline hover:text-blue-600">
+      <L2BButton type="button" variant="bgNone" size="auto" className="text-sm text-aux-2 underline hover:text-aux-1">
         {val}
-      </button>
+      </L2BButton>
     ),
   },
   { header: "Order Id", key: "orderId", width: 140, align: "center" },
@@ -238,16 +239,19 @@ const columns: ColumnConfig<TicketRow>[] = [
     render: (val: string, row: TicketRow) => {
       const colorMap: Record<TicketRow["manageVariant"], string> = {
         success: "text-success-1",
-        info: "text-[#3B82F6]",
+        info: "text-aux-2",
         danger: "text-danger-1",
       };
 
       return (
-        <button
+        <L2BButton
+          type="button"
+          variant="bgNone"
+          size="auto"
           className={`${colorMap[row.manageVariant]} text-sm font-medium underline transition-colors`}
         >
           {val}
-        </button>
+        </L2BButton>
       );
     },
   },

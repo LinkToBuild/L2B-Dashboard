@@ -4,7 +4,7 @@ import * as React from "react";
 import { X, ChevronDown, ChevronsLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import { DynamicTable, ColumnConfig } from "@/shared/components/Table";
 import {
   L2BDropdownMenu,
@@ -202,22 +202,24 @@ export function ActionPanel({
       isSelectable && !isActive && selectedCount >= maxSelectionCount;
 
     const className = isActive
-      ? "border border-[#FFD9D9] text-[#FF6B6B] bg-white"
+      ? "border-danger-3 text-danger-1 bg-white"
       : isAdd
-      ? "border border-[#D8F3E5] text-[#56C293] bg-white"
+      ? "border-success-3 text-success-1 bg-white"
       : shouldDisable
-      ? "border border-neutral-200 text-neutral-300 bg-white cursor-not-allowed opacity-70"
-      : "border border-[#D8F3E5] text-[#56C293] bg-white";
+      ? "border-neutral-5 text-neutral-4 bg-white cursor-not-allowed opacity-70"
+      : "border-success-3 text-success-1 bg-white";
 
     return (
-      <button
+      <L2BButton
         type="button"
+        variant="outline"
+        size="auto"
         disabled={shouldDisable}
         onClick={() => handleReceiverToggle(row.id)}
-        className={`min-w-[88px] rounded-[10px] px-4 py-[6px] text-[13px] font-medium ${className}`}
+        className={`min-w-[88px] h-auto rounded-[10px] px-4 py-[6px] text-[13px] font-medium ${className}`}
       >
         {value}
-      </button>
+      </L2BButton>
     );
   };
 
@@ -331,17 +333,19 @@ export function ActionPanel({
         render: (value: string, row: any) => {
           const isRemove = value === "Remove";
           return (
-            <button
+            <L2BButton
               type="button"
+              variant="outline"
+              size="auto"
               onClick={() => onActionClick?.(row)}
-              className={`min-w-[88px] rounded-[10px] px-4 py-[6px] text-[13px] font-medium ${
+              className={`min-w-[88px] h-auto rounded-[10px] px-4 py-[6px] text-[13px] font-medium ${
                 isRemove
-                  ? "border border-[#FFD9D9] text-[#FF6B6B] bg-white"
-                  : "border border-[#D8F3E5] text-[#56C293] bg-white"
+                  ? "border-danger-3 text-danger-1 bg-white"
+                  : "border-success-3 text-success-1 bg-white"
               }`}
             >
               {value}
-            </button>
+            </L2BButton>
           );
         },
       },
@@ -375,12 +379,14 @@ export function ActionPanel({
       </div>
 
       <div className="flex justify-end">
-        <Button
+        <L2BButton
           onClick={() => onNext?.(formData)}
-          className="min-w-[118px] min-h-[40px] rounded-[8px] !bg-[#FEB637] hover:!bg-[#e3a92f] !text-black"
+          variant="primary"
+          size="medium"
+          radius="rounded-[8px]"
         >
           Next
-        </Button>
+        </L2BButton>
       </div>
     </div>
   );
@@ -432,13 +438,15 @@ export function ActionPanel({
               items={getRoleItems(row)}
               className="w-[170px]"
               trigger={
-                <button
+                <L2BButton
                   type="button"
-                  className="flex h-[30px] min-w-[145px] items-center justify-between gap-2 rounded-[6px] border-none bg-transparent px-2 text-[14px] font-medium text-[#8D8D8D] outline-none"
+                  variant="bgNone"
+                  size="auto"
+                  className="flex h-[30px] min-w-[145px] items-center justify-between gap-2 rounded-[6px] px-2 text-[14px] font-medium text-neutral-3 outline-none"
                 >
                   <span className="truncate">{value}</span>
-                  <ChevronDown className="h-4 w-4 text-[#56C293]" />
-                </button>
+                  <ChevronDown className="h-4 w-4 text-success-1" />
+                </L2BButton>
               }
             />
           </div>
@@ -451,17 +459,19 @@ export function ActionPanel({
         render: (value: string, row: any) => {
           const isAdded = value === "Added";
           return (
-            <button
+            <L2BButton
               type="button"
+              variant="outline"
+              size="auto"
               onClick={() => handleTeamMemberToggle(row.id)}
-              className={`flex h-[28px] min-w-[79px] items-center justify-center rounded-[10px] border text-[13px] font-medium ${
+              className={`flex h-[28px] min-w-[79px] items-center justify-center rounded-[10px] text-[13px] font-medium ${
                 isAdded
-                  ? "border-[#56C293] bg-[#F2FAF6] text-[#56C293]"
-                  : "border-[#E5E5E5] bg-white text-[#56C293]"
+                  ? "border-success-1 bg-success-4 text-success-1"
+                  : "border-neutral-5 bg-white text-success-1"
               }`}
             >
               {value}
-            </button>
+            </L2BButton>
           );
         },
       },
@@ -482,13 +492,15 @@ export function ActionPanel({
                 InputProps={{
                   readOnly: true,
                   endAdornment: (
-                    <button
+                    <L2BButton
                       type="button"
+                      variant="bgNone"
+                      size="auto"
                       onClick={onBack}
-                      className="mr-[8px] text-[14px] font-medium text-[#56C293]"
+                      className="mr-[8px] text-[14px] font-medium text-success-1"
                     >
                       Change
-                    </button>
+                    </L2BButton>
                   ),
                 }}
               />
@@ -527,25 +539,29 @@ export function ActionPanel({
         </div>
 
         <div className="flex w-[560px] items-center justify-end gap-[18px] pb-[34px]">
-          <button
+          <L2BButton
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={onBack}
-            className="flex h-[44px] w-[24px] items-center justify-center text-[#3A3A3A]"
+            className="flex h-[44px] w-[24px] items-center justify-center bg-transparent p-0 text-neutral-1 hover:bg-transparent"
           >
             <ChevronsLeft className="h-6 w-6" />
-          </button>
+          </L2BButton>
 
-          <Button
+          <L2BButton
             onClick={() =>
               onAddProject?.({
                 projectDetails: data?.projectDetails || null,
                 selectedMembers: teamMembers.filter((item) => item.action === "Added"),
               })
             }
-            className="h-[40px] w-[200px] rounded-[10px] !bg-[#F6B332] !text-black hover:!bg-[#e0a227]"
+            variant="primary"
+            size="large"
+            radius="rounded-[10px]"
           >
             Add project
-          </Button>
+          </L2BButton>
         </div>
       </div>
     );
@@ -568,19 +584,22 @@ export function ActionPanel({
               minWidth={data?.tableMinWidth ?? 544}
             />
             <div className="flex justify-end gap-3">
-              <Button
+              <L2BButton
                 variant="outline"
+                size="large"
                 onClick={onClose}
-                className="min-w-[200px] min-h-[40px] rounded-[8px]"
+                radius="rounded-[8px]"
               >
                 {data?.cancelText || "Cancel"}
-              </Button>
-              <Button
+              </L2BButton>
+              <L2BButton
+                variant="primary"
+                size="large"
                 onClick={() => onAssign?.(receiverTableData)}
-                className="min-w-[200px] min-h-[40px] rounded-[8px] !bg-[#FEB637] hover:!bg-[#e3a92f] !text-black"
+                radius="rounded-[8px]"
               >
                 {data?.confirmText || "Assign"}
-              </Button>
+              </L2BButton>
             </div>
           </div>
         );
@@ -629,13 +648,15 @@ export function ActionPanel({
           </div>
 
           {config.showCloseIcon ? (
-            <button
+            <L2BButton
               type="button"
+              variant="ghost"
+              size="icon"
               onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center rounded-md text-[#8D8D8D] hover:bg-neutral-100"
+              className="flex h-8 w-8 items-center justify-center rounded-md text-neutral-3 hover:bg-neutral-6"
             >
               <X className="h-5 w-5" />
-            </button>
+            </L2BButton>
           ) : null}
         </div>
 

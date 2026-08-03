@@ -1,3 +1,5 @@
+import { L2BButton } from "@/design-system/components/L2BButton";
+
 export const assignedMachinesMockData = {
   title: "Assigned Machines",
   tableMaxHeight: 249,
@@ -47,16 +49,18 @@ export const assignedMachinesMockData = {
         const isRemove = value === "Remove";
 
         return (
-          <button
+          <L2BButton
             type="button"
-            className={`min-w-[88px] rounded-[10px] px-4 py-[6px] text-[13px] font-medium ${
+            variant="outline"
+            size="auto"
+            className={`min-w-[88px] h-auto rounded-[10px] px-4 py-[6px] text-[13px] font-medium ${
               isRemove
-                ? "border border-[#FFD9D9] bg-white text-[#FF6B6B]"
-                : "border border-[#D8F3E5] bg-white text-[#56C293]"
+                ? "border-danger-3 bg-white text-danger-1"
+                : "border-success-3 bg-white text-success-1"
             }`}
           >
             {value}
-          </button>
+          </L2BButton>
         );
       },
     },

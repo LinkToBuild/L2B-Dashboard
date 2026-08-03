@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pencil } from 'lucide-react';
 import { StatusBadge } from '@/shared/excomponent/ui/Chip';
+import { L2BButton } from '@/design-system/components/L2BButton';
 
 // Define exactly what data each card needs
 export interface TeamCardProps {
@@ -36,15 +37,18 @@ export default function TeamCard({
             label={`Performance : ${performance}`} 
           />
 
-          <button 
+          <L2BButton
+            type="button"
+            variant="bgNone"
+            size="auto"
             onClick={onEdit}
-            className="flex items-center gap-2 text-[14px] font-medium text-[#48C084] hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2 text-[14px] font-medium text-success-1 hover:opacity-80 transition-opacity"
           >
             Edit 
-            <span className="flex items-center justify-center w-[26px] h-[26px] bg-[#48C084] rounded text-white">
+            <span className="flex items-center justify-center w-[26px] h-[26px] bg-success-1 rounded text-white">
               <Pencil size={14} strokeWidth={2.5} />
             </span>
-          </button>
+          </L2BButton>
         </div>
       </div>
 

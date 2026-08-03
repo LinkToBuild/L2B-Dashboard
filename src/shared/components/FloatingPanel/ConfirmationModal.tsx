@@ -2,7 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import {
   CircleX,
   Trash2,
@@ -69,7 +69,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: dangerCircleIcon,
     hideCancel: false,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
   removePaymentCard: {
     title: "Remove Payment Card",
@@ -79,7 +78,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: dangerCircleIcon,
     hideCancel: false,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
   moneyAdded: {
     title: "Money added successfully. Your wallet balance has been updated.",
@@ -88,7 +86,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: successIcon,
     hideCancel: true,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
   deleteRatingOrFeedback: {
     title: "Delete Rating or Feedback?",
@@ -98,7 +95,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: trashIcon,
     hideCancel: false,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
   removeMachine: {
     title: "Remove Machine?",
@@ -108,7 +104,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: trashIcon,
     hideCancel: false,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
   disableMachine: {
     title: "Disable Machine?",
@@ -118,7 +113,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: disableIcon,
     hideCancel: false,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
   enableMachine: {
     title: "Enable Machine?",
@@ -128,7 +122,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: enableIcon,
     hideCancel: false,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
   walletTransfer: {
     title:
@@ -138,7 +131,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: successIcon,
     hideCancel: true,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
   removeSkill: {
     title: 'Remove “Excavator Operator” Skill?',
@@ -148,7 +140,6 @@ const confirmationConfig = {
     cancelText: "Cancel",
     icon: trashIcon,
     hideCancel: false,
-    confirmButtonClassName: "bg-[#FEB637] text-black hover:bg-[#FEB637]/90",
   },
 } as const;
 
@@ -174,8 +165,6 @@ export default function ConfirmationModal({
   const finalCancelText = cancelText ?? preset.cancelText;
   const finalIcon = icon ?? preset.icon;
   const finalHideCancel = hideCancel ?? preset.hideCancel;
-  const finalConfirmButtonClassName =
-    confirmButtonClassName ?? preset.confirmButtonClassName;
 
   return (
     <>
@@ -218,35 +207,34 @@ export default function ConfirmationModal({
               )}
             >
               {!finalHideCancel && (
-                <Button
+                <L2BButton
                   onClick={onCancel}
                   variant="outline"
-                  size="default"
-                  className={cn(
-                    "h-[40px] w-[200px] rounded-[8px] border border-[#D9D9D9] bg-white text-black shadow-none hover:bg-gray-50",
-                    cancelButtonClassName
-                  )}
+                  size="large"
+                  radius="rounded-[8px]"
+                  textSize="text-[16px]"
+                  fontWeight="font-medium"
+                  className={cn("shadow-none", cancelButtonClassName)}
                 >
-                  <span className="font-['Poppins'] text-[16px] font-medium leading-[100%] tracking-[0] text-center">
-                    {finalCancelText}
-                  </span>
-                </Button>
+                  {finalCancelText}
+                </L2BButton>
               )}
 
-              <Button
+              <L2BButton
                 onClick={onConfirm}
-                variant="default"
-                size="default"
+                variant="primary"
+                size="large"
+                radius="rounded-[8px]"
+                textSize="text-[16px]"
+                fontWeight="font-medium"
                 className={cn(
-                  "h-[40px] rounded-[8px] px-4 py-3 shadow-none",
-                  finalHideCancel ? "w-[200px]" : "flex-1",
-                  finalConfirmButtonClassName
+                  "shadow-none",
+                  finalHideCancel ? undefined : "w-auto flex-1",
+                  confirmButtonClassName
                 )}
               >
-                <span className="font-['Poppins'] text-[16px] font-medium leading-[100%] tracking-[0] text-center">
-                  {finalConfirmText}
-                </span>
-              </Button>
+                {finalConfirmText}
+              </L2BButton>
             </div>
           </div>
         </div>

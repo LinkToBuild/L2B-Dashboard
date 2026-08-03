@@ -11,6 +11,7 @@ import { AlertTriangle } from "lucide-react";
 import { useTicketsViewModel } from "../viewModel/useTicketsViewModel";
 import { TicketItem } from "../types/index";
 import { TicketsFloorplanSkeleton } from "@/shared/components/skeletons";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export function TicketScreen() {
   const {
@@ -67,9 +68,9 @@ export function TicketScreen() {
           return (
             <span className="text-neutral-3 text-sm">
               (You){" "}
-              <button className="text-[#3B82F6] underline ml-1 hover:text-blue-600">
+              <L2BButton type="button" variant="bgNone" size="auto" className="text-aux-2 underline ml-1 hover:text-aux-1">
                 Transfer
-              </button>
+              </L2BButton>
             </span>
           );
         }
@@ -96,9 +97,9 @@ export function TicketScreen() {
       width: 140,
       align: "center",
       render: (val: string) => (
-        <button className="text-[#3B82F6] text-sm underline hover:text-blue-600">
+        <L2BButton type="button" variant="bgNone" size="auto" className="text-aux-2 text-sm underline hover:text-aux-1">
           {val}
-        </button>
+        </L2BButton>
       ),
     },
     {
@@ -107,9 +108,9 @@ export function TicketScreen() {
       width: 140,
       align: "center",
       render: (val: string) => (
-        <button className="text-[#3B82F6] text-sm underline hover:text-blue-600">
+        <L2BButton type="button" variant="bgNone" size="auto" className="text-aux-2 text-sm underline hover:text-aux-1">
           {val}
-        </button>
+        </L2BButton>
       ),
     },
     { header: "Order Id", key: "orderId", width: 140, align: "center" },
@@ -124,16 +125,19 @@ export function TicketScreen() {
       render: (val: string, row: TicketItem) => {
         const colorMap: Record<string, string> = {
           success: "text-success-1",
-          info: "text-[#3B82F6]",
+          info: "text-aux-2",
           danger: "text-danger-1",
         };
         const colorClass = colorMap[row.manageVariant] || "text-neutral-3";
         return (
-          <button
+          <L2BButton
+            type="button"
+            variant="bgNone"
+            size="auto"
             className={`${colorClass} text-sm font-medium underline transition-colors`}
           >
             {val}
-          </button>
+          </L2BButton>
         );
       },
     },

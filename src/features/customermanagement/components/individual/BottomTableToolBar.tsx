@@ -7,6 +7,7 @@ import { ListFilter } from "lucide-react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import { TabSwitcher } from "@/shared/excomponent/ui/L2BTabSwitcher";
 import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export function BottomTableToolbar() {
   const [filter, setFilter] = useState<string>("Completed");
@@ -34,9 +35,9 @@ export function BottomTableToolbar() {
 
           <L2BDropdownMenu
             trigger={
-              <button className="p-2 bg-white border border-neutral-6 rounded-lg text-neutral-2 hover:bg-neutral-7 transition-colors">
+              <L2BButton type="button" variant="outline" size="icon" radius="rounded-lg" className="bg-white border-neutral-6 text-neutral-2 hover:bg-neutral-7">
                 <ListFilter size={25} />
-              </button>
+              </L2BButton>
             }
             items={filterMenuItems}
           />

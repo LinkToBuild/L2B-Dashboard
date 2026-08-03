@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import ConfirmationModal from "@/shared/components/FloatingPanel/ConfirmationModal";
 
 type AssignSiteRow = {
@@ -95,7 +95,7 @@ export function AssignRemoveSiteModal({
           <button
             type="button"
             onClick={onClose}
-            className="absolute inset-0"
+            className="absolute inset-0 cursor-default rounded-none border-0 bg-transparent"
             aria-label="Close assign remove site modal"
           />
 
@@ -152,40 +152,50 @@ export function AssignRemoveSiteModal({
                         {site.siteName}
                       </span>
 
-                      <button
+                      <L2BButton
                         type="button"
+                        variant="outline"
+                        size="auto"
                         onClick={() =>
                           site.assigned
                             ? handleOpenRemoveConfirm(site.id)
                             : handleAddSite(site.id)
                         }
-                        className={`flex h-[28px] min-w-[74px] items-center justify-center rounded-[10px] border px-[14px] text-[16px] font-normal leading-[100%] ${
+                        className={`flex h-[28px] min-w-[74px] items-center justify-center rounded-[10px] px-[14px] text-[16px] font-normal leading-[100%] ${
                           site.assigned
-                            ? "border-[#E8E8E8] bg-white text-[#F05A5A]"
-                            : "border-[#56C293] bg-white text-[#56C293]"
+                            ? "border-neutral-5 bg-white text-danger-1"
+                            : "border-success-1 bg-white text-success-1"
                         }`}
                       >
                         {site.assigned ? "Remove" : "Add"}
-                      </button>
+                      </L2BButton>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div className="mt-[18px] flex w-[420px] items-center justify-between gap-[18px]">
-                <Button
+                <L2BButton
                   onClick={onClose}
-                  className="h-[40px] w-[200px] rounded-[8px] border border-[#D8D8D8] bg-white !text-[#1F1F1F] shadow-none hover:bg-white !text-[16px] !font-normal !leading-[100%]"
+                  variant="outline"
+                  size="large"
+                  radius="rounded-[8px]"
+                  textSize="text-[16px]"
+                  fontWeight="font-normal"
                 >
                   Cancel
-                </Button>
+                </L2BButton>
 
-                <Button
+                <L2BButton
                   onClick={handleSave}
-                  className="h-[40px] w-[200px] rounded-[8px] !bg-[#F6B332] !text-[#1F1F1F] hover:!bg-[#e0a227] !text-[16px] !font-normal !leading-[100%]"
+                  variant="primary"
+                  size="large"
+                  radius="rounded-[8px]"
+                  textSize="text-[16px]"
+                  fontWeight="font-normal"
                 >
                   Save Changes
-                </Button>
+                </L2BButton>
               </div>
             </div>
           </div>

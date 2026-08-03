@@ -10,6 +10,7 @@ import {
   ProfileHeaderSkeleton,
 } from "@/shared/components/skeletons";
 import { useState, Suspense } from "react";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 
 export default function VendorManagementPage() {
@@ -82,9 +83,9 @@ export default function VendorManagementPage() {
       align: "center",
       render: (_: any, row: any) => (
         <div className="flex items-center justify-center gap-2">
-          <button className="text-[13px] font-medium text-[#56C293] underline transition-opacity hover:opacity-80">
+          <L2BButton type="button" variant="bgNone" size="auto" className="text-[13px] font-medium text-success-1 underline transition-opacity hover:opacity-80">
             View
-          </button>
+          </L2BButton>
           <span className="font-medium text-neutral-400">{row.dlNo}</span>
         </div>
       ),
@@ -203,9 +204,9 @@ export default function VendorManagementPage() {
         <div className="flex items-center justify-center gap-2">
           <span className="inline-flex h-[10px] w-[10px] rounded-full bg-[#56C293]" />
           <span className="font-medium text-neutral-400">{row.documents}</span>
-          <button className="text-[13px] font-medium text-[#56C293] underline transition-opacity hover:opacity-80">
+          <L2BButton type="button" variant="bgNone" size="auto" className="text-[13px] font-medium text-success-1 underline transition-opacity hover:opacity-80">
             View
-          </button>
+          </L2BButton>
         </div>
       ),
     },

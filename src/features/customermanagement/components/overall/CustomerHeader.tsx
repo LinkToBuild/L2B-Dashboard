@@ -104,10 +104,6 @@ export function Header() {
               </DropdownMenu>
             </div>
           </div>
-          <div className="flex gap-[5px]">
-            <UIButton className="w-[106px] h-[40px] rounded-[8px] bg-[#FEB637] text-[#FFFEF9] text-[24px] poppins-400" text="Rental"></UIButton>
-            <UIButton className="w-[106px] h-[40px] rounded-[8px]  text-[#8E8E8E] text-[24px] poppins-400" text="Material"></UIButton>
-          </div>
         </div>
       </div>
     </SectionWrapper> */}
@@ -184,9 +180,9 @@ export function Header() {
              
               <L2BDropdownMenu
                 trigger={
-                  <button className="p-2 bg-white border border-neutral-6 rounded-lg text-neutral-2 hover:bg-neutral-7 transition-colors">
+                  <L2BButton type="button" variant="outline" size="icon" radius="rounded-lg" className="bg-white border-neutral-6 text-neutral-2 hover:bg-neutral-7">
                     <ListFilter size={18} />
-                  </button>
+                  </L2BButton>
                 }
                 items={filterMenuItems}
               />

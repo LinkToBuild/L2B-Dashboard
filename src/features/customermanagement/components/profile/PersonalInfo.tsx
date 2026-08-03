@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import { LabeledField } from "@/shared/excomponent/ui/LabeledField";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 // 1. Define the shape of your dynamic data
 export interface PersonalData {
@@ -53,13 +54,15 @@ export default function PersonalInfo({
 
   // The badge UI
   const Badge = (
-    <button 
+    <L2BButton
       type="button"
-      className={`w-fit px-3 py-1 h-[26px] rounded-full bg-success-2 text-white flex justify-center items-center gap-1 text-[12px] ${isDropdown ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
+      variant="bgNone"
+      size="auto"
+      className={`w-fit px-3 py-1 h-[26px] rounded-full bg-success-2 text-white flex justify-center items-center gap-1 text-[12px] ${isDropdown ? "cursor-pointer hover:opacity-80" : "cursor-default"}`}
     >
       {currentRole}
       {isDropdown && <ChevronDown className="w-3 h-3" />}
-    </button>
+    </L2BButton>
   );
 
   return (

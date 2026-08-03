@@ -1,6 +1,7 @@
 import React from "react";
 import { CirclePlus } from "lucide-react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 // 1. Define strict roles to prevent typos
 // export type ProfileRole = "admin" | "individual" | "worker" | "vendor";
@@ -31,11 +32,15 @@ export default function Header({ title, role, walletBalance = "0", onWalletClick
           <div className="flex justify-between place-items-center w-[209px] h-full rounded-[16px] px-[12px] py-[8px] border border-success-1 text-[12px] font-normal text-success-1">
             <span>Wallet Balance :</span>
             <span className="font-medium">{walletBalance}</span>
-            <button type="button" 
+            <L2BButton
+              type="button"
+              variant="bgNone"
+              size="auto"
               onClick={onWalletClick}
-            className="hover:opacity-80 transition-opacity">
+              className="hover:opacity-80 transition-opacity"
+            >
               <CirclePlus className="text-success-2 h-[20px] w-[20px]" />
-            </button>
+            </L2BButton>
           </div>
         )}
       </div>

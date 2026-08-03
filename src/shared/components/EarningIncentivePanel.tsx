@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Wallet, Plus, CirclePlus, CircleMinus, ListFilter } from "lucide-react";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import {
   L2BDropdownMenu,
   DropdownItem,
@@ -116,13 +116,16 @@ export function EarningIncentivePanel({
                 </span>
               </div>
 
-              <Button
+              <L2BButton
                 onClick={onAddMoney}
-                className="h-[48px] rounded-[12px] border border-[#E8E8E8] bg-white px-[16px] !text-[#4A4A4A] shadow-none hover:bg-white"
+                variant="outline"
+                radius="rounded-[12px]"
+                textColor="text-[#4A4A4A]"
+                className="h-[48px] w-auto border border-[#E8E8E8] bg-white px-[16px] shadow-none hover:bg-white"
               >
                 <Plus className="mr-[6px] h-[16px] w-[16px]" />
                 Add Money
-              </Button>
+              </L2BButton>
             </div>
           </div>
 

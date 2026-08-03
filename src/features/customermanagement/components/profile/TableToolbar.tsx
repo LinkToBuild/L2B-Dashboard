@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ListFilter } from "lucide-react";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
 import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export interface TableToolbarProps {
   title: string;
@@ -41,13 +42,15 @@ export default function TableToolbar({
 
     if (onActionClick) {
       return (
-        <button
+        <L2BButton
           type="button"
+          variant="bgNone"
+          size="auto"
           onClick={onActionClick}
           className="text-[14px] text-success-1 font-medium hover:opacity-80 transition-opacity"
         >
           {actionText}
-        </button>
+        </L2BButton>
       );
     }
 
@@ -80,12 +83,16 @@ export default function TableToolbar({
         ) : filterOptions.length > 0 ? (
           <L2BDropdownMenu
             trigger={
-              <button
+              <L2BButton
+                type="button"
+                variant="outline"
+                size="icon"
+                radius="rounded-lg"
                 title={activeFilter ? `Filtered by: ${activeFilter}` : "Filter"}
-                className="p-2 bg-white border border-neutral-200 rounded-lg text-neutral-500 hover:bg-neutral-50 transition-colors"
+                className="bg-white border-neutral-6 text-neutral-2 hover:bg-neutral-7"
               >
                 <ListFilter size={18} />
-              </button>
+              </L2BButton>
             }
             items={filterMenuItems}
           />

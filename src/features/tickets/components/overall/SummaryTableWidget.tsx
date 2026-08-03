@@ -5,6 +5,7 @@ import { AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
 import { DynamicTable, ColumnConfig } from "@/shared/components/Table";
 import { DeptPerformanceData, EscalatedData } from "../../types";
 import { InfoTip } from "@/shared/excomponent/ui/InfoTip";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 interface SummaryTableProps {
   deptPerformance: DeptPerformanceData[];
@@ -28,7 +29,7 @@ export function SummaryTableWidget({ deptPerformance, escalatedTickets }: Summar
       },
     },
     { header: "Total Resolved", key: "totalResolved", width: 150, align: "center", render: (val: number) => <span className="text-neutral-3">{val}</span> },
-    { header: "Full Profile", key: "fullProfile", width: 150, align: "center", render: () => <button className="text-success-1 font-normal underline hover:text-success-2 transition-colors">View all</button> },
+    { header: "Full Profile", key: "fullProfile", width: 150, align: "center", render: () => <L2BButton type="button" variant="bgNone" size="auto" className="text-success-1 font-normal underline hover:text-success-2 transition-colors">View all</L2BButton> },
   ];
 
   const escColumns: ColumnConfig<EscalatedData>[] = [
@@ -43,7 +44,7 @@ export function SummaryTableWidget({ deptPerformance, escalatedTickets }: Summar
       ),
     },
     { header: "Type Concern", key: "typeConcern", width: 150, align: "center", render: (val: string) => <span className="text-neutral-3 text-sm">{val}</span> },
-    { header: "Full Description", key: "fullDescription", width: 150, align: "center", render: () => <button className="text-success-1 text-sm font-normal underline hover:text-success-2 transition-colors">View all</button> },
+    { header: "Full Description", key: "fullDescription", width: 150, align: "center", render: () => <L2BButton type="button" variant="bgNone" size="auto" className="text-success-1 text-sm font-normal underline hover:text-success-2 transition-colors">View all</L2BButton> },
   ];
 
   return (

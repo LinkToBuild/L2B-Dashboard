@@ -10,6 +10,7 @@ import { StatusBadge } from "@/shared/excomponent/ui/Chip";
 import SectionWrapper from "@/shared/components/SectionWrapper";
 import { useOrdersViewModel } from "../viewModel/useOrdersViewModel";
 import { OrdersFloorplanSkeleton } from "@/shared/components/skeletons";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export default function OrderScreen() {
   const {
@@ -91,9 +92,9 @@ export default function OrderScreen() {
       key: "details",
       width: 140,
       render: () => (
-        <button className="text-success-1 font-normal hover:underline transition-colors">
+        <L2BButton type="button" variant="bgNone" size="auto" className="text-success-1 font-normal hover:underline transition-colors">
           View Full
-        </button>
+        </L2BButton>
       ),
     },
     {
@@ -101,9 +102,9 @@ export default function OrderScreen() {
       key: "manage",
       width: 100,
       render: () => (
-        <button className="text-aux-2 font-normal hover:underline transition-colors">
+        <L2BButton type="button" variant="bgNone" size="auto" className="text-aux-2 font-normal hover:underline transition-colors">
           Edit
-        </button>
+        </L2BButton>
       ),
     },
   ];

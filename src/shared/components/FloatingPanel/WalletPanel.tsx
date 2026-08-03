@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Plus, ArrowRightLeft, Wallet, ListFilter } from "lucide-react";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import {
   L2BDropdownMenu,
   DropdownItem,
@@ -79,15 +79,20 @@ function WalletActionButton({
   onClick?: () => void;
 }) {
   return (
-    <Button
+    <L2BButton
       onClick={onClick}
-      className="flex h-[44px] min-w-[102px] items-center justify-center gap-[8px] rounded-[8px] border border-[#E4DDD0] bg-[#F8F4EB] px-[14px] !text-[13px] !font-medium !text-[#5B5B5B] shadow-none hover:bg-[#f2ebdd]"
+      variant="outline"
+      textSize="text-[13px]"
+      fontWeight="font-medium"
+      textColor="text-[#5B5B5B]"
+      radius="rounded-[8px]"
+      className="flex h-[44px] min-w-[102px] w-auto items-center justify-center gap-[8px] border border-[#E4DDD0] bg-[#F8F4EB] px-[14px] shadow-none hover:bg-[#f2ebdd]"
     >
       <span className="flex h-[20px] w-[20px] items-center justify-center rounded-full bg-white text-[#3B3B3B]">
         {icon}
       </span>
       <span>{label}</span>
-    </Button>
+    </L2BButton>
   );
 }
 
@@ -187,12 +192,14 @@ export function WalletPanel({
           align="end"
           items={dropdownItems}
           trigger={
-            <button
+            <L2BButton
               type="button"
-              className="flex h-[24px] w-[24px] items-center justify-center rounded-[4px] text-[#666] hover:bg-[#F4F4F4]"
+              variant="ghost"
+              size="icon"
+              className="flex h-[24px] w-[24px] items-center justify-center rounded-[4px] p-0 text-neutral-3 hover:bg-neutral-6"
             >
               <ListFilter className="h-[16px] w-[16px]" />
-            </button>
+            </L2BButton>
           }
         />
       </div>

@@ -4,6 +4,7 @@ import React from "react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import { LabeledField } from "@/shared/excomponent/ui/LabeledField";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
@@ -25,15 +26,17 @@ export default function CompanyInfo() {
     const iconBg = isApproved ? "bg-success-1" : "bg-neutral-300";
 
     return (
-      <button
+      <L2BButton
         type="button"
+        variant="bgNone"
+        size="auto"
         className={`flex items-center gap-1 ${textColor} font-medium outline-none`}
       >
         {status}
         <ChevronDown
           className={`w-4 h-4 rounded-full ${iconBg} text-white p-[2px]`}
         />
-      </button>
+      </L2BButton>
     );
   };
 

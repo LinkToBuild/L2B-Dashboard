@@ -11,6 +11,7 @@ import { DataTableWidget } from "@/shared/components/DataTableWidget";
 import { useMPViewModel } from "../viewModel/useMPViewModel";
 import { CampaignReportItem } from "../types";
 import { AnalyticsFloorplanSkeleton } from "@/shared/components/skeletons";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 export function MPScreen() {
   const {
@@ -50,7 +51,7 @@ export function MPScreen() {
     { header: "Revenue", key: "revenue", width: 120, align: "center" },
     {
       header: "Manage", key: "manage", width: 120, align: "center",
-      render: () => <button className="text-[#00A85A] underline underline-offset-2 hover:text-green-700 transition-colors font-medium">View Full</button>,
+      render: () => <L2BButton type="button" variant="bgNone" size="auto" className="text-success-1 underline underline-offset-2 hover:text-success-2 transition-colors font-medium">View Full</L2BButton>,
     },
   ];
 

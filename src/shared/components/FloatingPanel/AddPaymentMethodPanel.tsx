@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Download } from "lucide-react";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 
 export interface AddPaymentMethodFormData {
@@ -172,12 +172,14 @@ export function AddPaymentMethodPanel({
                 InputProps={{
                   className: getInputTextClass(formData.cancelledCheck),
                   endAdornment: (
-                    <button
+                    <L2BButton
                       type="button"
-                      className="mr-[8px] flex items-center justify-center"
+                      variant="ghost"
+                      size="icon"
+                      className="mr-[8px] flex items-center justify-center bg-transparent p-0 hover:bg-transparent"
                     >
-                      <Download className="h-[16px] w-[16px] text-[#A0A0A0]" />
-                    </button>
+                      <Download className="h-[16px] w-[16px] text-neutral-3" />
+                    </L2BButton>
                   ),
                 }}
               />
@@ -186,23 +188,24 @@ export function AddPaymentMethodPanel({
         </div>
 
         <div className="mt-auto flex items-center justify-end gap-[12px] pt-[20px]">
-          <Button
+          <L2BButton
             onClick={onCancel}
-            className="h-[40px] w-[118px] rounded-[10px] border border-[#D8D8D8] bg-white !text-[#3A3A3A] shadow-none hover:bg-white"
+            variant="outline"
+            size="medium"
+            radius="rounded-[10px]"
           >
             Cancel
-          </Button>
+          </L2BButton>
 
-          <Button
+          <L2BButton
             onClick={handleUpdate}
-            className={`h-[40px] w-[118px] rounded-[10px] ${
-              isFormFilled
-                ? "!bg-[#F6B332] !text-black hover:!bg-[#e0a227]"
-                : "!bg-[#D9D9D9] !text-[#9A9A9A] hover:!bg-[#D9D9D9]"
-            }`}
+            variant="primary"
+            size="medium"
+            radius="rounded-[10px]"
+            disabled={!isFormFilled}
           >
             Update
-          </Button>
+          </L2BButton>
         </div>
       </div>
     </div>

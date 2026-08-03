@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { ChevronDown } from "lucide-react";
-import { Button } from "@/shared/excomponent/ui/UIButton";
+import { L2BButton } from "@/design-system/components/L2BButton";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import {
   L2BDropdownMenu,
@@ -59,17 +59,19 @@ function QuickAmountButton({
   onClick: () => void;
 }) {
   return (
-    <button
+    <L2BButton
       type="button"
+      variant="outline"
+      size="auto"
       onClick={onClick}
-      className={`flex h-[44px] w-[150px] items-center justify-center rounded-[8px] border text-[16px] font-medium transition-colors ${
+      className={`flex h-[44px] w-[150px] items-center justify-center rounded-[8px] text-[16px] font-medium transition-colors ${
         isActive
-          ? "border-[#D8D8D8] bg-[#F7F7F7] text-[#4A4A4A]"
-          : "border-[#E5E5E5] bg-white text-[#8D8D8D]"
+          ? "border-neutral-4 bg-neutral-7 text-neutral-2"
+          : "border-neutral-5 bg-white text-neutral-3"
       }`}
     >
       {value}
-    </button>
+    </L2BButton>
   );
 }
 
@@ -116,15 +118,17 @@ export function MoneyActionPanel({
                 align="end"
                 items={receiverItems}
                 trigger={
-                  <button
+                  <L2BButton
                     type="button"
-                    className="flex h-[44px] w-full items-center justify-between rounded-[8px] border border-[#D9D9D9] bg-white px-[14px] text-left text-[15px] font-medium text-[#4A4A4A]"
+                    variant="outline"
+                    size="full"
+                    className="flex h-[44px] items-center justify-between rounded-[8px] border-neutral-4 bg-white px-[14px] text-left text-[15px] font-medium text-neutral-2"
                   >
                     <span>{receiver || "Select receiver"}</span>
-                    <span className="flex h-[14px] w-[14px] items-center justify-center rounded-[4px] bg-[#56C293]">
-  <ChevronDown className="h-[10px] w-[10px] text-white" strokeWidth={2.5} />
-</span>
-                  </button>
+                    <span className="flex h-[14px] w-[14px] items-center justify-center rounded-[4px] bg-success-1">
+                      <ChevronDown className="h-[10px] w-[10px] text-white" strokeWidth={2.5} />
+                    </span>
+                  </L2BButton>
                 }
               />
             </div>
@@ -162,19 +166,23 @@ export function MoneyActionPanel({
         </div>
 
         <div className="mt-[20px] flex items-center justify-end gap-[12px]">
-          <Button
+          <L2BButton
             onClick={onCancel}
-            className="h-[40px] w-[118px] rounded-[8px] border border-[#D8D8D8] bg-white !text-[#4A4A4A] shadow-none hover:bg-white"
+            variant="outline"
+            size="medium"
+            radius="rounded-[8px]"
           >
             Cancel
-          </Button>
+          </L2BButton>
 
-          <Button
+          <L2BButton
             onClick={onSubmit}
-            className="h-[40px] w-[118px] rounded-[8px] !bg-[#F6B332] !text-black hover:!bg-[#e0a227]"
+            variant="primary"
+            size="medium"
+            radius="rounded-[8px]"
           >
             {content.submitText}
-          </Button>
+          </L2BButton>
         </div>
       </div>
     </div>

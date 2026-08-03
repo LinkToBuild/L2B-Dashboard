@@ -4,6 +4,7 @@ import React from "react";
 import { CustomInput } from "@/shared/excomponent/ui/TextField";
 import { L2BDropdownMenu } from "@/shared/excomponent/ui/L2BDropdownMenu";
 import { ListFilter } from "lucide-react";
+import { L2BButton } from "@/design-system/components/L2BButton";
 
 // 1. Define the shape of our filter options
 export interface FilterOption {
@@ -55,11 +56,11 @@ export default function TableToolBar({
         
         <L2BDropdownMenu
           trigger={
-            <button className="flex items-center gap-2 p-2 bg-white border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors">
+            <L2BButton type="button" variant="outline" size="icon" radius="rounded-lg" className="bg-white border-neutral-6 text-neutral-2 hover:bg-neutral-7">
               <ListFilter size={20} />
               {/* Show the currently active filter, or default to "Filter" */}
              
-            </button>
+            </L2BButton>
           }
           items={filterMenuItems}
         />
